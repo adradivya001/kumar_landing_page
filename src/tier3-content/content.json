@@ -1,0 +1,80 @@
+{
+  "layout": {
+    "navbar": {
+      "logo": {
+        "title": "KUMAR ORTHO",
+        "subtitle": "& MULTI-SPECIALITY HOSPITAL"
+      },
+      "links": [
+        { "name": "Home", "href": "#home" },
+        { "name": "About", "href": "#about" },
+        { "name": "Specialist", "href": "#doctor" },
+        { "name": "Departments", "href": "#services" },
+        { "name": "Why Us", "href": "#why-choose-us" },
+        { "name": "Gallery", "href": "#facilities" },
+        { "name": "FAQ", "href": "#faq" },
+        { "name": "Contact", "href": "#contact" }
+      ],
+      "actions": {
+        "emergencyText": "EMERGENCY: 08554-245678",
+        "emergencyPhone": "+918554245678",
+        "bookAppointmentText": "BOOK APPOINTMENT"
+      },
+      "mobileActions": {
+        "emergencyText": "Emergency: 08554-245678",
+        "bookAppointmentText": "Book Appointment"
+      }
+    },
+    "footer": {
+      "brand": {
+        "title": "KUMAR ORTHO HOSPITAL",
+        "description": "Established in 2021, Kumar Ortho & Multi-Speciality Hospital is dedicated to delivering state-of-the-art orthopedic surgery, trauma care, and multi-speciality healthcare services to the community of Anantapur.",
+        "badge": "Certified Orthopedic Excellence"
+      },
+      "quickLinks": {
+        "title": "Quick Links",
+        "links": [
+          { "name": "Home", "href": "#home" },
+          { "name": "About Us", "href": "#about" },
+          { "name": "Our Specialist", "href": "#doctor" },
+          { "name": "Clinical Services", "href": "#services" },
+          { "name": "Why Choose Us", "href": "#why-choose-us" },
+          { "name": "Facilities & Gallery", "href": "#facilities" },
+          { "name": "Contact & Location", "href": "#contact" }
+        ]
+      },
+      "specialties": {
+        "title": "Our Specialties",
+        "items": [
+          "Orthopedic & Spine Surgery",
+          "Complex Fracture & Trauma Care",
+          "General & Preventive Medicine",
+          "Physiotherapy & Rehabilitation",
+          "24/7 Emergency & ICU Care"
+        ]
+      },
+      "reachOut": {
+        "title": "Reach Out",
+        "address": "12-4, 80 Feet Road, Vidyuth Nagar,\nHousing Board Colony, Anantapur,\nAndhra Pradesh 515001",
+        "phone1": { "display": "08554-245678", "href": "tel:+918554245678" },
+        "phone2": { "display": "+91 94402 75556", "href": "tel:+919440275556" },
+        "email": { "display": "info@kumarorthohospital.com", "href": "mailto:info@kumarorthohospital.com" }
+      },
+      "opdTimings": {
+        "title": "OPD CONSULTATION TIMES",
+        "regular": "Mon - Sat: 9:00 AM - 8:00 PM",
+        "sunday": "Sunday: Emergency Trauma Only"
+      },
+      "legal": {
+        "copyright": "Kumar Ortho & Multi-Speciality Hospital. All rights reserved.",
+        "links": [
+          { "name": "Terms of Use", "href": "#about" },
+          { "name": "Privacy Policy", "href": "#contact" },
+          { "name": "Sitemap", "href": "#faq" }
+        ],
+        "madeWith": "Made with",
+        "madeIn": "in India."
+      }
+    }
+  }
+}
