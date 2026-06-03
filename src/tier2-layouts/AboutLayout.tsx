@@ -32,7 +32,13 @@ export default function About() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 px-3 py-1.5 rounded-md">
             Who We Are
           </span>
@@ -40,13 +46,19 @@ export default function About() {
             Anantapur&apos;s Trusted Destination for Orthopedic &amp; Multi-Speciality Care
           </h2>
           <div className="h-1 w-20 bg-teal-500 mx-auto mt-4 rounded-full" />
-        </div>
+        </motion.div>
 
         {/* Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
           {/* Text/Content Left Side */}
-          <div className="lg:col-span-5 flex flex-col gap-6">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="lg:col-span-5 flex flex-col gap-6"
+          >
             <h3 className="text-2xl font-bold text-navy-700 dark:text-zinc-100">
               Established in 2021 with a Commitment to Quality Healing
             </h3>
@@ -58,14 +70,17 @@ export default function About() {
             </p>
             
             {/* Accreditation Badge */}
-            <div className="flex items-center gap-4 bg-navy-50 dark:bg-zinc-800 p-4 rounded-2xl border border-navy-100 dark:border-zinc-700/50 mt-2">
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-4 bg-navy-50 dark:bg-zinc-800 p-4 rounded-2xl border border-navy-100 dark:border-zinc-700/50 mt-2 cursor-pointer shadow-sm transition-all"
+            >
               <Award className="h-10 w-10 text-navy-600 dark:text-teal-400 flex-shrink-0" />
               <div>
                 <span className="block text-sm font-bold text-navy-800 dark:text-white">State-of-the-Art Infrastructure</span>
                 <span className="text-xs text-gray-500 dark:text-zinc-400">Equipped with modern operation theaters & diagnostic support</span>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Cards Right Side */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">

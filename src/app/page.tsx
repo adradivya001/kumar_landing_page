@@ -5,67 +5,60 @@ import Navbar from "@/tier1-components/Navbar";
 import Footer from "@/tier1-components/Footer";
 import AppointmentModal from "@/tier1-components/AppointmentModal";
 import EmergencyFloating from "@/tier1-components/EmergencyFloating";
+import Preloader from "@/tier1-components/Preloader";
 
-// Sections
+// Selected Sections
 import Hero from "@/tier2-layouts/HeroLayout";
-import About from "@/tier2-layouts/AboutLayout";
-import Doctor from "@/tier2-layouts/DoctorLayout";
 import Services from "@/tier2-layouts/ServicesLayout";
+import Doctor from "@/tier2-layouts/DoctorLayout";
 import WhyChooseUs from "@/tier2-layouts/WhyChooseUsLayout";
 import Facilities from "@/tier2-layouts/FacilitiesLayout";
-import Testimonials from "@/tier2-layouts/TestimonialsLayout";
-import EmergencyCallout from "@/tier2-layouts/EmergencyCalloutLayout";
+import AppointmentBooking from "@/tier2-layouts/AppointmentBookingLayout";
 import FAQ from "@/tier2-layouts/FAQLayout";
-import InsurancePartners from "@/tier2-layouts/InsurancePartnersLayout";
-import Blog from "@/tier2-layouts/BlogLayout";
 import Contact from "@/tier2-layouts/ContactLayout";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const openBooking = () => setIsBookingOpen(true);
   const closeBooking = () => setIsBookingOpen(false);
 
+  if (loading) {
+    return <Preloader onComplete={() => setLoading(false)} />;
+  }
+
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen relative">
+      {/* Background Mesh Overlay - Inspired by Medcy */}
+      <div className="fixed inset-0 bg-[#f8fafc]/40 dark:bg-zinc-950/20 medical-grid pointer-events-none z-0" />
+
       {/* Sticky Navigation bar */}
       <Navbar onOpenBooking={openBooking} />
 
       <main className="flex-1">
-        {/* Hero Section */}
+        {/* 1. Hero Section */}
         <Hero onOpenBooking={openBooking} />
 
-        {/* About Section */}
-        <About />
-
-        {/* Services & Departments */}
+        {/* 2. Specialties & Departments */}
         <Services onOpenBooking={openBooking} />
 
-        {/* Lead Specialist Dr. Kumar */}
+        {/* 3. Specialists Showcase */}
         <Doctor onOpenBooking={openBooking} />
 
-        {/* Why Choose Us & Statistics */}
+        {/* 4. Why Choose Us (Stats & Pillars) */}
         <WhyChooseUs />
 
-        {/* Facilities & Diagnostics Gallery */}
+        {/* 5. Infrastructure (Facilities) */}
         <Facilities />
 
-        {/* Patient Review Testimonials */}
-        <Testimonials />
+        {/* 7. Stepped In-Page Booking & WhatsApp options */}
+        <AppointmentBooking />
 
-        {/* Direct Emergency Trauma Callout */}
-        <EmergencyCallout />
-
-        {/* Insurance Partners Panel */}
-        <InsurancePartners />
-
-        {/* Health Tips Blog Grid */}
-        <Blog />
-
-        {/* FAQs */}
+        {/* 8. FAQs Help Accordions */}
         <FAQ />
 
-        {/* Contact Form & Google Map Location */}
+        {/* 9. Directions & Location Maps */}
         <Contact />
       </main>
 

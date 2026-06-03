@@ -1,8 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, Calendar } from "lucide-react";
+import { Menu, X, Phone, Calendar, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { motion, useScroll, useSpring } from "framer-motion";
 import content from "@/tier3-content/content.json";
 
 interface NavbarProps {
@@ -13,9 +14,17 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // Framer motion scroll progress indicator
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
+      if (window.scrollY > 15) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -28,106 +37,106 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
   const navLinks = content.layout.navbar.links;
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-40 transition-all duration-300 w-full font-sans",
-        isScrolled
-          ? "glass-nav shadow-md py-3"
-          : "bg-white/95 border-b border-gray-100 py-4 dark:bg-zinc-950 dark:border-zinc-800"
-      )}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <a href="#home" className="flex items-center gap-2.5 group">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-navy-800 text-white transition-transform group-hover:scale-105 shadow-md shadow-navy-800/10 dark:bg-teal-600">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-6 w-6"
-              >
-                {/* Custom medical + orthopedic joint representation */}
-                <path d="M12 22V14" />
-                <path d="M19 10c0-3.87-3.13-7-7-7S5 6.13 5 10c0 4 7 11 7 11s7-7 7-11z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-extrabold tracking-tight text-navy-800 dark:text-white leading-none">
-                {content.layout.navbar.logo.title}
-              </span>
-              <span className="text-[10px] font-semibold text-teal-600 tracking-wider mt-0.5 leading-none">
-                {content.layout.navbar.logo.subtitle}
-              </span>
-            </div>
-          </a>
+    <header className="fixed top-0 left-0 right-0 z-[100] bg-transparent border-none pointer-events-none">
+      {/* Dynamic Top Blocker Shield: Uses backdrop blur to soften scrolling text without changing navbar shape */}
+      <div
+        className={cn(
+          "absolute top-0 left-0 right-0 h-24 sm:h-28 transition-all duration-350 z-0 pointer-events-none",
+          isScrolled
+            ? "backdrop-blur-[6px] opacity-100"
+            : "opacity-0"
+        )}
+      />
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-sm font-semibold text-gray-600 transition-colors hover:text-navy-800 dark:text-zinc-300 dark:hover:text-teal-400"
-              >
-                {link.name}
-              </a>
-            ))}
-          </nav>
-
-          {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center gap-3">
-            <a
-              href={`tel:${content.layout.navbar.actions.emergencyPhone}`}
-              className="flex items-center gap-2 rounded-lg bg-red-50 px-3.5 py-2 text-xs font-bold text-red-600 transition-all hover:bg-red-100 hover:scale-102 active:scale-98"
-            >
-              <Phone className="h-3.5 w-3.5" />
-              <span>{content.layout.navbar.actions.emergencyText}</span>
+      <div className="w-full px-4 pt-4 sm:pt-6 relative z-10">
+        {/* Floating Pill Navbar Wrapper */}
+        <div
+          className={cn(
+            "mx-auto w-full max-w-[1440px] rounded-full bg-[#0a0a0c]/90 text-white border border-zinc-800/80 shadow-2xl backdrop-blur-md transition-all duration-300 relative overflow-hidden pointer-events-auto",
+            isScrolled ? "py-2 sm:py-2.5 px-5 sm:px-6 shadow-zinc-950/50" : "py-3 sm:py-4 px-6 sm:px-8"
+          )}
+        >
+          <div className="flex items-center justify-between">
+            
+            {/* Combined Logo Capsule */}
+            <a href="#home" className="flex items-center group">
+              <img
+                src="/kumar-hospitals.png"
+                alt="Kumar Hospital Ortho & Multispeciality"
+                className="h-20 w-auto object-contain hover:scale-[1.03] transition-transform duration-300"
+              />
             </a>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-7">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="text-xs font-bold uppercase tracking-widest text-zinc-300 hover:text-cyan-400 transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:w-0 after:bg-cyan-400 after:transition-all hover:after:w-full"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+
+            {/* Desktop Actions */}
+            <div className="hidden lg:flex items-center gap-3">
+              <a
+                href={`tel:${content.layout.navbar.actions.emergencyPhone}`}
+                className="flex items-center gap-2 rounded-full border border-red-500/25 bg-red-950/20 px-4 py-2 text-xs font-bold text-red-400 transition-all hover:bg-red-950/40 hover:scale-102 active:scale-98"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                <span>{content.layout.navbar.actions.emergencyText}</span>
+              </a>
+              
+              <button
+                onClick={onOpenBooking}
+                className="flex items-center gap-2 rounded-full bg-cyan-600 hover:bg-cyan-700 px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-cyan-600/10 hover:scale-102 active:scale-98 transition-all group"
+              >
+                <span>{content.layout.navbar.actions.bookAppointmentText}</span>
+                <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+
+            {/* Mobile Menu Toggle */}
             <button
-              onClick={onOpenBooking}
-              className="flex items-center gap-2 rounded-lg bg-navy-800 px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-navy-800/10 hover:bg-navy-900 dark:bg-teal-600 dark:hover:bg-teal-700 transition-all hover:scale-102 active:scale-98"
+              onClick={() => setIsOpen(!isOpen)}
+              className="rounded-full p-2 text-zinc-300 transition-colors hover:bg-zinc-800 lg:hidden"
+              aria-label="Toggle menu"
             >
-              <Calendar className="h-3.5 w-3.5" />
-              <span>{content.layout.navbar.actions.bookAppointmentText}</span>
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
+
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="rounded-lg p-1.5 text-gray-600 transition-colors hover:bg-gray-100 lg:hidden dark:text-zinc-300 dark:hover:bg-zinc-800"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          {/* Floating Progress Line on the Bottom Border of the Pill */}
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-teal-500 to-teal-300 origin-[0%]"
+            style={{ scaleX }}
+          />
         </div>
       </div>
 
-      {/* Mobile Drawer menu */}
+      {/* Mobile Drawer Menu - Pill Style */}
       {isOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 border-b border-gray-100 bg-white/98 px-6 py-6 shadow-xl dark:bg-zinc-950 dark:border-zinc-800">
+        <div className="lg:hidden absolute top-full left-4 right-4 mt-3 rounded-[32px] border border-zinc-800 bg-[#0a0a0c]/95 px-6 py-6 shadow-2xl backdrop-blur-lg pointer-events-auto">
           <nav className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-base font-semibold text-gray-600 transition-colors hover:text-navy-800 dark:text-zinc-300 dark:hover:text-teal-400 py-1"
+                className="text-sm font-bold uppercase tracking-wider text-zinc-300 hover:text-cyan-400 transition-colors py-1"
               >
                 {link.name}
               </a>
             ))}
             
-            <div className="border-t border-gray-100 dark:border-zinc-800 pt-4 flex flex-col gap-3 mt-2">
+            <div className="border-t border-zinc-800 pt-4 flex flex-col gap-3 mt-2">
               <a
                 href={`tel:${content.layout.navbar.actions.emergencyPhone}`}
-                className="flex items-center justify-center gap-2 rounded-lg bg-red-600 py-3 text-sm font-bold text-white shadow-sm hover:bg-red-700"
+                className="flex items-center justify-center gap-2 rounded-full bg-red-655 py-3 text-xs font-bold text-white shadow-sm hover:bg-red-700"
               >
                 <Phone className="h-4 w-4" />
                 <span>{content.layout.navbar.mobileActions.emergencyText}</span>
@@ -137,7 +146,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                   setIsOpen(false);
                   onOpenBooking();
                 }}
-                className="flex items-center justify-center gap-2 rounded-lg bg-navy-800 py-3 text-sm font-bold text-white shadow-sm hover:bg-navy-900 dark:bg-teal-600 dark:hover:bg-teal-700"
+                className="flex items-center justify-center gap-2 rounded-full bg-cyan-600 py-3 text-xs font-bold text-white shadow-sm hover:bg-cyan-700"
               >
                 <Calendar className="h-4 w-4" />
                 <span>{content.layout.navbar.mobileActions.bookAppointmentText}</span>

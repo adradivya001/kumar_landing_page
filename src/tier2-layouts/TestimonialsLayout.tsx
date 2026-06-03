@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Quote, ChevronLeft, ChevronRight, Star, HeartPulse } from "lucide-react";
 
@@ -9,7 +9,7 @@ export default function Testimonials() {
     {
       name: "Ramesh Babu",
       location: "Anantapur",
-      treatment: "Compound Fracture Surgery",
+      treatment: "Emergency Fracture Surgery",
       rating: 5,
       story:
         "I was rushed to Kumar Hospital late at night after a major road accident with a severe compound leg fracture. Dr. Kumar operated immediately. His calm demeanor and surgical expertise saved my limb. Six months later, I am walking completely pain-free.",
@@ -42,6 +42,14 @@ export default function Testimonials() {
 
   const [current, setCurrent] = useState(0);
 
+  // Auto-sliding Carousel logic
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [current]);
+
   const nextSlide = () => {
     setCurrent((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
   };
@@ -52,26 +60,26 @@ export default function Testimonials() {
 
   return (
     <section id="testimonials" className="py-24 bg-gray-50 dark:bg-zinc-950 font-sans relative overflow-hidden">
-      <div className="absolute top-0 right-10 w-72 h-72 rounded-full bg-teal-500/5 blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-10 w-72 h-72 rounded-full bg-blue-500/5 blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 px-3 py-1.5 rounded-md">
-            Patient Stories
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-md">
+            Stories of Healing and Hope
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-800 dark:text-white mt-4 tracking-tight">
-            Recoveries that Inspire Us Every Day
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0B1F3A] dark:text-white mt-4 tracking-tight">
+            Patient Stories That Inspire Us Daily
           </h2>
-          <div className="h-1 w-20 bg-teal-500 mx-auto mt-4 rounded-full" />
+          <div className="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full" />
         </div>
 
         {/* Carousel Container */}
         <div className="max-w-4xl mx-auto relative px-4 sm:px-12">
           
-          <div className="overflow-hidden rounded-3xl bg-white dark:bg-zinc-850 p-8 sm:p-12 border border-gray-100 dark:border-zinc-800 shadow-xl glow-navy relative">
-            <Quote className="absolute top-6 right-8 h-16 w-16 text-navy-100 dark:text-zinc-800/40 pointer-events-none" />
+          <div className="overflow-hidden rounded-[32px] bg-white dark:bg-zinc-850 p-8 sm:p-12 border border-gray-100 dark:border-zinc-800 shadow-xl glow-navy relative">
+            <Quote className="absolute top-6 right-8 h-16 w-16 text-blue-500/10 dark:text-zinc-800/40 pointer-events-none" />
             
             <AnimatePresence mode="wait">
               <motion.div
@@ -85,26 +93,26 @@ export default function Testimonials() {
                 {/* Rating */}
                 <div className="flex gap-1">
                   {[...Array(reviews[current].rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-teal-500 text-teal-500" />
+                    <Star key={i} className="h-5 w-5 fill-blue-500 text-blue-500" />
                   ))}
                 </div>
 
                 {/* Narrative */}
-                <p className="text-base sm:text-lg text-gray-600 dark:text-zinc-300 leading-relaxed italic">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-zinc-300 leading-relaxed italic font-medium">
                   &ldquo;{reviews[current].story}&rdquo;
                 </p>
 
                 {/* Reviewer Details */}
                 <div className="flex items-center gap-4 border-t border-gray-150 dark:border-zinc-800 pt-6 mt-2">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-teal-50 dark:bg-teal-900/30 text-teal-600 font-extrabold text-lg">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 dark:bg-blue-950/30 text-blue-600 font-extrabold text-lg">
                     {reviews[current].name.charAt(0)}
                   </div>
                   <div>
-                    <span className="block text-base font-bold text-navy-800 dark:text-white">
+                    <span className="block text-base font-bold text-[#0B1F3A] dark:text-white">
                       {reviews[current].name}
                     </span>
                     <span className="block text-xs text-gray-400">
-                      {reviews[current].location} • Treated for <strong className="text-teal-600 dark:text-teal-400">{reviews[current].treatment}</strong>
+                      {reviews[current].location} • Treated for <strong className="text-blue-600 dark:text-blue-400">{reviews[current].treatment}</strong>
                     </span>
                   </div>
                 </div>
@@ -129,7 +137,7 @@ export default function Testimonials() {
                   key={idx}
                   onClick={() => setCurrent(idx)}
                   className={`h-2.5 rounded-full transition-all duration-300 ${
-                    current === idx ? "w-6 bg-teal-600" : "w-2.5 bg-gray-300 dark:bg-zinc-700"
+                    current === idx ? "w-6 bg-blue-600" : "w-2.5 bg-gray-300 dark:bg-zinc-700"
                   }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
@@ -148,15 +156,15 @@ export default function Testimonials() {
         </div>
 
         {/* Recovery stats checkouts */}
-        <div className="flex flex-wrap items-center justify-center gap-8 mt-16 text-xs font-semibold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">
+        <div className="flex flex-wrap items-center justify-center gap-8 mt-16 text-xs font-bold text-gray-400 dark:text-zinc-500 uppercase tracking-wider">
           <span className="flex items-center gap-1.5">
-            <HeartPulse className="h-4 w-4 text-teal-500" />
-            <span>98.7% Surgical Success Rate</span>
+            <HeartPulse className="h-4 w-4 text-blue-500" />
+            <span>99.2% Surgical Success Rate</span>
           </span>
           <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
-          <span>Patient-centered feedback loops</span>
+          <span>Apollo Clinical Benchmarks</span>
           <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
-          <span>Post-Operative Recovery Checkups</span>
+          <span>Patient-centered feedback loops</span>
         </div>
 
       </div>

@@ -34,41 +34,66 @@ export default function FAQ() {
     setActiveIndex(activeIndex === idx ? null : idx);
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  };
+
   return (
-    <section id="faq" className="py-24 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
-      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+    <section id="faq" className="py-14 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
+      {/* Decorative pulse background */}
+      <div className="absolute -top-40 -right-40 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 px-3 py-1.5 rounded-md">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-md">
             Got Questions?
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-800 dark:text-white mt-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0B1F3A] dark:text-white mt-4 tracking-tight">
             Frequently Asked Questions
           </h2>
-          <div className="h-1 w-20 bg-teal-500 mx-auto mt-4 rounded-full" />
+          <div className="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full" />
         </div>
 
         {/* FAQ Accordion List */}
-        <div className="space-y-4 max-w-3xl mx-auto">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          className="space-y-4 max-w-3xl mx-auto"
+        >
           {faqs.map((faq, idx) => {
             const isOpen = activeIndex === idx;
             return (
-              <div
+              <motion.div
                 key={idx}
-                className="border border-gray-150 rounded-2xl overflow-hidden bg-gray-50 dark:border-zinc-800 dark:bg-zinc-850 transition-colors"
+                variants={itemVariants}
+                className="border border-gray-150 rounded-2xl overflow-hidden bg-gray-50 dark:border-zinc-800 dark:bg-zinc-850/60 transition-colors shadow-sm"
               >
                 <button
                   onClick={() => toggleFAQ(idx)}
-                  className="w-full flex items-center justify-between p-5 text-left text-navy-800 dark:text-white font-bold text-base transition-colors hover:text-teal-600 dark:hover:text-teal-400"
+                  className="w-full flex items-center justify-between p-5 text-left text-[#0B1F3A] dark:text-white font-bold text-base transition-colors hover:text-blue-600 dark:hover:text-blue-400"
                 >
                   <div className="flex gap-3 items-center">
-                    <HelpCircle className="h-5 w-5 text-teal-600 flex-shrink-0" />
+                    <HelpCircle className="h-5 w-5 text-blue-600 flex-shrink-0" />
                     <span>{faq.q}</span>
                   </div>
                   <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 shadow-sm text-gray-500 flex-shrink-0 ml-4">
                     {isOpen ? (
-                      <Minus className="h-4 w-4 text-teal-600" />
+                      <Minus className="h-4 w-4 text-blue-600" />
                     ) : (
                       <Plus className="h-4 w-4" />
                     )}
@@ -81,20 +106,21 @@ export default function FAQ() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25 }}
+                      transition={{ duration: 0.25, ease: "easeInOut" }}
                     >
-                      <div className="px-5 pb-6 pt-1 text-sm text-gray-600 dark:text-zinc-300 leading-relaxed border-t border-gray-150/40 dark:border-zinc-800/40 ml-8">
+                      <div className="px-5 pb-6 pt-1 text-sm text-gray-600 dark:text-zinc-300 leading-relaxed border-t border-gray-150/40 dark:border-zinc-850 ml-8">
                         {faq.a}
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
       </div>
     </section>
   );
 }
+

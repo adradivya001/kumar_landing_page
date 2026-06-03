@@ -15,14 +15,17 @@ export default function InsurancePartners() {
     { name: "Bajaj Allianz Health", type: "TPA Approved" },
   ];
 
+  // Duplicate list to ensure infinite scroller looping
+  const marqueeItems = [...partners, ...partners, ...partners];
+
   return (
-    <section className="py-16 bg-navy-50 dark:bg-zinc-950 font-sans border-y border-gray-100 dark:border-zinc-800">
+    <section className="py-20 bg-navy-50 dark:bg-zinc-950 font-sans border-y border-gray-100 dark:border-zinc-800 overflow-hidden relative">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Subtle section header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10 max-w-5xl mx-auto border-b border-gray-200/60 dark:border-zinc-800 pb-6">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12 max-w-5xl mx-auto border-b border-gray-200/60 dark:border-zinc-800 pb-6">
           <div className="flex items-center gap-2 text-navy-800 dark:text-white">
-            <ShieldCheck className="h-5 w-5 text-teal-600" />
+            <ShieldCheck className="h-5 w-5 text-teal-600 animate-pulse" />
             <h3 className="text-lg font-bold tracking-tight">
               Cashless Treatment &amp; TPA Insurance Partners
             </h3>
@@ -32,29 +35,27 @@ export default function InsurancePartners() {
           </p>
         </div>
 
-        {/* Badges Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-          {partners.map((partner, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.05 }}
-              className="bg-white dark:bg-zinc-900 border border-gray-200/80 dark:border-zinc-800/80 px-4 py-4 rounded-xl text-center shadow-sm hover:shadow-md hover:border-teal-500/20 transition-all duration-300 flex flex-col justify-center items-center gap-1 group"
-            >
-              <span className="text-sm font-bold text-navy-800 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                {partner.name}
-              </span>
-              <span className="text-[9px] font-extrabold uppercase tracking-widest text-gray-400 bg-gray-100 dark:bg-zinc-800 px-2 py-0.5 rounded mt-1">
-                {partner.type}
-              </span>
-            </motion.div>
-          ))}
+        {/* Infinite Scrolling Marquee - Medcy Inspired */}
+        <div className="relative w-full overflow-hidden py-4 mask-gradient-x">
+          <div className="flex gap-6 w-max animate-marquee will-change-transform">
+            {marqueeItems.map((partner, idx) => (
+              <div
+                key={idx}
+                className="flex-none w-[240px] bg-white dark:bg-zinc-900 border border-gray-200/80 dark:border-zinc-800/80 px-5 py-6 rounded-2xl text-center shadow-sm hover:shadow-lg hover:border-teal-500/30 transition-all duration-300 flex flex-col justify-center items-center gap-1.5 group cursor-pointer"
+              >
+                <span className="text-sm font-bold text-navy-800 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                  {partner.name}
+                </span>
+                <span className="text-[9px] font-extrabold uppercase tracking-widest text-gray-400 bg-gray-100 dark:bg-zinc-800 px-2.5 py-0.5 rounded mt-1">
+                  {partner.type}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Small TPA notice */}
-        <p className="text-center text-[10px] text-gray-400 dark:text-zinc-500 mt-8 max-w-lg mx-auto">
+        <p className="text-center text-[10px] text-gray-400 dark:text-zinc-500 mt-10 max-w-lg mx-auto">
           * Please note that pre-authorization approval depends on individual insurance policy terms and conditions. Reimbursement pathways are also supported for non-listed panels.
         </p>
 
@@ -62,3 +63,4 @@ export default function InsurancePartners() {
     </section>
   );
 }
+

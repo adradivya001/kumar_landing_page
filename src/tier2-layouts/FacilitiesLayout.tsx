@@ -1,104 +1,97 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Eye } from "lucide-react";
-import Image from "next/image";
+import { Bone, Stethoscope, Microscope, Hospital, Ambulance, Heart } from "lucide-react";
 
 export default function Facilities() {
   const items = [
     {
-      title: "Advanced Operation Theater",
-      category: "Surgical Suite",
-      desc: "Ultra-clean laminar airflow systems, specialized orthopedic surgical tables, C-Arm imaging, and sterile instrumentation for complex reconstructions.",
-      img: "/images/operating_room.png",
-      span: "md:col-span-2",
+      title: "Orthopedic Excellence",
+      desc: "Advanced care for fractures, joint disorders, trauma, and spine-related conditions.",
+      icon: <Bone className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
     },
     {
-      title: "Physiotherapy & Rehab Unit",
-      category: "Rehabilitation",
-      desc: "Comprehensive outpatient physical therapy setup equipped with muscle stimulators, traction systems, and specialized training bars.",
-      img: "/images/rehab_room.png",
-      span: "md:col-span-1",
+      title: "Experienced Specialists",
+      desc: "Dedicated consultants across orthopedics, medicine, surgery, urology, and women's health.",
+      icon: <Stethoscope className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
     },
     {
-      title: "Outpatient Consulting Chambers",
-      category: "Consultations",
-      desc: "Spacious diagnostic and consultation rooms designed for quiet, reassuring patient checkups and clinical examinations.",
-      img: "/images/hero_bg.png",
-      span: "md:col-span-1",
+      title: "Accurate Diagnostics",
+      desc: "Laboratory and imaging services supporting timely diagnosis and treatment.",
+      icon: <Microscope className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
     },
     {
-      title: "24/7 Trauma Emergency Bay",
-      category: "Emergency Care",
-      desc: "Fully equipped triaging zone and stabilization unit designed for rapid management of polytrauma, fractures, and acute joint injuries.",
-      img: "/images/operating_room.png", // Reuse high-tech look for emergency/trauma OT
-      span: "md:col-span-2",
+      title: "Modern Medical Infrastructure",
+      desc: "Well-equipped facilities designed to support safe and efficient patient care.",
+      icon: <Hospital className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
+    },
+    {
+      title: "Emergency Support",
+      desc: "Prompt medical attention and stabilization for urgent healthcare needs.",
+      icon: <Ambulance className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
+    },
+    {
+      title: "Compassionate Patient Care",
+      desc: "Personalized treatment plans focused on comfort, recovery, and long-term wellness.",
+      icon: <Heart className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
     },
   ];
 
   return (
-    <section id="facilities" className="py-24 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
+    <section id="facilities" className="pt-10 pb-4 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
+      {/* Background soft glow decors */}
+      <div className="absolute top-10 right-10 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs font-bold uppercase tracking-wider text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 px-3 py-1.5 rounded-md">
-            Our Infrastructure
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-md">
+            ADVANCED INFRASTRUCTURE
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-navy-800 dark:text-white mt-4 tracking-tight">
-            Modern Medical Facilities & Infrastructure
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0B1F3A] dark:text-white mt-4 tracking-tight">
+            Advanced Facilities Designed Around Patient Care
           </h2>
-          <div className="h-1 w-20 bg-teal-500 mx-auto mt-4 rounded-full" />
-          <p className="text-gray-500 dark:text-zinc-400 mt-4 text-sm sm:text-base">
-            Take a look inside our hospital setup, designed to provide a sterile, advanced, and reassuring atmosphere for your recovery.
+          <div className="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full" />
+          <p className="text-gray-500 dark:text-zinc-400 mt-4 text-sm sm:text-base leading-relaxed">
+            Review the clinical setups engineered to ensure sterile compliance, diagnostics speed, and complete patient comfort.
           </p>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {/* 6 Custom Context Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {items.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`relative overflow-hidden rounded-3xl group aspect-[16/11] border border-gray-150 dark:border-zinc-800 shadow-sm ${item.span}`}
+              transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="group relative overflow-hidden rounded-[24px] bg-gradient-to-br from-white to-[#F8FAFC] dark:from-zinc-900 dark:to-zinc-850 p-8 border border-slate-100 dark:border-zinc-800 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.12)] hover:border-blue-400/30 dark:hover:border-blue-500/30 transition-all duration-500 flex flex-col justify-between min-h-[250px]"
             >
-              {/* Facility Image */}
-              <Image
-                src={item.img}
-                alt={item.title}
-                fill
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                sizes="(max-w-780px) 100vw, 500px"
-              />
-              
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/60 to-transparent opacity-90 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
-                
-                {/* Category Label */}
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-300 mb-1 block">
-                  {item.category}
-                </span>
+              {/* Subtle background glow on hover */}
+              <div className="absolute -right-16 -top-16 w-32 h-32 bg-blue-500/5 dark:bg-blue-400/5 rounded-full blur-2xl group-hover:bg-blue-500/10 dark:group-hover:bg-blue-400/10 transition-all duration-500 pointer-events-none" />
+
+              {/* Card top half */}
+              <div className="relative z-10">
+                {/* Icon Capsule */}
+                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white dark:group-hover:bg-blue-500 dark:group-hover:text-white transition-all duration-500 ease-out">
+                  {item.icon}
+                </div>
                 
                 {/* Title */}
-                <h3 className="text-lg sm:text-xl font-bold text-white mb-2 flex items-center gap-1.5">
-                  <span>{item.title}</span>
+                <h3 className="text-xl font-bold text-[#0B1F3A] dark:text-white mb-3 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                  {item.title}
                 </h3>
-
+                
                 {/* Description */}
-                <p className="text-xs text-gray-300 leading-relaxed max-w-xl transition-all duration-300 line-clamp-2 group-hover:line-clamp-none">
+                <p className="text-sm text-slate-500 dark:text-zinc-400 leading-relaxed font-medium">
                   {item.desc}
                 </p>
-
-                {/* Micro Action Indicator */}
-                <div className="mt-4 flex items-center gap-1.5 text-xs text-teal-400 font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Eye className="h-3.5 w-3.5" />
-                  <span>Verified Clinical Standard</span>
-                </div>
               </div>
 
+              {/* Design line indicator */}
+              <div className="relative z-10 w-10 h-[3px] bg-blue-500/20 dark:bg-blue-400/20 group-hover:bg-blue-600 dark:group-hover:bg-blue-450 group-hover:w-20 transition-all duration-500 mt-6 rounded-full" />
             </motion.div>
           ))}
         </div>

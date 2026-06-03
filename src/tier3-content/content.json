@@ -7,11 +7,10 @@
       },
       "links": [
         { "name": "Home", "href": "#home" },
-        { "name": "About", "href": "#about" },
-        { "name": "Specialist", "href": "#doctor" },
-        { "name": "Departments", "href": "#services" },
+        { "name": "Specialties", "href": "#services" },
+        { "name": "Specialists", "href": "#doctor" },
         { "name": "Why Us", "href": "#why-choose-us" },
-        { "name": "Gallery", "href": "#facilities" },
+        { "name": "Booking", "href": "#booking-section" },
         { "name": "FAQ", "href": "#faq" },
         { "name": "Contact", "href": "#contact" }
       ],
@@ -35,11 +34,10 @@
         "title": "Quick Links",
         "links": [
           { "name": "Home", "href": "#home" },
-          { "name": "About Us", "href": "#about" },
           { "name": "Our Specialist", "href": "#doctor" },
           { "name": "Clinical Services", "href": "#services" },
           { "name": "Why Choose Us", "href": "#why-choose-us" },
-          { "name": "Facilities & Gallery", "href": "#facilities" },
+          { "name": "Facilities Overview", "href": "#facilities" },
           { "name": "Contact & Location", "href": "#contact" }
         ]
       },
@@ -68,7 +66,7 @@
       "legal": {
         "copyright": "Kumar Ortho & Multi-Speciality Hospital. All rights reserved.",
         "links": [
-          { "name": "Terms of Use", "href": "#about" },
+          { "name": "Terms of Use", "href": "#services" },
           { "name": "Privacy Policy", "href": "#contact" },
           { "name": "Sitemap", "href": "#faq" }
         ],
