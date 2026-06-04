@@ -8,11 +8,6 @@ interface HeroProps {
   onOpenBooking: () => void;
 }
 
-const TAGLINES = [
-  { line1: "Healing Beyond Treatment.", line2: "Caring Beyond Expectations." },
-  { line1: "Excellence Beyond Borders.", line2: "Serving Anantapur With Heart." },
-  { line1: "Trusted. Experienced.", line2: "Always By Your Side." },
-];
 
 const PARTICLES = [
   { icon: <Plus className="h-3 w-3" />, x: "12%", y: "18%", delay: 0, color: "text-blue-400" },
@@ -33,10 +28,6 @@ const STATS = [
 ];
 
 export default function Hero({ onOpenBooking }: HeroProps) {
-  const [taglineIdx, setTaglineIdx] = useState(0);
-  const [displayLine1, setDisplayLine1] = useState("");
-  const [displayLine2, setDisplayLine2] = useState("");
-  const [phase, setPhase] = useState<"typing1" | "typing2" | "waiting" | "erasing">("typing1");
   const [statIdx, setStatIdx] = useState(0);
   const imgRef = useRef<HTMLDivElement>(null);
 
@@ -57,46 +48,6 @@ export default function Hero({ onOpenBooking }: HeroProps) {
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [handleMouseMove]);
-
-  // Typewriter effect
-  useEffect(() => {
-    const current = TAGLINES[taglineIdx];
-    let timeout: ReturnType<typeof setTimeout>;
-
-    if (phase === "typing1") {
-      if (displayLine1.length < current.line1.length) {
-        timeout = setTimeout(() => {
-          setDisplayLine1(current.line1.slice(0, displayLine1.length + 1));
-        }, 45);
-      } else {
-        timeout = setTimeout(() => setPhase("typing2"), 200);
-      }
-    } else if (phase === "typing2") {
-      if (displayLine2.length < current.line2.length) {
-        timeout = setTimeout(() => {
-          setDisplayLine2(current.line2.slice(0, displayLine2.length + 1));
-        }, 45);
-      } else {
-        timeout = setTimeout(() => setPhase("waiting"), 2500);
-      }
-    } else if (phase === "waiting") {
-      timeout = setTimeout(() => setPhase("erasing"), 300);
-    } else if (phase === "erasing") {
-      if (displayLine2.length > 0) {
-        timeout = setTimeout(() => {
-          setDisplayLine2(displayLine2.slice(0, -1));
-        }, 25);
-      } else if (displayLine1.length > 0) {
-        timeout = setTimeout(() => {
-          setDisplayLine1(displayLine1.slice(0, -1));
-        }, 25);
-      } else {
-        setTaglineIdx((prev) => (prev + 1) % TAGLINES.length);
-        setPhase("typing1");
-      }
-    }
-    return () => clearTimeout(timeout);
-  }, [phase, displayLine1, displayLine2, taglineIdx]);
 
   // Stats ticker
   useEffect(() => {
@@ -167,24 +118,18 @@ export default function Hero({ onOpenBooking }: HeroProps) {
               <span>Leading Multispeciality Healthcare in Anantapur</span>
             </motion.div>
 
-            {/* Typewriter Headline */}
+            {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-[54px] font-black tracking-tight text-[#0B1F3A] leading-[1.1] font-sans min-h-[130px] sm:min-h-[120px] lg:min-h-[130px]"
+              className="text-4xl sm:text-5xl lg:text-[54px] font-black tracking-tight text-[#0B1F3A] leading-[1.1] font-sans"
             >
-              <span>{displayLine1}</span>
-              {phase === "typing1" && (
-                <span className="inline-block w-0.5 h-[1em] bg-blue-600 ml-0.5 animate-blink align-middle" />
-              )}
+              Trusted. Experienced.
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">
-                {displayLine2}
+                Always By Your Side.
               </span>
-              {(phase === "typing2" || phase === "waiting") && (
-                <span className="inline-block w-0.5 h-[0.85em] bg-teal-500 ml-0.5 animate-blink align-middle" />
-              )}
             </motion.h1>
 
             {/* Subtext */}
