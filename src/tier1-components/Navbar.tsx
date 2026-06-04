@@ -70,8 +70,8 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
             className={cn(
               "pointer-events-auto hidden lg:flex items-center gap-3 px-10 py-2.5 rounded-full border transition-all duration-300",
               isScrolled
-                ? "bg-[#0d0d10]/90 border-zinc-700/60 shadow-xl backdrop-blur-xl"
-                : "bg-[#0d0d10]/60 border-zinc-700/30 backdrop-blur-md"
+                ? "bg-[#0B1F3A] border-zinc-700 shadow-xl backdrop-blur-xl"
+                : "bg-[#0B1F3A]/95 border-zinc-700/70 backdrop-blur-md"
             )}
           >
             {navLinks.map((link) => {
@@ -84,7 +84,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                     "relative px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest transition-all duration-200",
                     active
                       ? "text-white bg-white/10"
-                      : "text-zinc-400 hover:text-white hover:bg-white/5"
+                      : "text-zinc-200 hover:text-white hover:bg-white/5"
                   )}
                 >
                   {active && (
