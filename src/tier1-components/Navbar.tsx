@@ -44,7 +44,14 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
   return (
     <>
       {/* ── Main Navbar ── */}
-      <header className="fixed top-0 left-0 right-0 z-[100] py-3 pointer-events-none">
+      <header
+        className={cn(
+          "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
+          isScrolled
+            ? "bg-[#F8FAFC]/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-slate-200/50 dark:border-zinc-850/50 shadow-sm py-2 pointer-events-auto"
+            : "bg-transparent py-4 pointer-events-none"
+        )}
+      >
         <div className="mx-auto max-w-[92rem] px-4 sm:px-6 lg:px-12 flex items-center justify-between">
           {/* Logo */}
           <a
