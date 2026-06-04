@@ -61,7 +61,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
           {/* Center pill — nav links only */}
           <nav
             className={cn(
-              "pointer-events-auto hidden lg:flex items-center gap-1 px-5 py-2 rounded-full border transition-all duration-300",
+              "pointer-events-auto hidden lg:flex items-center gap-3 px-10 py-2.5 rounded-full border transition-all duration-300",
               isScrolled
                 ? "bg-[#0d0d10]/90 border-zinc-700/60 shadow-xl backdrop-blur-xl"
                 : "bg-[#0d0d10]/60 border-zinc-700/30 backdrop-blur-md"
