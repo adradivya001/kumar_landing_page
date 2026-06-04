@@ -68,7 +68,7 @@ const ITEMS = [
 
 export default function Facilities() {
   return (
-    <section id="facilities" className="pt-16 pb-10 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
+    <section id="facilities" className="pt-16 pb-10 bg-transparent font-sans relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute top-10 right-10 w-96 h-96 bg-blue-500/4 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-80 h-80 bg-teal-300/4 rounded-full blur-3xl pointer-events-none" />

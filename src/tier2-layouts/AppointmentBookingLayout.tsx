@@ -120,7 +120,7 @@ export default function AppointmentBooking() {
   };
 
   return (
-    <section id="booking-section" className="pt-16 pb-10 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
+    <section id="booking-section" className="pt-16 pb-10 bg-transparent font-sans relative overflow-hidden">
       <div className="absolute -top-20 -left-20 w-96 h-96 bg-blue-400/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-10 w-72 h-72 bg-teal-300/5 rounded-full blur-3xl pointer-events-none" />
 

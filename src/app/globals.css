@@ -390,15 +390,13 @@ body {
   position: absolute;
   border-radius: 50%;
   filter: blur(130px);
-  opacity: 0.12;
-  mix-blend-mode: multiply;
+  opacity: 0.28;
   pointer-events: none;
   z-index: 0;
   will-change: transform;
 }
 .dark .bg-blob {
-  opacity: 0.06;
-  mix-blend-mode: screen;
+  opacity: 0.15;
 }
 
 .blob-blue {

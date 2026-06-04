@@ -196,7 +196,7 @@ export default function Doctor({ onOpenBooking }: DoctorProps) {
   const row2 = DOCTORS.slice(Math.ceil(DOCTORS.length / 2));
 
   return (
-    <section id="doctor" className="pt-16 pb-8 bg-gradient-to-b from-[#F8FAFC] via-[#EAF3FF]/40 to-[#F8FAFC] dark:from-zinc-950 dark:via-zinc-900/20 dark:to-zinc-950 font-sans relative overflow-hidden">
+    <section id="doctor" className="pt-16 pb-8 bg-transparent font-sans relative overflow-hidden">
       {/* Background glows */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-400/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-teal-400/5 blur-3xl pointer-events-none" />

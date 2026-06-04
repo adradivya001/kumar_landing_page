@@ -80,7 +80,7 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-16 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
+    <section id="faq" className="py-16 bg-transparent font-sans relative overflow-hidden">
       {/* Decorative backgrounds */}
       <div className="absolute -top-40 -right-40 w-[400px] h-[400px] bg-blue-500/4 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 -left-20 w-[300px] h-[300px] bg-teal-400/4 rounded-full blur-3xl pointer-events-none" />

@@ -54,7 +54,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-16 bg-[#F8FAFC] dark:bg-zinc-950 font-sans relative overflow-hidden">
+    <section id="contact" className="py-16 bg-transparent font-sans relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-400/4 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-10 w-72 h-72 bg-teal-300/4 rounded-full blur-3xl pointer-events-none" />
