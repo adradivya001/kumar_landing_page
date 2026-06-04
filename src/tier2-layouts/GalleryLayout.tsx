@@ -61,7 +61,13 @@ export default function Gallery() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-md">
             Visual Tour
           </span>
@@ -72,7 +78,7 @@ export default function Gallery() {
           <p className="text-gray-500 dark:text-zinc-400 mt-4 text-sm sm:text-base">
             Take a visual tour of the Kumar Hospital campus. View actual clinical spaces, high-end infrastructure, and healing environments.
           </p>
-        </div>
+        </motion.div>
 
         {/* Filter Navigation */}
         <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3 mb-12 max-w-2xl mx-auto">

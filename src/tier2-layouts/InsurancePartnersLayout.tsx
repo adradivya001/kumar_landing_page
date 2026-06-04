@@ -23,7 +23,13 @@ export default function InsurancePartners() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         
         {/* Subtle section header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12 max-w-5xl mx-auto border-b border-gray-200/60 dark:border-zinc-800 pb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-12 max-w-5xl mx-auto border-b border-gray-200/60 dark:border-zinc-800 pb-6"
+        >
           <div className="flex items-center gap-2 text-navy-800 dark:text-white">
             <ShieldCheck className="h-5 w-5 text-teal-600 animate-pulse" />
             <h3 className="text-lg font-bold tracking-tight">
@@ -33,7 +39,7 @@ export default function InsurancePartners() {
           <p className="text-xs text-gray-500 dark:text-zinc-400 text-center sm:text-right max-w-xs sm:max-w-none">
             We facilitate direct cashless pre-authorization for planned orthopedic surgeries.
           </p>
-        </div>
+        </motion.div>
 
         {/* Infinite Scrolling Marquee - Medcy Inspired */}
         <div className="relative w-full overflow-hidden py-4 mask-gradient-x">
