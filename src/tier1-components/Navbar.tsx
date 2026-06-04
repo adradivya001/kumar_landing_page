@@ -45,7 +45,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
     <>
       {/* ── Main Navbar ── */}
       <header className="fixed top-0 left-0 right-0 z-[100] py-3 pointer-events-none">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+        <div className="mx-auto max-w-[92rem] px-4 sm:px-6 lg:px-12 flex items-center justify-between">
           {/* Logo */}
           <a
             href="#home"
@@ -98,7 +98,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
             {/* Book CTA */}
             <button
               onClick={onOpenBooking}
-              className="hidden lg:flex items-center gap-1.5 bg-cyan-500 hover:bg-cyan-600 text-white text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.03] active:scale-[0.97]"
+              className="hidden lg:flex items-center gap-1.5 bg-cyan-500 hover:bg-cyan-600 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.03] active:scale-[0.97] animate-glow-cyan"
             >
               <Calendar className="h-3.5 w-3.5" />
               <span>Book</span>
