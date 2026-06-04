@@ -121,7 +121,7 @@ export default function Hero({ onOpenBooking }: HeroProps) {
   return (
     <section
       id="home"
-      className="relative min-h-[96vh] flex items-center pt-28 pb-16 overflow-hidden font-sans animate-gradient-shift"
+      className="relative min-h-[96vh] flex items-center pt-20 pb-16 overflow-hidden font-sans animate-gradient-shift"
       style={{
         background: "linear-gradient(135deg, #EAF3FF 0%, #f0f8ff 25%, #ffffff 50%, #f0fdfa 75%, #EAF3FF 100%)",
         backgroundSize: "300% 300%",
