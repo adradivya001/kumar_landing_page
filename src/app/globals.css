@@ -3,7 +3,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #FAF7F2;
+  --background: #ffffff;
   --foreground: #0f172a;
 }
 
@@ -67,15 +67,15 @@ body {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #FAF7F2; }
-::-webkit-scrollbar-thumb { background: #e6dfd5; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
 /* Premium Medical Grid Background */
 .medical-grid {
   background-image: 
-    radial-gradient(rgba(245, 158, 11, 0.04) 1px, transparent 0),
-    radial-gradient(rgba(30, 75, 149, 0.03) 1px, transparent 0);
+    radial-gradient(rgba(20, 184, 166, 0.05) 1px, transparent 0),
+    radial-gradient(rgba(30, 75, 149, 0.04) 1px, transparent 0);
   background-size: 32px 32px;
   background-position: 0 0, 16px 16px;
 }
@@ -371,6 +371,7 @@ body {
   animation: draw-line 0.5s ease forwards;
 }
 
+
 /* Gold/Amber glow pulse for Book button */
 .animate-glow-cyan {
   animation: glow-cyan-pulse 2s infinite ease-in-out;
@@ -383,3 +384,48 @@ body {
     box-shadow: 0 0 20px rgba(245, 158, 11, 0.9), 0 0 35px rgba(245, 158, 11, 0.5);
   }
 }
+
+/* Premium Flowing Background Blobs */
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(130px);
+  opacity: 0.12;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+.dark .bg-blob {
+  opacity: 0.06;
+  mix-blend-mode: screen;
+}
+
+.blob-blue {
+  background-color: #1d4ed8; /* Royal Blue */
+  animation: blob-drift-one 25s infinite ease-in-out;
+}
+.blob-gold {
+  background-color: #f59e0b; /* Amber/Gold */
+  animation: blob-drift-two 30s infinite ease-in-out;
+}
+.blob-indigo {
+  background-color: #6366f1; /* Indigo */
+  animation: blob-drift-three 28s infinite ease-in-out;
+}
+
+@keyframes blob-drift-one {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(120px, 90px) scale(1.25); }
+  66% { transform: translate(-60px, 160px) scale(0.85); }
+}
+@keyframes blob-drift-two {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-140px, 140px) scale(0.8); }
+  66% { transform: translate(90px, -90px) scale(1.2); }
+}
+@keyframes blob-drift-three {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(160px, -110px) scale(1.3); }
+}
+

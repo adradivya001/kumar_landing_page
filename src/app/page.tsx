@@ -30,8 +30,12 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen relative">
-      {/* Background Mesh Overlay - Inspired by Medcy */}
-      <div className="fixed inset-0 bg-[#FAF7F2]/40 dark:bg-zinc-950/20 medical-grid pointer-events-none z-0" />
+      {/* Background Mesh Overlay & Flowing Blobs - Hospital Themed */}
+      <div className="fixed inset-0 bg-[#f8fafc]/40 dark:bg-zinc-950/20 medical-grid pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-10 left-10 w-[450px] h-[450px] bg-blob blob-blue" />
+        <div className="absolute top-1/2 right-10 w-[500px] h-[500px] bg-blob blob-gold" />
+        <div className="absolute bottom-10 left-1/3 w-[400px] h-[400px] bg-blob blob-indigo" />
+      </div>
 
       {/* Sticky Navigation bar */}
       <Navbar onOpenBooking={openBooking} />
