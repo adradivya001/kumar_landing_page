@@ -219,11 +219,11 @@ export default function Doctor({ onOpenBooking }: DoctorProps) {
         </div>
       </div>
 
-      {/* Horizontal scrolling row */}
-      <div className="w-full overflow-x-auto pb-8 relative z-10 scroll-smooth snap-x snap-mandatory scrollbar-thin scrollbar-thumb-blue-600/20 scrollbar-track-transparent">
-        <div className="flex gap-6 md:gap-8 px-4 sm:px-8 lg:px-12 w-max">
-          {DOCTORS.map((doc, idx) => (
-            <div key={`doc-${idx}`} className="shrink-0 snap-start">
+      {/* Continuous scrolling marquee row */}
+      <div className="w-full overflow-hidden pb-8 relative z-10">
+        <div className="flex gap-6 md:gap-8 w-max animate-marquee">
+          {[...DOCTORS, ...DOCTORS].map((doc, idx) => (
+            <div key={`doc-${idx}`} className="shrink-0">
               <DoctorCard doc={doc} onOpenBooking={onOpenBooking} />
             </div>
           ))}
