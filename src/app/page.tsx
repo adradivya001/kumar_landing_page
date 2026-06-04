@@ -14,7 +14,6 @@ import InsurancePartners from "@/tier2-layouts/InsurancePartnersLayout";
 import Doctor from "@/tier2-layouts/DoctorLayout";
 import WhyChooseUs from "@/tier2-layouts/WhyChooseUsLayout";
 import Facilities from "@/tier2-layouts/FacilitiesLayout";
-import Gallery from "@/tier2-layouts/GalleryLayout";
 import AppointmentBooking from "@/tier2-layouts/AppointmentBookingLayout";
 import FAQ from "@/tier2-layouts/FAQLayout";
 import Contact from "@/tier2-layouts/ContactLayout";
@@ -56,9 +55,6 @@ export default function Home() {
 
         {/* 5. Infrastructure (Facilities) */}
         <Facilities />
-
-        {/* 5.5. Visual Tour (Hospital Gallery) */}
-        <Gallery />
 
         {/* 7. Stepped In-Page Booking & WhatsApp options */}
         <AppointmentBooking />
