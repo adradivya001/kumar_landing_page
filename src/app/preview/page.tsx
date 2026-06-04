@@ -251,7 +251,7 @@ export default function PreviewPage() {
               <span className="w-6 h-[1px] bg-[#c8972a]" />
               Departments
             </span>
-            <h2 class="font-serif-cormorant text-4xl md:text-5xl font-light text-white leading-tight">
+            <h2 className="font-serif-cormorant text-4xl md:text-5xl font-light text-white leading-tight">
               Our Specialised <em className="italic text-[#e8b84b]">Services</em>
             </h2>
           </div>
@@ -358,7 +358,7 @@ export default function PreviewPage() {
             <span className="w-6 h-[1px] bg-[#c8972a]" />
             Medical Team
           </span>
-          <h2 class="font-serif-cormorant text-4xl md:text-5xl font-light text-white leading-tight">
+          <h2 className="font-serif-cormorant text-4xl md:text-5xl font-light text-white leading-tight">
             Led by Experienced <em className="italic text-[#e8b84b]">Specialists</em>
           </h2>
         </div>
@@ -423,7 +423,7 @@ export default function PreviewPage() {
           <span className="w-6 h-[1px] bg-[#c8972a]" />
           Innovation
         </span>
-        <h2 class="font-serif-cormorant text-4xl md:text-5xl font-light text-white leading-tight mb-12">
+        <h2 className="font-serif-cormorant text-4xl md:text-5xl font-light text-white leading-tight mb-12">
           Advanced <em className="italic text-[#e8b84b]">Medical Tech</em>
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">

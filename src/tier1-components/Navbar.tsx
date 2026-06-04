@@ -54,7 +54,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
           <img
             src="/kumar-hospitals.png"
             alt="Kumar Hospital"
-            className="h-16 w-auto object-contain drop-shadow-md hover:scale-[1.03] transition-transform duration-300"
+            className="h-20 sm:h-24 w-auto object-contain drop-shadow-md hover:scale-[1.03] transition-transform duration-300"
           />
         </a>
 
