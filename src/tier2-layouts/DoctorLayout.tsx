@@ -204,7 +204,13 @@ export default function Doctor({ onOpenBooking }: DoctorProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3.5 py-1.5 rounded-md inline-flex items-center gap-1.5">
             <Star className="h-3 w-3 fill-current" />
             Expert Medical Team
@@ -216,7 +222,7 @@ export default function Doctor({ onOpenBooking }: DoctorProps) {
           <p className="text-gray-500 dark:text-zinc-400 mt-4 text-sm sm:text-base leading-relaxed">
             Our experienced consultants bring together expertise across orthopedics, surgery, medicine, women&apos;s health, and urology to deliver personalized, patient-centered care.
           </p>
-        </div>
+        </motion.div>
       </div>
 
       {/* Continuous scrolling marquee row */}

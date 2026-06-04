@@ -88,7 +88,13 @@ export default function FAQ() {
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-12"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-md inline-flex items-center gap-1.5">
             <MessageSquare className="h-3 w-3" />
             Got Questions?
@@ -97,7 +103,7 @@ export default function FAQ() {
             Frequently Asked Questions
           </h2>
           <div className="h-1 w-20 bg-gradient-to-r from-blue-600 to-teal-500 mx-auto mt-4 rounded-full" />
-        </div>
+        </motion.div>
 
         {/* Live Search Bar */}
         <div className="relative mb-8 max-w-xl mx-auto">

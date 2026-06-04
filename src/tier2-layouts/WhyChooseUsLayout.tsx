@@ -115,7 +115,13 @@ export default function WhyChooseUs() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <span className="text-xs font-bold uppercase tracking-wider text-blue-400 bg-blue-950/40 px-3 py-1.5 rounded-md border border-blue-800/50 inline-flex items-center gap-1.5">
             <CheckCircle className="h-3 w-3" />
             Why Kumar Hospital
@@ -127,7 +133,7 @@ export default function WhyChooseUs() {
           <p className="text-gray-400 mt-4 text-sm sm:text-base">
             Upholding uncompromising medical ethics, leading infrastructure, and a deep commitment to restorative care.
           </p>
-        </div>
+        </motion.div>
 
         {/* Stats Row */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 max-w-5xl mx-auto mb-20">
