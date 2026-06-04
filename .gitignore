@@ -45,7 +45,7 @@ yarn-error.log*
 next-env.d.ts
 
 # Large stray image files in root (not part of source)
-*.png
-*.jpg
-*.jpeg
+/*.png
+/*.jpg
+/*.jpeg
 ChatGPT*
