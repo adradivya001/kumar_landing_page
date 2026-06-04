@@ -53,17 +53,8 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
         )}
       >
         <div className="mx-auto max-w-[92rem] px-4 sm:px-6 lg:px-12 flex items-center justify-between">
-          {/* Logo */}
-          <a
-            href="#home"
-            className="pointer-events-auto flex-shrink-0"
-          >
-            <img
-              src="/kumar-hospitals.png"
-              alt="Kumar Hospital"
-              className="h-20 sm:h-24 w-auto object-contain drop-shadow-md hover:scale-[1.03] transition-transform duration-300"
-            />
-          </a>
+          {/* Left spacer to keep center pill centered now that logo is removed */}
+          <div className="hidden lg:block w-[140px] flex-shrink-0" />
 
           {/* Center pill — nav links only */}
           <nav
