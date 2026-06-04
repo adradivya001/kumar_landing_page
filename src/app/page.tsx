@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen relative">
       {/* Background Mesh Overlay - Inspired by Medcy */}
-      <div className="fixed inset-0 bg-[#f8fafc]/40 dark:bg-zinc-950/20 medical-grid pointer-events-none z-0" />
+      <div className="fixed inset-0 bg-[#FAF7F2]/40 dark:bg-zinc-950/20 medical-grid pointer-events-none z-0" />
 
       {/* Sticky Navigation bar */}
       <Navbar onOpenBooking={openBooking} />
