@@ -44,74 +44,75 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
   return (
     <>
       {/* ── Main Navbar ── */}
-      <header className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 sm:px-10 py-3 pointer-events-none">
-
-        {/* Logo */}
-        <a
-          href="#home"
-          className="pointer-events-auto flex-shrink-0"
-        >
-          <img
-            src="/kumar-hospitals.png"
-            alt="Kumar Hospital"
-            className="h-20 sm:h-24 w-auto object-contain drop-shadow-md hover:scale-[1.03] transition-transform duration-300"
-          />
-        </a>
-
-        {/* Center pill — nav links only */}
-        <nav
-          className={cn(
-            "pointer-events-auto hidden lg:flex items-center gap-1 px-5 py-2 rounded-full border transition-all duration-300",
-            isScrolled
-              ? "bg-[#0d0d10]/90 border-zinc-700/60 shadow-xl backdrop-blur-xl"
-              : "bg-[#0d0d10]/60 border-zinc-700/30 backdrop-blur-md"
-          )}
-        >
-          {navLinks.map((link) => {
-            const active = isLinkActive(link.href);
-            return (
-              <a
-                key={link.name}
-                href={link.href}
-                className={cn(
-                  "relative px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest transition-all duration-200",
-                  active
-                    ? "text-white bg-white/10"
-                    : "text-zinc-400 hover:text-white hover:bg-white/5"
-                )}
-              >
-                {active && (
-                  <motion.span
-                    layoutId="nav-pill-active"
-                    className="absolute inset-0 rounded-full bg-cyan-500/15 border border-cyan-500/30"
-                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                  />
-                )}
-                <span className="relative z-10">{link.name}</span>
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Right actions */}
-        <div className="pointer-events-auto flex items-center gap-2">
-          {/* Book CTA */}
-          <button
-            onClick={onOpenBooking}
-            className="hidden lg:flex items-center gap-1.5 bg-cyan-500 hover:bg-cyan-600 text-white text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.03] active:scale-[0.97]"
+      <header className="fixed top-0 left-0 right-0 z-[100] py-3 pointer-events-none">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+          {/* Logo */}
+          <a
+            href="#home"
+            className="pointer-events-auto flex-shrink-0"
           >
-            <Calendar className="h-3.5 w-3.5" />
-            Book
-          </button>
+            <img
+              src="/kumar-hospitals.png"
+              alt="Kumar Hospital"
+              className="h-20 sm:h-24 w-auto object-contain drop-shadow-md hover:scale-[1.03] transition-transform duration-300"
+            />
+          </a>
 
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-full bg-[#0d0d10]/80 border border-zinc-700/50 text-zinc-300 backdrop-blur-md"
-            aria-label="Toggle menu"
+          {/* Center pill — nav links only */}
+          <nav
+            className={cn(
+              "pointer-events-auto hidden lg:flex items-center gap-1 px-5 py-2 rounded-full border transition-all duration-300",
+              isScrolled
+                ? "bg-[#0d0d10]/90 border-zinc-700/60 shadow-xl backdrop-blur-xl"
+                : "bg-[#0d0d10]/60 border-zinc-700/30 backdrop-blur-md"
+            )}
           >
-            {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-          </button>
+            {navLinks.map((link) => {
+              const active = isLinkActive(link.href);
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={cn(
+                    "relative px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest transition-all duration-200",
+                    active
+                      ? "text-white bg-white/10"
+                      : "text-zinc-400 hover:text-white hover:bg-white/5"
+                  )}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="nav-pill-active"
+                      className="absolute inset-0 rounded-full bg-cyan-500/15 border border-cyan-500/30"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10">{link.name}</span>
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Right actions */}
+          <div className="pointer-events-auto flex items-center gap-2">
+            {/* Book CTA */}
+            <button
+              onClick={onOpenBooking}
+              className="hidden lg:flex items-center gap-1.5 bg-cyan-500 hover:bg-cyan-600 text-white text-[11px] font-bold uppercase tracking-wider px-4 py-2 rounded-full shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.03] active:scale-[0.97]"
+            >
+              <Calendar className="h-3.5 w-3.5" />
+              <span>Book</span>
+            </button>
+
+            {/* Mobile hamburger */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="lg:hidden p-2 rounded-full bg-[#0d0d10]/80 border border-zinc-700/50 text-zinc-300 backdrop-blur-md"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
       </header>
 
