@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kumar Orthopaedic Hospital | 40 Years of Excellence</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  /* ── RESET & ROOT ─────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:   #0a1628;
+    --navy2:  #111f3a;
+    --gold:   #c8972a;
+    --gold2:  #e8b84b;
+    --cream:  #f5f0e8;
+    --white:  #ffffff;
+    --text:   #1a2740;
+    --muted:  #6b7a95;
+    --line:   rgba(200,151,42,0.25);
+    --serif:  'Cormorant Garamond', serif;
+    --sans:   'DM Sans', sans-serif;
+    --mono:   'Space Mono', monospace;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ──────────────────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    transition: all .4s;
+    background: rgba(10,22,40,0.7);
+    backdrop-filter: blur(10px);
+  }
+  nav.scrolled {
+    background: rgba(10,22,40,0.97);
+    backdrop-filter: blur(20px);
+    padding: 1rem 4rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo { display:flex; align-items:center; gap:.8rem; text-decoration:none; }
+  .nav-logo-icon {
+    width:42px; height:42px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.1rem; color:var(--navy); font-weight:700;
+    font-family: var(--serif);
+  }
+  .nav-logo-text { display:flex; flex-direction:column; }
+  .nav-logo-main { font-family:var(--serif); font-size:1.15rem; font-weight:600; color:var(--white); letter-spacing:.04em; line-height:1.2; }
+  .nav-logo-sub { font-family:var(--mono); font-size:.55rem; color:var(--gold); letter-spacing:.2em; text-transform:uppercase; }
+  .nav-links { display:flex; align-items:center; gap:2.5rem; }
+  .nav-links a { font-size:.82rem; color:rgba(255,255,255,.7); text-decoration:none; letter-spacing:.06em; text-transform:uppercase; transition:color .25s; font-weight:500; }
+  .nav-links a:hover { color:var(--gold2); }
+  .nav-cta {
+    background:linear-gradient(135deg,var(--gold),var(--gold2));
+    color:var(--navy); font-size:.8rem; font-weight:600; letter-spacing:.08em;
+    text-transform:uppercase; padding:.65rem 1.6rem; border-radius:4px;
+    text-decoration:none; transition:all .25s; white-space:nowrap;
+  }
+  .nav-cta:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(200,151,42,.4); }
+
+  /* ── HERO ─────────────────────────────────────────────────────── */
+  #hero {
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    position:relative; overflow:hidden; padding:0 4rem;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(200,151,42,.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 10% 80%, rgba(200,151,42,.04) 0%, transparent 50%),
+      linear-gradient(170deg, var(--navy) 0%, var(--navy2) 100%);
+  }
+  .hero-grid-bg {
+    position:absolute; inset:0; pointer-events:none;
+    background-image:
+      linear-gradient(rgba(200,151,42,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,151,42,.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-year-tag {
+    display:inline-flex; align-items:center; gap:.6rem;
+    font-family:var(--mono); font-size:.7rem; color:var(--gold); letter-spacing:.2em;
+    text-transform:uppercase; margin-bottom:2rem;
+  }
+  .hero-year-tag::before { content:''; width:32px; height:1px; background:var(--gold); }
+  .hero-year-tag::after  { content:''; width:32px; height:1px; background:var(--gold); }
+  .hero-headline {
+    font-family:var(--serif); font-size:clamp(3rem,6vw,6.5rem);
+    font-weight:300; line-height:1.06; letter-spacing:-.01em;
+    max-width:780px; margin-bottom:1.5rem;
+  }
+  .hero-headline em { font-style:italic; color:var(--gold2); }
+  .hero-headline strong { font-weight:600; }
+  .hero-sub {
+    font-size:1.05rem; color:rgba(255,255,255,.6); max-width:520px;
+    line-height:1.75; margin-bottom:3rem;
+  }
+  .hero-actions { display:flex; gap:1.2rem; flex-wrap:wrap; }
+  .btn-primary {
+    background:linear-gradient(135deg,var(--gold),var(--gold2));
+    color:var(--navy); font-weight:600; font-size:.9rem; letter-spacing:.05em;
+    padding:.95rem 2.4rem; border-radius:4px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:.5rem;
+    transition:all .3s; text-transform:uppercase;
+  }
+  .btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(200,151,42,.45); }
+  .btn-secondary {
+    border:1px solid rgba(200,151,42,.4); color:var(--gold2); background:transparent;
+    font-size:.9rem; letter-spacing:.05em; padding:.95rem 2.4rem;
+    border-radius:4px; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem;
+    transition:all .3s; text-transform:uppercase; font-weight:500;
+  }
+  .btn-secondary:hover { background:rgba(200,151,42,.08); border-color:var(--gold2); }
+
+  .hero-stats {
+    position:absolute; right:4rem; bottom:6rem;
+    display:flex; flex-direction:column; gap:2rem;
+  }
+  .hero-stat-item { text-align:right; }
+  .hero-stat-number { font-family:var(--serif); font-size:2.8rem; font-weight:600; color:var(--white); line-height:1; }
+  .hero-stat-unit  { color:var(--gold); font-family:var(--serif); font-size:1.4rem; }
+  .hero-stat-label { font-size:.7rem; color:rgba(255,255,255,.45); letter-spacing:.14em; text-transform:uppercase; margin-top:.3rem; }
+
+  .hero-scroll-hint {
+    position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:.5rem;
+    font-family:var(--mono); font-size:.6rem; color:rgba(255,255,255,.35); letter-spacing:.15em;
+    text-transform:uppercase;
+  }
+  .scroll-line { width:1px; height:40px; background:linear-gradient(to bottom, rgba(200,151,42,.6), transparent); }
+
+  /* ── MARQUEE ──────────────────────────────────────────────────── */
+  .marquee-band {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    padding:.75rem 0; overflow:hidden;
+  }
+  .marquee-inner { display:flex; gap:0; white-space:nowrap; }
+  .marquee-item { font-family:var(--mono); font-size:.7rem; font-weight:700; color:var(--navy); letter-spacing:.15em; text-transform:uppercase; padding:0 2.5rem; }
+  .marquee-dot  { color:rgba(10,22,40,.4); }
+
+  /* ── SECTION COMMONS ──────────────────────────────────────────── */
+  section { padding:7rem 4rem; }
+  .section-label {
+    font-family:var(--mono); font-size:.65rem; color:var(--gold); letter-spacing:.25em;
+    text-transform:uppercase; margin-bottom:1.2rem; display:flex; align-items:center; gap:.8rem;
+  }
+  .section-label::before { content:''; width:24px; height:1px; background:var(--gold); }
+  .section-title { font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.8rem); font-weight:300; line-height:1.15; }
+  .section-title em { font-style:italic; color:var(--gold2); }
+
+  /* ── ABOUT ────────────────────────────────────────────────────── */
+  #about { background:var(--cream); color:var(--text); }
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:center; margin-top:4rem; }
+  .about-visual {
+    position:relative; height:520px;
+  }
+  .about-card-main {
+    position:absolute; inset:0; border-radius:2px;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy2) 100%);
+    overflow:hidden; display:flex; align-items:center; justify-content:center;
+  }
+  .about-card-main::before {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(200,151,42,.15), transparent 50%),
+      repeating-linear-gradient(45deg, rgba(200,151,42,.03) 0, rgba(200,151,42,.03) 1px, transparent 1px, transparent 12px);
+  }
+  .spine-graphic {
+    width:160px; opacity:.7;
+    filter:drop-shadow(0 0 40px rgba(200,151,42,.3));
+  }
+  .about-badge {
+    position:absolute; bottom:-1.5rem; right:-1.5rem;
+    width:130px; height:130px; border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--gold2));
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    box-shadow: 0 16px 40px rgba(200,151,42,.4);
+    color:var(--navy);
+  }
+  .about-badge-num { font-family:var(--serif); font-size:2.6rem; font-weight:700; line-height:1; }
+  .about-badge-text{ font-size:.6rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; text-align:center; }
+  .about-content .section-title { color:var(--text); }
+  .about-content .section-title em { color:var(--gold); }
+  .about-body { font-size:1rem; line-height:1.85; color:var(--muted); margin-top:1.5rem; }
+  .about-pillars { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:2.5rem; }
+  .pillar-card {
+    background: var(--white); border-radius:6px; padding:1.2rem 1.4rem;
+    border-left:3px solid var(--gold);
+    transition:transform .25s, box-shadow .25s;
+  }
+  .pillar-card:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(200,151,42,.15); }
+  .pillar-icon { font-size:1.4rem; margin-bottom:.5rem; }
+  .pillar-title { font-size:.85rem; font-weight:600; color:var(--text); }
+  .pillar-desc  { font-size:.78rem; color:var(--muted); margin-top:.3rem; line-height:1.6; }
+
+  /* ── SERVICES ─────────────────────────────────────────────────── */
+  #services { background:var(--navy2); }
+  .services-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:4rem; }
+  .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5px; background:var(--line); border:1.5px solid var(--line); border-radius:8px; overflow:hidden; }
+  .service-card {
+    background:var(--navy); padding:2.5rem; position:relative; overflow:hidden;
+    transition:all .3s;
+  }
+  .service-card::before {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(135deg,rgba(200,151,42,.07),transparent);
+    opacity:0; transition:opacity .3s;
+  }
+  .service-card:hover::before { opacity:1; }
+  .service-card:hover { background: rgba(17,31,58,0.9); }
+  .service-number { font-family:var(--mono); font-size:.65rem; color:rgba(200,151,42,.5); letter-spacing:.2em; margin-bottom:1.5rem; }
+  .service-icon-wrap {
+    width:52px; height:52px; border-radius:10px;
+    background:linear-gradient(135deg,rgba(200,151,42,.15),rgba(200,151,42,.05));
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-size:1.5rem; margin-bottom:1.5rem; transition:all .3s;
+  }
+  .service-card:hover .service-icon-wrap { background:linear-gradient(135deg,var(--gold),var(--gold2)); border-color:transparent; }
+  .service-title { font-family:var(--serif); font-size:1.35rem; font-weight:600; margin-bottom:.8rem; }
+  .service-desc { font-size:.85rem; color:rgba(255,255,255,.55); line-height:1.7; }
+  .service-link { display:inline-flex; align-items:center; gap:.4rem; font-size:.75rem; color:var(--gold); margin-top:1.2rem; text-decoration:none; letter-spacing:.06em; text-transform:uppercase; font-weight:500; transition:gap .2s; }
+  .service-link:hover { gap:.7rem; }
+
+  /* ── WHY US ───────────────────────────────────────────────────── */
+  #why { background:var(--cream); color:var(--text); }
+  .why-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; margin-top:4rem; }
+  .why-list { display:flex; flex-direction:column; gap:1.5rem; }
+  .why-item {
+    display:flex; gap:1.2rem; align-items:flex-start;
+    padding:1.4rem; background:var(--white); border-radius:6px;
+    border:1px solid rgba(200,151,42,.12); transition:all .3s;
+  }
+  .why-item:hover { transform:translateX(6px); box-shadow:0 8px 24px rgba(200,151,42,.12); border-color:var(--gold); }
+  .why-item-num { font-family:var(--mono); font-size:.7rem; color:var(--gold); min-width:2rem; padding-top:.2rem; font-weight:700; }
+  .why-item-title { font-size:.95rem; font-weight:600; color:var(--text); margin-bottom:.35rem; }
+  .why-item-desc { font-size:.83rem; color:var(--muted); line-height:1.65; }
+  .why-visual { position:relative; }
+  .why-metrics { display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+  .metric-box {
+    background:var(--navy); border-radius:8px; padding:2rem 1.5rem;
+    text-align:center; border:1px solid var(--line);
+    transition:transform .3s, box-shadow .3s;
+  }
+  .metric-box:hover { transform:translateY(-4px); box-shadow:0 16px 36px rgba(0,0,0,.2); }
+  .metric-box:nth-child(1) { grid-column:span 2; background:linear-gradient(135deg,var(--navy),var(--navy2)); }
+  .metric-num  { font-family:var(--serif); font-size:3rem; font-weight:600; color:var(--white); line-height:1; }
+  .metric-unit { color:var(--gold); }
+  .metric-label{ font-size:.72rem; color:rgba(255,255,255,.45); letter-spacing:.12em; text-transform:uppercase; margin-top:.5rem; }
+
+  /* ── DOCTORS ──────────────────────────────────────────────────── */
+  #doctors { background:var(--navy); }
+  .doctors-intro { max-width:560px; margin-bottom:4rem; }
+  .doctors-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+  .doctor-card {
+    background:var(--navy2); border-radius:8px; overflow:hidden;
+    border:1px solid var(--line); transition:all .35s; position:relative;
+  }
+  .doctor-card:hover { transform:translateY(-6px); box-shadow:0 20px 48px rgba(0,0,0,.3); border-color:var(--gold); }
+  .doctor-img-wrap {
+    height:260px; background:linear-gradient(135deg,var(--navy2),#192844);
+    display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+  }
+  .doctor-img-wrap::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(circle at 50% 80%,rgba(200,151,42,.12),transparent 60%);
+  }
+  .doc-avatar {
+    width:110px; height:110px; border-radius:50%;
+    background:linear-gradient(135deg,rgba(200,151,42,.2),rgba(200,151,42,.06));
+    border:2px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-family:var(--serif); font-size:2.6rem; color:var(--gold2);
+  }
+  .doctor-badge {
+    position:absolute; top:1rem; right:1rem;
+    background:rgba(200,151,42,.15); border:1px solid var(--line);
+    border-radius:20px; padding:.25rem .8rem;
+    font-size:.6rem; color:var(--gold2); letter-spacing:.1em; text-transform:uppercase; font-family:var(--mono);
+  }
+  .doctor-info { padding:1.5rem; }
+  .doctor-name { font-family:var(--serif); font-size:1.2rem; font-weight:600; }
+  .doctor-spec { font-size:.75rem; color:var(--gold); letter-spacing:.1em; text-transform:uppercase; margin:.3rem 0 .8rem; font-family:var(--mono); }
+  .doctor-exp  { font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.6; }
+  .doctor-divider { width:32px; height:2px; background:linear-gradient(to right,var(--gold),var(--gold2)); margin:1rem 0; border-radius:2px; }
+
+  /* ── TECHNOLOGY ───────────────────────────────────────────────── */
+  #technology { background:var(--navy2); }
+  .tech-layout { display:grid; grid-template-columns:1fr 1.4fr; gap:5rem; align-items:center; margin-top:4rem; }
+  .tech-points { display:flex; flex-direction:column; gap:1.8rem; }
+  .tech-point { display:flex; gap:1.2rem; align-items:flex-start; }
+  .tech-point-icon {
+    width:44px; height:44px; border-radius:8px; min-width:44px;
+    background:linear-gradient(135deg,rgba(200,151,42,.2),rgba(200,151,42,.05));
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:1.2rem;
+  }
+  .tech-point-title { font-size:.95rem; font-weight:600; margin-bottom:.3rem; }
+  .tech-point-desc  { font-size:.82rem; color:rgba(255,255,255,.5); line-height:1.65; }
+  .tech-visual-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .tech-block {
+    background:var(--navy); border-radius:8px; padding:1.8rem;
+    border:1px solid var(--line); transition:all .3s; text-align:center;
+  }
+  .tech-block:hover { border-color:var(--gold); transform:scale(1.03); }
+  .tech-block-icon { font-size:2.2rem; margin-bottom:.8rem; }
+  .tech-block-title { font-family:var(--serif); font-size:1rem; font-weight:600; margin-bottom:.4rem; }
+  .tech-block-text  { font-size:.75rem; color:rgba(255,255,255,.45); line-height:1.6; }
+  .tech-block-highlight { border-color:var(--gold); background:linear-gradient(135deg,rgba(200,151,42,.08),var(--navy)); }
+
+  /* ── TESTIMONIALS ─────────────────────────────────────────────── */
+  #testimonials { background:var(--cream); color:var(--text); }
+  .test-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; margin-top:3.5rem; }
+  .test-card {
+    background:var(--white); border-radius:8px; padding:2rem;
+    border:1px solid rgba(200,151,42,.1); position:relative; overflow:hidden;
+    transition:all .3s;
+  }
+  .test-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,var(--gold),var(--gold2));
+  }
+  .test-card:hover { transform:translateY(-4px); box-shadow:0 16px 36px rgba(200,151,42,.1); }
+  .test-quote { font-size:2.5rem; color:var(--gold); font-family:var(--serif); line-height:1; margin-bottom:.8rem; }
+  .test-body { font-size:.9rem; color:var(--muted); line-height:1.75; font-style:italic; margin-bottom:1.4rem; }
+  .test-author { display:flex; align-items:center; gap:.8rem; }
+  .test-avatar { width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold2)); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:1.1rem; color:var(--navy); font-weight:700; }
+  .test-name { font-size:.85rem; font-weight:600; color:var(--text); }
+  .test-role { font-size:.72rem; color:var(--muted); }
+  .test-stars { color:var(--gold); font-size:.75rem; letter-spacing:.05em; margin-bottom:.8rem; }
+
+  /* ── CTA BAND ─────────────────────────────────────────────────── */
+  #cta {
+    background:linear-gradient(135deg,var(--gold) 0%,var(--gold2) 50%,#d4a832 100%);
+    padding:6rem 4rem; text-align:center; position:relative; overflow:hidden;
+    color: var(--navy);
+  }
+  #cta::before {
+    content:''; position:absolute; inset:0;
+    background:repeating-linear-gradient(45deg, rgba(255,255,255,.03) 0, rgba(255,255,255,.03) 1px, transparent 1px, transparent 18px);
+  }
+  .cta-eyebrow { font-family:var(--mono); font-size:.65rem; color:rgba(10,22,40,.6); letter-spacing:.25em; text-transform:uppercase; margin-bottom:1rem; }
+  .cta-title { font-family:var(--serif); font-size:clamp(2.2rem,4vw,3.5rem); font-weight:600; color:var(--navy); line-height:1.2; margin-bottom: 2rem; }
+  .cta-btn {
+    background: var(--navy);
+    color: var(--white);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    padding: 1rem 2.5rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+  .cta-btn:hover {
+    background: var(--navy2);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(10,22,40,0.3);
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">K</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-main">Kumar Ortho</span>
+        <span class="nav-logo-sub">Hospitals</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#why">Why Us</a>
+      <a href="#doctors">Doctors</a>
+      <a href="#technology">Technology</a>
+      <a href="#testimonials">Testimonials</a>
+    </div>
+    <a href="#cta" class="nav-cta">Book Appointment</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div style="z-index: 2; position: relative;">
+      <div class="hero-year-tag">40 Years of Excellence</div>
+      <h1 class="hero-headline">Reclaim Your <strong>Active Life</strong> with <em>Precision Care</em></h1>
+      <p class="hero-sub">Leading orthopaedic & multispeciality treatments backed by four decades of trust and cutting-edge medical technologies.</p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-primary">Consult an Expert</a>
+        <a href="#services" class="btn-secondary">Explore Specialities</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat-item">
+        <div class="hero-stat-number">40<span class="hero-stat-unit">+</span></div>
+        <div class="hero-stat-label">Years of Trust</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-number">50K<span class="hero-stat-unit">+</span></div>
+        <div class="hero-stat-label">Happy Patients</div>
+      </div>
+      <div class="hero-stat-item">
+        <div class="hero-stat-number">99<span class="hero-stat-unit">%</span></div>
+        <div class="hero-stat-label">Success Rate</div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll Down</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-band">
+    <div class="marquee-inner">
+      <span class="marquee-item">Joint Replacements <span class="marquee-dot">•</span></span>
+      <span class="marquee-item">Sports Medicine <span class="marquee-dot">•</span></span>
+      <span class="marquee-item">Trauma Care <span class="marquee-dot">•</span></span>
+      <span class="marquee-item">Spine Surgery <span class="marquee-dot">•</span></span>
+      <span class="marquee-item">Arthroscopy <span class="marquee-dot">•</span></span>
+      <span class="marquee-item">Physiotherapy <span class="marquee-dot">•</span></span>
+      <span class="marquee-item">Joint Replacements <span class="marquee-dot">•</span></span>
+      <span class="marquee-item">Sports Medicine <span class="marquee-dot">•</span></span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <span class="section-label">Our Legacy</span>
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-card-main">
+          <!-- Stylized Medical representation -->
+          <svg class="spine-graphic" viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10V190" stroke="#c8972a" stroke-width="2" stroke-dasharray="4 4"/>
+            <circle cx="50" cy="30" r="12" stroke="#c8972a" stroke-width="2"/>
+            <path d="M30 60 H70 M25 90 H75 M20 120 H80 M28 150 H72" stroke="#c8972a" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="about-badge">
+          <span class="about-badge-num">40</span>
+          <span class="about-badge-text">Years<br>Helping You</span>
+        </div>
+      </div>
+      <div class="about-content">
+        <h2 class="section-title">Pioneering Orthopaedic <em>Care & Recovery</em></h2>
+        <p class="about-body">At Kumar Orthopaedic Hospital, we have dedicated over 40 years to rebuilding lives and restoring mobility. Our patient-first philosophy combines medical expertise with compassionate care to ensure a seamless path to wellness.</p>
+        <div class="about-pillars">
+          <div class="pillar-card">
+            <div class="pillar-icon">🎯</div>
+            <h3 class="pillar-title">Precision Diagnostics</h3>
+            <p class="pillar-desc">Advanced imaging and target analysis for accurate medical planning.</p>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-icon">⚡</div>
+            <h3 class="pillar-title">Rapid Recovery</h3>
+            <p class="pillar-desc">Minimally invasive techniques designed for quicker rehab times.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header">
+      <div>
+        <span class="section-label">Departments</span>
+        <h2 class="section-title">Our Specialised <em>Services</em></h2>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-number">01</div>
+        <div class="service-icon-wrap">🦴</div>
+        <h3 class="service-title">Joint Replacement</h3>
+        <p class="service-desc">World-class hip and knee replacement surgeries with customized implant systems.</p>
+        <a href="#cta" class="service-link">Learn More &rarr;</a>
+      </div>
+      <div class="service-card">
+        <div class="service-number">02</div>
+        <div class="service-icon-wrap">🏃</div>
+        <h3 class="service-title">Sports Medicine</h3>
+        <p class="service-desc">Specialized treatments for ligament tears, arthroscopy, and athlete recovery.</p>
+        <a href="#cta" class="service-link">Learn More &rarr;</a>
+      </div>
+      <div class="service-card">
+        <div class="service-number">03</div>
+        <div class="service-icon-wrap">🏥</div>
+        <h3 class="service-title">Trauma & Fracture</h3>
+        <p class="service-desc">24/7 Emergency response for complex fractures, dislocations, and bone trauma.</p>
+        <a href="#cta" class="service-link">Learn More &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section id="why">
+    <span class="section-label">Why Choose Us</span>
+    <div class="why-grid">
+      <div class="why-list">
+        <div class="why-item">
+          <div class="why-item-num">01</div>
+          <div>
+            <h3 class="why-item-title">Renowned Specialists</h3>
+            <p class="why-item-desc">A team of board-certified orthopaedic surgeons with global training.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-num">02</div>
+          <div>
+            <h3 class="why-item-title">State-of-the-Art Infrastructure</h3>
+            <p class="why-item-desc">Fully equipped operating theatres with laminar airflow and advanced tech.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-num">03</div>
+          <div>
+            <h3 class="why-item-title">Comprehensive Rehab</h3>
+            <p class="why-item-desc">In-house physiotherapy center focusing on complete functional recovery.</p>
+          </div>
+        </div>
+      </div>
+      <div class="why-visual">
+        <div class="why-metrics">
+          <div class="metric-box">
+            <div class="metric-num">98.4<span class="metric-unit">%</span></div>
+            <div class="metric-label">Patient Satisfaction Rating</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-num">15K+</div>
+            <div class="metric-label">Surgeries Performed</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-num">24/7</div>
+            <div class="metric-label">Emergency Trauma Support</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOCTORS -->
+  <section id="doctors">
+    <div class="doctors-intro">
+      <span class="section-label">Medical Team</span>
+      <h2 class="section-title">Led by Experienced <em>Specialists</em></h2>
+    </div>
+    <div class="doctors-grid">
+      <div class="doctor-card">
+        <div class="doctor-img-wrap">
+          <div class="doc-avatar">DK</div>
+        </div>
+        <div class="doctor-badge">Chief Surgeon</div>
+        <div class="doctor-info">
+          <h3 class="doctor-name">Dr. Kumar</h3>
+          <div class="doctor-spec">Orthopaedic Surgeon</div>
+          <div class="doctor-divider"></div>
+          <p class="doctor-exp">40+ Years of experience in Joint Replacement & Trauma Care.</p>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-img-wrap">
+          <div class="doc-avatar">AK</div>
+        </div>
+        <div class="doctor-badge">Director</div>
+        <div class="doctor-info">
+          <h3 class="doctor-name">Dr. Anuj Kumar</h3>
+          <div class="doctor-spec">Spine & Sports Specialist</div>
+          <div class="doctor-divider"></div>
+          <p class="doctor-exp">15+ Years of experience in Minimally Invasive Spine Surgeries.</p>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <div class="doctor-img-wrap">
+          <div class="doc-avatar">SK</div>
+        </div>
+        <div class="doctor-badge">Consultant</div>
+        <div class="doctor-info">
+          <h3 class="doctor-name">Dr. Smita Kumar</h3>
+          <div class="doctor-spec">Rheumatology Specialist</div>
+          <div class="doctor-divider"></div>
+          <p class="doctor-exp">12+ Years of experience in Joint Care & Rheumatology.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNOLOGY -->
+  <section id="technology">
+    <span class="section-label">Innovation</span>
+    <div class="section-title">Advanced <em>Medical Tech</em></div>
+    <div class="tech-layout">
+      <div class="tech-points">
+        <div class="tech-point">
+          <div class="tech-point-icon">🩺</div>
+          <div>
+            <h4 class="tech-point-title">Computer-Assisted Navigation</h4>
+            <p class="tech-point-desc">Allows high precision and placement of joint implants for long durability.</p>
+          </div>
+        </div>
+        <div class="tech-point">
+          <div class="tech-point-icon">🔬</div>
+          <div>
+            <h4 class="tech-point-title">High-Definition Arthroscopy</h4>
+            <p class="tech-point-desc">Keyhole surgeries using HD camera systems for faster diagnostic precision.</p>
+          </div>
+        </div>
+      </div>
+      <div class="tech-visual-grid">
+        <div class="tech-block tech-block-highlight">
+          <div class="tech-block-icon">⚡</div>
+          <h4 class="tech-block-title">Ultra-modern OT</h4>
+          <p class="tech-block-text">Clean sterile air environments minimizing infection risks completely.</p>
+        </div>
+        <div class="tech-block">
+          <div class="tech-block-icon">📊</div>
+          <h4 class="tech-block-title">Digital Diagnostics</h4>
+          <p class="tech-block-text">Digital X-Ray and ultra-precise scanning facilities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <span class="section-label">Testimonials</span>
+    <h2 class="section-title" style="color: var(--text);">What Our <em>Patients Say</em></h2>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-quote">&ldquo;</div>
+        <p class="test-body">I had my knee replacement surgery here. After just 3 weeks, I was back on my feet and walking without any support. Deep gratitude to the doctors!</p>
+        <div class="test-author">
+          <div class="test-avatar">RS</div>
+          <div>
+            <h4 class="test-name">Raman Sharma</h4>
+            <span class="test-role">Knee Replacement Patient</span>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-quote">&ldquo;</div>
+        <p class="test-body">Excellent staff and clean hospital environment. The trauma team saved my brother's arm after a severe accident. Truly professional care.</p>
+        <div class="test-author">
+          <div class="test-avatar">AM</div>
+          <div>
+            <h4 class="test-name">Amit Mishra</h4>
+            <span class="test-role">Trauma Care Patient</span>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <div class="test-quote">&ldquo;</div>
+        <p class="test-body">The spine treatment provided here solved my chronic lower back issues completely. Strongly recommend Dr. Anuj and his rehabilitation team.</p>
+        <div class="test-author">
+          <div class="test-avatar">KP</div>
+          <div>
+            <h4 class="test-name">Kiran Patel</h4>
+            <span class="test-role">Spine Surgery Patient</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section id="cta">
+    <span class="cta-eyebrow">Start Your Recovery Journey</span>
+    <h2 class="cta-title">Ready to Live a Pain-Free Active Life?</h2>
+    <a href="#" class="cta-btn">Schedule Your Consultation</a>
+  </section>
+
+</body>
+</html>

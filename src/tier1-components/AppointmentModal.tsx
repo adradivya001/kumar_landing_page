@@ -1,13 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Calendar, Phone, User, Stethoscope, Clock, CheckCircle, ChevronRight, ChevronLeft, ShieldCheck } from "lucide-react";
+import { X, Calendar, Phone, User, Stethoscope, Clock, CheckCircle, ChevronRight, ChevronLeft, ShieldCheck, AlertCircle } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 interface AppointmentModalProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+interface ValidationErrors {
+  name?: string;
+  phone?: string;
+  date?: string;
 }
 
 export default function AppointmentModal({ isOpen, onClose }: AppointmentModalProps) {
@@ -20,41 +26,114 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
     time: "Morning",
     message: "",
   });
+
+  const [errors, setErrors] = useState<ValidationErrors>({});
+  const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [dbError, setDbError] = useState("");
+
+  // Validate fields in real-time
+  useEffect(() => {
+    const newErrors: ValidationErrors = {};
+
+    if (touched.name) {
+      if (!formData.name) {
+        newErrors.name = "Patient name is required.";
+      } else if (formData.name.trim().length < 2) {
+        newErrors.name = "Name must be at least 2 characters.";
+      } else if (!/^[A-Za-z\s.]+$/.test(formData.name)) {
+        newErrors.name = "Name can only contain letters, spaces, and dots.";
+      }
+    }
+
+    if (touched.phone) {
+      if (!formData.phone) {
+        newErrors.phone = "Phone number is required.";
+      } else if (!/^\d{10}$/.test(formData.phone)) {
+        newErrors.phone = "Phone number must be exactly 10 digits.";
+      }
+    }
+
+    if (touched.date) {
+      if (!formData.date) {
+        newErrors.date = "Preferred date is required.";
+      } else {
+        const selectedDate = new Date(formData.date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+          newErrors.date = "Preferred date cannot be in the past.";
+        }
+      }
+    }
+
+    setErrors(newErrors);
+  }, [formData, touched]);
+
+  const handleBlur = (field: string) => {
+    setTouched((prev) => ({ ...prev, [field]: true }));
+  };
+
+  const validateStep = (currentStep: number): boolean => {
+    const stepErrors: ValidationErrors = {};
+
+    if (currentStep === 1) {
+      if (!formData.date) {
+        stepErrors.date = "Please select preferred date.";
+      } else {
+        const selectedDate = new Date(formData.date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+          stepErrors.date = "Preferred date cannot be in the past.";
+        }
+      }
+      if (Object.keys(stepErrors).length > 0) {
+        setErrors(stepErrors);
+        setTouched((prev) => ({ ...prev, date: true }));
+        return false;
+      }
+    }
+
+    if (currentStep === 2) {
+      if (!formData.name || formData.name.trim().length < 2 || !/^[A-Za-z\s.]+$/.test(formData.name)) {
+        stepErrors.name = "Please enter a valid patient name.";
+      }
+      if (!formData.phone || !/^\d{10}$/.test(formData.phone)) {
+        stepErrors.phone = "Please enter a valid 10-digit phone number.";
+      }
+      if (Object.keys(stepErrors).length > 0) {
+        setErrors(stepErrors);
+        setTouched((prev) => ({ ...prev, name: true, phone: true }));
+        return false;
+      }
+    }
+
+    return true;
+  };
 
   const handleNext = () => {
-    if (step === 1) {
-      if (!formData.specialty || !formData.date || !formData.time) {
-        alert("Please select specialty, preferred date, and time slot.");
-        return;
-      }
+    if (validateStep(step)) {
+      setStep((prev) => prev + 1);
     }
-    if (step === 2) {
-      if (!formData.name || !formData.phone) {
-        alert("Please enter patient name and valid contact details.");
-        return;
-      }
-      if (formData.phone.length !== 10) {
-        alert("Please enter a valid 10-digit phone number.");
-        return;
-      }
-    }
-    setStep((prev) => prev + 1);
   };
 
   const handleBack = () => {
     setStep((prev) => prev - 1);
   };
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setDbError("");
+
+    if (!validateStep(1) || !validateStep(2)) {
+      return;
+    }
+
     setIsSubmitting(true);
     const { error: insertError } = await supabase.from("appointments").insert({
-      patient_name: formData.name,
+      patient_name: formData.name.trim(),
       phone: formData.phone,
       department: formData.specialty,
       preferred_date: formData.date,
@@ -63,8 +142,9 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
       source: "appointment_modal",
     });
     setIsSubmitting(false);
+
     if (insertError) {
-      setError("Something went wrong. Please try again or call us directly.");
+      setDbError("System Offline: Unable to process booking. Please try calling us directly.");
     } else {
       setIsSuccess(true);
     }
@@ -80,7 +160,10 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
       message: "",
     });
     setStep(1);
+    setErrors({});
+    setTouched({});
     setIsSuccess(false);
+    setDbError("");
     onClose();
   };
 
@@ -123,7 +206,7 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
               </div>
               <button
                 onClick={onClose}
-                className="rounded-full p-1.5 text-navy-200 transition-all hover:bg-navy-700 hover:text-white relative z-10"
+                className="rounded-full p-1.5 text-navy-200 transition-all hover:bg-navy-700 hover:text-white relative z-10 cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="h-4.5 w-4.5" />
@@ -189,7 +272,7 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                             <select
                               value={formData.specialty}
                               onChange={(e) => setFormData({ ...formData, specialty: e.target.value })}
-                              className="w-full rounded-lg border border-gray-200 bg-gray-50 py-3 pl-10 pr-4 text-sm outline-none transition-all focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-100 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500 dark:focus:ring-teal-900/30 appearance-none"
+                              className="w-full rounded-lg border border-gray-200 bg-gray-50 py-3 pl-10 pr-4 text-sm outline-none transition-all focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-400/20 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500 dark:focus:ring-teal-500/10 appearance-none cursor-pointer"
                             >
                               <option value="Orthopedics">Orthopedics & Spine Care</option>
                               <option value="General Medicine">General & Preventive Medicine</option>
@@ -201,16 +284,22 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
 
                         {/* Date Picker */}
                         <div>
-                          <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1">
-                            Preferred Date <span className="text-red-500">*</span>
+                          <label className="flex justify-between items-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1">
+                            <span>Preferred Date <span className="text-red-500">*</span></span>
+                            {errors.date && <span className="text-[10px] text-red-500 font-semibold flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.date}</span>}
                           </label>
                           <input
                             type="date"
                             required
                             min={new Date().toISOString().split("T")[0]}
                             value={formData.date}
+                            onBlur={() => handleBlur("date")}
                             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                            className="w-full rounded-lg border border-gray-200 bg-gray-50 py-3 px-3 text-sm outline-none transition-all focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-100 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500"
+                            className={`w-full rounded-lg border py-3 px-3 text-sm outline-none transition-all ${
+                              errors.date 
+                                ? "border-red-400 ring-2 ring-red-100 dark:ring-red-950/20" 
+                                : "border-gray-200 bg-gray-50 focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-400/20 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500"
+                            }`}
                           />
                         </div>
 
@@ -225,9 +314,9 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                                 key={slot}
                                 type="button"
                                 onClick={() => setFormData({ ...formData, time: slot })}
-                                className={`flex items-center justify-center gap-1.5 rounded-lg border py-2.5 text-xs font-bold transition-all ${
+                                className={`flex items-center justify-center gap-1.5 rounded-lg border py-2.5 text-xs font-bold transition-all cursor-pointer ${
                                   formData.time === slot
-                                    ? "border-teal-600 bg-teal-50 text-teal-800 dark:border-teal-500 dark:bg-teal-900/20 dark:text-teal-400"
+                                    ? "border-teal-600 bg-teal-55/30 text-teal-800 dark:border-teal-500 dark:bg-teal-900/20 dark:text-teal-400"
                                     : "border-gray-200 bg-white text-gray-600 hover:bg-gray-50 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-700"
                                 }`}
                               >
@@ -254,8 +343,9 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
 
                         {/* Name Input */}
                         <div>
-                          <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1">
-                            Patient Full Name <span className="text-red-500">*</span>
+                          <label className="flex justify-between items-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1">
+                            <span>Patient Full Name <span className="text-red-500">*</span></span>
+                            {errors.name && <span className="text-[10px] text-red-500 font-semibold flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.name}</span>}
                           </label>
                           <div className="relative">
                             <User className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-teal-600" />
@@ -264,27 +354,37 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                               required
                               placeholder="Jane Doe"
                               value={formData.name}
+                              onBlur={() => handleBlur("name")}
                               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                              className="w-full rounded-lg border border-gray-200 bg-gray-50 py-3 pl-10 pr-4 text-sm outline-none transition-all focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-100 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500"
+                              className={`w-full rounded-lg border py-3 pl-10 pr-4 text-sm outline-none transition-all ${
+                                errors.name 
+                                  ? "border-red-400 ring-2 ring-red-100 dark:ring-red-950/20" 
+                                  : "border-gray-200 bg-gray-50 focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-400/20 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500"
+                              }`}
                             />
                           </div>
                         </div>
 
                         {/* Phone Input */}
                         <div>
-                          <label className="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1">
-                            Contact Phone Number <span className="text-red-500">*</span>
+                          <label className="flex justify-between items-center text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1">
+                            <span>Contact Phone Number <span className="text-red-500">*</span></span>
+                            {errors.phone && <span className="text-[10px] text-red-500 font-semibold flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.phone}</span>}
                           </label>
                           <div className="relative">
                             <Phone className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-teal-600" />
                             <input
                               type="tel"
                               required
-                              pattern="[0-9]{10}"
                               placeholder="10-digit mobile number"
                               value={formData.phone}
-                              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                              className="w-full rounded-lg border border-gray-200 bg-gray-50 py-3 pl-10 pr-4 text-sm outline-none transition-all focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-100 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500"
+                              onBlur={() => handleBlur("phone")}
+                              onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })}
+                              className={`w-full rounded-lg border py-3 pl-10 pr-4 text-sm outline-none transition-all ${
+                                errors.phone 
+                                  ? "border-red-400 ring-2 ring-red-100 dark:ring-red-950/20" 
+                                  : "border-gray-200 bg-gray-50 focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-400/20 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500"
+                              }`}
                             />
                           </div>
                         </div>
@@ -299,7 +399,7 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                             placeholder="Brief description of bone, joint, or other medical symptoms..."
                             value={formData.message}
                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            className="w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm outline-none transition-all focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-100 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500 resize-none"
+                            className="w-full rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm outline-none transition-all focus:border-teal-500 focus:bg-white focus:ring-2 focus:ring-teal-400/20 dark:border-zinc-800 dark:bg-zinc-800 dark:text-white dark:focus:border-teal-500 resize-none"
                           />
                         </div>
                       </motion.div>
@@ -350,9 +450,12 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                     )}
                   </AnimatePresence>
 
-                  {/* Error message */}
-                  {error && (
-                    <p className="text-xs text-red-500 font-semibold text-center mt-3">{error}</p>
+                  {/* DB Error message */}
+                  {dbError && (
+                    <div className="rounded-lg bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 p-2.5 flex gap-2 items-center mt-3">
+                      <AlertCircle className="h-4.5 w-4.5 text-red-500 flex-shrink-0" />
+                      <p className="text-xs text-red-600 dark:text-red-400 font-semibold">{dbError}</p>
+                    </div>
                   )}
 
                   {/* Navigation Buttons inside Modal Content */}
@@ -361,7 +464,7 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                       <button
                         type="button"
                         onClick={handleBack}
-                        className="flex-1 flex items-center justify-center gap-1.5 rounded-xl border border-gray-200 py-3 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-50 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                        className="flex-1 flex items-center justify-center gap-1.5 rounded-xl border border-gray-200 py-3 text-sm font-bold text-gray-600 transition-colors hover:bg-gray-50 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800 cursor-pointer"
                       >
                         <ChevronLeft className="h-4 w-4" />
                         <span>Back</span>
@@ -370,7 +473,7 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                       <button
                         type="button"
                         onClick={onClose}
-                        className="flex-1 rounded-xl border border-gray-200 py-3 text-sm font-bold text-gray-500 transition-colors hover:bg-gray-50 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800"
+                        className="flex-1 rounded-xl border border-gray-200 py-3 text-sm font-bold text-gray-500 transition-colors hover:bg-gray-50 dark:border-zinc-800 dark:text-zinc-300 dark:hover:bg-zinc-800 cursor-pointer"
                       >
                         Cancel
                       </button>
@@ -380,7 +483,7 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                       <button
                         type="button"
                         onClick={handleNext}
-                        className="flex-[2] flex items-center justify-center gap-1.5 rounded-xl bg-teal-600 py-3 text-sm font-bold text-white shadow-lg shadow-teal-600/20 transition-all hover:bg-teal-700 active:scale-98"
+                        className="flex-[2] flex items-center justify-center gap-1.5 rounded-xl bg-teal-600 py-3 text-sm font-bold text-white shadow-lg shadow-teal-600/20 transition-all hover:bg-teal-700 active:scale-98 cursor-pointer"
                       >
                         <span>Next Step</span>
                         <ChevronRight className="h-4 w-4" />
@@ -389,7 +492,7 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                       <button
                         onClick={handleSubmit}
                         disabled={isSubmitting}
-                        className="flex-[2] rounded-xl bg-teal-600 py-3 text-sm font-bold text-white shadow-lg shadow-teal-600/20 transition-all hover:bg-teal-700 active:scale-98 disabled:opacity-50"
+                        className="flex-[2] rounded-xl bg-teal-600 py-3 text-sm font-bold text-white shadow-lg shadow-teal-600/20 transition-all hover:bg-teal-700 active:scale-98 disabled:opacity-50 cursor-pointer"
                       >
                         {isSubmitting ? "Generating Slot..." : "Confirm & Send Request"}
                       </button>
@@ -397,30 +500,31 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
                   </div>
                 </div>
               ) : (
-                /* Success Screen */
+                /* Success Screen Overlay with bounce-in animations */
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center justify-center py-8 text-center"
                 >
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className="mb-4 rounded-full bg-emerald-50 p-4 dark:bg-emerald-950/20 text-emerald-600"
-                  >
-                    <CheckCircle className="h-14 w-14 text-emerald-600 dark:text-emerald-400" />
-                  </motion.div>
-                  <h4 className="text-xl font-black text-gray-900 dark:text-white mb-2">OPD Request Confirmed!</h4>
+                  <div className="relative mb-5">
+                    <div className="absolute inset-0 rounded-full bg-emerald-400/20 dark:bg-emerald-500/10 animate-ping" />
+                    <div className="relative rounded-full bg-emerald-50 p-4 dark:bg-emerald-950/40 text-emerald-600 border border-emerald-100 dark:border-emerald-900">
+                      <CheckCircle className="h-12 w-12 text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                  </div>
+                  
+                  <h4 className="text-xl font-extrabold text-[#0B1F3A] dark:text-white mb-2 tracking-tight">OPD Request Confirmed!</h4>
+                  <div className="h-0.5 w-10 bg-emerald-500 mx-auto mb-4 rounded-full" />
+                  
                   <p className="max-w-xs text-xs text-gray-500 dark:text-zinc-400 mb-6 leading-relaxed">
-                    Thank you, <strong className="text-gray-800 dark:text-white">{formData.name}</strong>. We have registered your request for <strong className="text-gray-800 dark:text-white">{formData.specialty}</strong> on <strong className="text-gray-800 dark:text-white">{formData.date}</strong> in the <strong className="text-gray-800 dark:text-white">{formData.time}</strong> slot. 
-                    Our coordinator will call you back shortly.
+                    Thank you, <strong className="text-blue-600 dark:text-blue-400">{formData.name}</strong>. We have registered your request for <strong className="text-gray-800 dark:text-white">{formData.specialty}</strong> on <strong className="text-gray-800 dark:text-white">{formData.date}</strong> in the <strong className="text-gray-800 dark:text-white">{formData.time}</strong> slot. Our coordinator will call you back shortly.
                   </p>
+                  
                   <button
                     onClick={handleReset}
-                    className="w-full max-w-[200px] rounded-xl bg-navy-800 py-3 text-sm font-bold text-white transition-all hover:bg-navy-900 dark:bg-teal-600 dark:hover:bg-teal-700 active:scale-98"
+                    className="w-full max-w-[200px] rounded-xl bg-navy-800 py-3 text-sm font-bold text-white transition-all hover:bg-navy-900 dark:bg-teal-600 dark:hover:bg-teal-700 active:scale-98 cursor-pointer"
                   >
-                    Back to Home
+                    Close Window
                   </button>
                 </motion.div>
               )}
@@ -431,4 +535,3 @@ export default function AppointmentModal({ isOpen, onClose }: AppointmentModalPr
     </AnimatePresence>
   );
 }
-

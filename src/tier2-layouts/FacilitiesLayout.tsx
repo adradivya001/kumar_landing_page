@@ -3,95 +3,145 @@
 import { motion } from "framer-motion";
 import { Bone, Stethoscope, Microscope, Hospital, Ambulance, Heart } from "lucide-react";
 
-export default function Facilities() {
-  const items = [
-    {
-      title: "Orthopedic Excellence",
-      desc: "Advanced care for fractures, joint disorders, trauma, and spine-related conditions.",
-      icon: <Bone className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
-    },
-    {
-      title: "Experienced Specialists",
-      desc: "Dedicated consultants across orthopedics, medicine, surgery, urology, and women's health.",
-      icon: <Stethoscope className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
-    },
-    {
-      title: "Accurate Diagnostics",
-      desc: "Laboratory and imaging services supporting timely diagnosis and treatment.",
-      icon: <Microscope className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
-    },
-    {
-      title: "Modern Medical Infrastructure",
-      desc: "Well-equipped facilities designed to support safe and efficient patient care.",
-      icon: <Hospital className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
-    },
-    {
-      title: "Emergency Support",
-      desc: "Prompt medical attention and stabilization for urgent healthcare needs.",
-      icon: <Ambulance className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
-    },
-    {
-      title: "Compassionate Patient Care",
-      desc: "Personalized treatment plans focused on comfort, recovery, and long-term wellness.",
-      icon: <Heart className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
-    },
-  ];
+const ITEMS = [
+  {
+    title: "Orthopedic Excellence",
+    desc: "Advanced care for fractures, joint disorders, trauma, and spine-related conditions with specialist-led precision.",
+    icon: <Bone className="h-6 w-6" />,
+    stat: "400+ Surgeries / Year",
+    color: "blue",
+    gradient: "from-blue-500/10 to-blue-400/5",
+    iconBg: "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white dark:group-hover:bg-blue-500",
+    ringColor: "border-blue-400/40",
+  },
+  {
+    title: "Experienced Specialists",
+    desc: "Dedicated consultants across orthopedics, medicine, surgery, urology, and women's health — all under one roof.",
+    icon: <Stethoscope className="h-6 w-6" />,
+    stat: "20+ Senior Consultants",
+    color: "teal",
+    gradient: "from-teal-500/10 to-teal-400/5",
+    iconBg: "bg-teal-50 dark:bg-teal-950/40 text-teal-600 dark:text-teal-400 group-hover:bg-teal-600 group-hover:text-white dark:group-hover:bg-teal-500",
+    ringColor: "border-teal-400/40",
+  },
+  {
+    title: "Accurate Diagnostics",
+    desc: "Laboratory and imaging services including X-Ray, ultrasound, and pathology labs supporting rapid diagnosis.",
+    icon: <Microscope className="h-6 w-6" />,
+    stat: "In-House Lab & Imaging",
+    color: "indigo",
+    gradient: "from-indigo-500/10 to-indigo-400/5",
+    iconBg: "bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white dark:group-hover:bg-indigo-500",
+    ringColor: "border-indigo-400/40",
+  },
+  {
+    title: "Modern Infrastructure",
+    desc: "Well-equipped sterile operation theatres, ICU, and facilities engineered for safe and efficient patient care.",
+    icon: <Hospital className="h-6 w-6" />,
+    stat: "Laminar Airflow OT",
+    color: "blue",
+    gradient: "from-blue-500/10 to-blue-400/5",
+    iconBg: "bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white dark:group-hover:bg-blue-500",
+    ringColor: "border-blue-400/40",
+  },
+  {
+    title: "Emergency Support",
+    desc: "Prompt admission, trauma triaging, and stabilization for urgent healthcare needs — active 24 hours a day.",
+    icon: <Ambulance className="h-6 w-6" />,
+    stat: "24/7 Trauma Ready",
+    color: "red",
+    gradient: "from-red-500/10 to-red-400/5",
+    iconBg: "bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 group-hover:bg-red-600 group-hover:text-white dark:group-hover:bg-red-500",
+    ringColor: "border-red-400/40",
+  },
+  {
+    title: "Compassionate Care",
+    desc: "Personalized treatment plans focused on comfort, emotional support, recovery, and long-term patient wellness.",
+    icon: <Heart className="h-6 w-6" />,
+    stat: "98.4% Patient Satisfaction",
+    color: "pink",
+    gradient: "from-pink-500/10 to-pink-400/5",
+    iconBg: "bg-pink-50 dark:bg-pink-950/40 text-pink-600 dark:text-pink-400 group-hover:bg-pink-600 group-hover:text-white dark:group-hover:bg-pink-500",
+    ringColor: "border-pink-400/40",
+  },
+];
 
+export default function Facilities() {
   return (
-    <section id="facilities" className="pt-10 pb-4 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
-      {/* Background soft glow decors */}
-      <div className="absolute top-10 right-10 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+    <section id="facilities" className="pt-16 pb-10 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
+      {/* Background accents */}
+      <div className="absolute top-10 right-10 w-96 h-96 bg-blue-500/4 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-10 w-80 h-80 bg-teal-300/4 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 rounded-md">
             ADVANCED INFRASTRUCTURE
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0B1F3A] dark:text-white mt-4 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0B1F3A] dark:text-white mt-4 tracking-tight scan-line-container">
             Advanced Facilities Designed Around Patient Care
           </h2>
-          <div className="h-1 w-20 bg-blue-500 mx-auto mt-4 rounded-full" />
+          <div className="h-1 w-24 bg-gradient-to-r from-blue-600 to-teal-500 mx-auto mt-4 rounded-full" />
           <p className="text-gray-500 dark:text-zinc-400 mt-4 text-sm sm:text-base leading-relaxed">
-            Review the clinical setups engineered to ensure sterile compliance, diagnostics speed, and complete patient comfort.
+            Clinical setups engineered for sterile compliance, diagnostics speed, and complete patient comfort.
           </p>
         </div>
 
-        {/* 6 Custom Context Cards Grid */}
+        {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {items.map((item, idx) => (
+          {ITEMS.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 40, rotateX: 12 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative overflow-hidden rounded-[24px] bg-gradient-to-br from-white to-[#F8FAFC] dark:from-zinc-900 dark:to-zinc-850 p-8 border border-slate-100 dark:border-zinc-800 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.12)] hover:border-blue-400/30 dark:hover:border-blue-500/30 transition-all duration-500 flex flex-col justify-between min-h-[250px]"
+              style={{ perspective: 800 }}
+              className="shimmer-card group relative overflow-hidden rounded-[28px] bg-gradient-to-br from-white to-[#F8FAFC] dark:from-zinc-900 dark:to-zinc-850 p-8 border border-slate-100 dark:border-zinc-800 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_24px_50px_-15px_rgba(37,99,235,0.15)] hover:border-blue-300/40 dark:hover:border-blue-500/30 transition-all duration-500 flex flex-col justify-between min-h-[280px]"
             >
-              {/* Subtle background glow on hover */}
-              <div className="absolute -right-16 -top-16 w-32 h-32 bg-blue-500/5 dark:bg-blue-400/5 rounded-full blur-2xl group-hover:bg-blue-500/10 dark:group-hover:bg-blue-400/10 transition-all duration-500 pointer-events-none" />
+              {/* Hover gradient bg */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`} />
 
-              {/* Card top half */}
+              {/* Subtle right-top glow */}
+              <div className="absolute -right-10 -top-10 w-28 h-28 bg-blue-500/4 dark:bg-blue-400/4 rounded-full blur-2xl group-hover:bg-blue-500/8 transition-all duration-500 pointer-events-none" />
+
               <div className="relative z-10">
-                {/* Icon Capsule */}
-                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 shadow-sm group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white dark:group-hover:bg-blue-500 dark:group-hover:text-white transition-all duration-500 ease-out">
-                  {item.icon}
+                {/* Icon with spinning ring */}
+                <div className="mb-6 relative inline-flex">
+                  <div className={`h-14 w-14 rounded-2xl ${item.iconBg} flex items-center justify-center shadow-sm transition-all duration-500 ease-out group-hover:scale-110 relative z-10`}>
+                    {item.icon}
+                  </div>
+                  {/* Spinning ring on hover */}
+                  <div
+                    className={`absolute -inset-1 rounded-2xl border-2 ${item.ringColor} opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:animate-spin-slow`}
+                  />
                 </div>
-                
+
                 {/* Title */}
-                <h3 className="text-xl font-bold text-[#0B1F3A] dark:text-white mb-3 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-[#0B1F3A] dark:text-white mb-2 leading-snug group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                   {item.title}
                 </h3>
-                
+
                 {/* Description */}
                 <p className="text-sm text-slate-500 dark:text-zinc-400 leading-relaxed font-medium">
                   {item.desc}
                 </p>
+
+                {/* Per-card stat */}
+                <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50 text-[11px] font-bold text-blue-600 dark:text-blue-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                  {item.stat}
+                </div>
               </div>
 
-              {/* Design line indicator */}
-              <div className="relative z-10 w-10 h-[3px] bg-blue-500/20 dark:bg-blue-400/20 group-hover:bg-blue-600 dark:group-hover:bg-blue-450 group-hover:w-20 transition-all duration-500 mt-6 rounded-full" />
+              {/* Bottom animated line */}
+              <div className="relative z-10 mt-6">
+                <div className="h-[3px] bg-blue-500/15 dark:bg-blue-400/15 rounded-full overflow-hidden">
+                  <div className="h-full w-0 group-hover:w-full bg-gradient-to-r from-blue-600 to-teal-500 transition-all duration-700 rounded-full" />
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
