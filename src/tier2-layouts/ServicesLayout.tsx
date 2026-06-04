@@ -87,7 +87,7 @@ export default function Services({ onOpenBooking }: ServicesProps) {
       <div className="absolute -top-20 -right-20 w-96 h-96 bg-blue-400/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-80 h-80 bg-teal-300/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1920px] px-2 sm:px-4 lg:px-6 xl:px-8">
 
         {/* Section Header */}
         <motion.div

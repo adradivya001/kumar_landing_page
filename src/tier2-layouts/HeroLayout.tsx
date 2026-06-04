@@ -23,7 +23,7 @@ const PARTICLES = [
 const STATS = [
   { label: "Patients Served", value: "50,000+" },
   { label: "Expert Specialists", value: "20+" },
-  { label: "Years of Excellence", value: "15+" },
+  { label: "Years of Excellence", value: "5+" },
   { label: "Emergency Support", value: "24/7" },
 ];
 
@@ -72,19 +72,52 @@ export default function Hero({ onOpenBooking }: HeroProps) {
   return (
     <section
       id="home"
-      className="relative min-h-[96vh] flex items-center pt-20 pb-16 overflow-hidden font-sans animate-gradient-shift"
+      className="relative min-h-[96vh] flex items-center pt-36 pb-16 overflow-hidden font-sans animate-gradient-shift"
       style={{
         background: "linear-gradient(135deg, #EAF3FF 0%, #f0f8ff 25%, #ffffff 50%, #f0fdfa 75%, #EAF3FF 100%)",
         backgroundSize: "300% 300%",
       }}
     >
+      {/* Floating Interactive Wave Lines (SVG Animation) */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-85">
+        <svg
+          className="absolute w-full h-[320px] -top-12 left-0 text-blue-300/40 dark:text-blue-900/40 fill-current animate-float"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+          style={{ animationDuration: '8s' }}
+        >
+          <path d="M0,192C240,245.3,480,245.3,720,213.3C960,181.3,1200,117.3,1440,128L1440,0L1200,0L960,0L720,0L480,0L240,0L0,0Z" />
+        </svg>
+        <svg
+          className="absolute w-full h-[360px] -top-8 left-0 text-teal-200/35 dark:text-teal-950/30 fill-current"
+          viewBox="0 0 1440 360"
+          preserveAspectRatio="none"
+          style={{
+            animation: 'float 12s ease-in-out infinite',
+            animationDelay: '1.5s',
+          }}
+        >
+          <path d="M0,160C280,240,560,200,840,180C1120,160,1400,220,1440,240L1440,0L1120,0L840,0L560,0L280,0L0,0Z" />
+        </svg>
+        <svg
+          className="absolute w-full h-[480px] -bottom-24 left-0 text-blue-200/50 dark:text-blue-900/40 fill-current"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+          style={{
+            animation: 'float-x 16s ease-in-out infinite',
+            transformOrigin: 'bottom center',
+          }}
+        >
+          <path d="M0,224L48,213.3C96,203,192,181,288,186.7C384,192,480,224,576,213.3C672,203,768,149,864,138.7C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" />
+        </svg>
+      </div>
+
       {/* Medical Grid */}
       <div className="absolute inset-0 medical-grid opacity-60 pointer-events-none z-0" />
 
       {/* Animated backdrop glows */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-blue-300/25 to-indigo-300/15 blur-3xl pointer-events-none animate-float" />
-      <div className="absolute -right-20 top-1/4 w-[550px] h-[550px] rounded-full bg-gradient-to-br from-teal-300/20 to-blue-200/10 blur-3xl pointer-events-none" style={{ animationDelay: "1s" }} />
-      <div className="absolute bottom-[-10%] left-[8%] w-[600px] h-[600px] rounded-full bg-blue-400/5 blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-blue-300/20 to-indigo-300/10 blur-3xl pointer-events-none animate-float" />
+      <div className="absolute -right-20 top-1/4 w-[550px] h-[550px] rounded-full bg-gradient-to-br from-teal-300/15 to-blue-200/5 blur-3xl pointer-events-none" style={{ animationDelay: "1s" }} />
 
       {/* Floating Particles */}
       {PARTICLES.map((p, i) => (
@@ -101,7 +134,7 @@ export default function Hero({ onOpenBooking }: HeroProps) {
         </div>
       ))}
 
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-8 lg:pl-16 lg:pr-12 w-full relative z-10">
+      <div className="mx-auto max-w-[1920px] px-2 sm:px-4 lg:px-6 xl:px-8 w-full relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 
           {/* ── Text Content ── */}
@@ -112,9 +145,9 @@ export default function Hero({ onOpenBooking }: HeroProps) {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EAF3FF] border border-blue-200 text-xs font-bold text-blue-700 uppercase tracking-widest shadow-sm"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF3FF]/90 border border-blue-200 text-xs font-bold text-blue-700 uppercase tracking-widest shadow-[0_0_15px_rgba(29,78,216,0.2)] hover:shadow-[0_0_20px_rgba(29,78,216,0.35)] transition-shadow duration-300"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]" />
               <span>Leading Multispeciality Healthcare in Anantapur</span>
             </motion.div>
 
@@ -125,10 +158,10 @@ export default function Hero({ onOpenBooking }: HeroProps) {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl sm:text-5xl lg:text-[54px] font-black tracking-tight text-[#0B1F3A] leading-[1.1] font-sans"
             >
-              Trusted. Experienced.
+              Trusted Healthcare
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">
-                Always By Your Side.
+                for Every Family
               </span>
             </motion.h1>
 
@@ -139,7 +172,7 @@ export default function Hero({ onOpenBooking }: HeroProps) {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl font-medium"
             >
-              From expert orthopedic care to comprehensive multispeciality services — combining medical excellence, advanced technology, and compassionate support to help every patient recover with confidence.
+              Kumar Hospital offers expert Orthopedic and Multispeciality care with experienced doctors, modern facilities, and 24/7 patient support in Anantapur.
             </motion.p>
 
             {/* CTAs */}
@@ -194,9 +227,7 @@ export default function Hero({ onOpenBooking }: HeroProps) {
               {STATS.map((stat, i) => (
                 <div
                   key={i}
-                  className={`flex items-center gap-2 transition-all duration-500 ${
-                    i === statIdx ? "opacity-100 scale-105" : "opacity-40 scale-100"
-                  }`}
+                  className="flex items-center gap-2 opacity-100"
                 >
                   <span className="text-lg font-black text-blue-600">{stat.value}</span>
                   <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">{stat.label}</span>

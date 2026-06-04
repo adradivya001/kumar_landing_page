@@ -124,7 +124,7 @@ export default function AppointmentBooking() {
       <div className="absolute -top-20 -left-20 w-96 h-96 bg-blue-400/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-10 w-72 h-72 bg-teal-300/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="mx-auto w-full max-w-5xl px-2 sm:px-4 lg:px-6 xl:px-8 relative z-10">
 
         {/* Section Header */}
         <motion.div
@@ -146,7 +146,7 @@ export default function AppointmentBooking() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-5xl mx-auto items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 w-full mx-auto items-stretch">
 
           {/* ── Form Column ── */}
           <div className="lg:col-span-7 bg-[#F8FAFC] dark:bg-zinc-850 p-6 sm:p-8 rounded-[32px] border border-gray-150 dark:border-zinc-800 shadow-lg relative min-h-[500px] flex flex-col">

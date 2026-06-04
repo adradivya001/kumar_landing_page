@@ -59,7 +59,7 @@ export default function Contact() {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-400/4 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-10 w-72 h-72 bg-teal-300/4 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="mx-auto w-full max-w-[1920px] px-2 sm:px-4 lg:px-6 xl:px-8 relative z-10">
 
         {/* Section Header */}
         <motion.div
@@ -88,7 +88,7 @@ export default function Contact() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch max-w-6xl mx-auto"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch w-full mx-auto"
         >
 
           {/* ── Left Column: Map + Directions ── */}

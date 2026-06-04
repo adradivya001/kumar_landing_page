@@ -43,23 +43,41 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
 
   return (
     <>
-      {/* ── Main Navbar ── */}
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
           isScrolled
-            ? "bg-[#F8FAFC]/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-slate-200/50 dark:border-zinc-850/50 shadow-sm py-2 pointer-events-auto"
-            : "bg-transparent py-4 pointer-events-none"
+            ? "bg-[#F8FAFC]/90 dark:bg-zinc-950/90 backdrop-blur-md border-b border-slate-200/50 dark:border-zinc-850/50 shadow-sm pt-2 pb-2 pointer-events-auto"
+            : "bg-transparent pt-0 pb-2 pointer-events-none"
         )}
       >
-        <div className="mx-auto max-w-[92rem] px-4 sm:px-6 lg:px-12 flex items-center justify-between">
-          {/* Left spacer to keep center pill centered now that logo is removed */}
-          <div className="hidden lg:block w-[140px] flex-shrink-0" />
+        <div className={cn(
+          "mx-auto max-w-full px-1 sm:px-3 lg:px-5 flex items-center justify-start gap-6 transition-all duration-300",
+          isScrolled ? "-mt-1" : "-mt-5"
+        )}>
+          <a href="#home" className="pointer-events-auto flex items-center gap-0">
+            <img
+              src="/logo.png"
+              alt="Kumar Hospital Logo"
+              className={cn(
+                "w-auto object-contain flex-shrink-0 transition-all duration-300",
+                isScrolled ? "h-[60px]" : "h-[130px]"
+              )}
+            />
+            <img
+              src="/logo-text.png"
+              alt="Kumar Hospital"
+              className={cn(
+                "w-auto object-contain transition-all duration-300",
+                isScrolled ? "h-[80px] -ml-2" : "h-[200px] -ml-6"
+              )}
+            />
+          </a>
 
           {/* Center pill — nav links only */}
           <nav
             className={cn(
-              "pointer-events-auto hidden lg:flex items-center gap-3 px-10 py-2.5 rounded-full border transition-all duration-300",
+              "pointer-events-auto hidden lg:flex items-center gap-5 px-14 py-2.5 rounded-full border transition-all duration-300",
               isScrolled
                 ? "bg-[#0B1F3A] border-zinc-700 shadow-xl backdrop-blur-xl"
                 : "bg-[#0B1F3A]/95 border-zinc-700/70 backdrop-blur-md"
@@ -72,7 +90,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                   key={link.name}
                   href={link.href}
                   className={cn(
-                    "relative px-3.5 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-widest transition-all duration-200",
+                    "relative px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200",
                     active
                       ? "text-white bg-white/10"
                       : "text-zinc-200 hover:text-white hover:bg-white/5"
@@ -92,11 +110,11 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
           </nav>
 
           {/* Right actions */}
-          <div className="pointer-events-auto flex items-center gap-2">
+          <div className="pointer-events-auto flex items-center gap-2 ml-auto">
             {/* Book CTA */}
             <button
               onClick={onOpenBooking}
-              className="hidden lg:flex items-center gap-1.5 bg-cyan-500 hover:bg-cyan-600 text-white text-[11px] font-bold uppercase tracking-wider px-5 py-2.5 rounded-full shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.03] active:scale-[0.97] animate-glow-cyan"
+              className="hidden lg:flex items-center gap-2 bg-cyan-500 hover:bg-cyan-600 text-white text-[11px] font-bold uppercase tracking-wider px-10 py-2.5 rounded-full shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.03] active:scale-[0.97] animate-glow-cyan"
             >
               <Calendar className="h-3.5 w-3.5" />
               <span>Book</span>

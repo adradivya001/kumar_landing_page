@@ -73,7 +73,7 @@ export default function Facilities() {
       <div className="absolute top-10 right-10 w-96 h-96 bg-blue-500/4 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-10 w-80 h-80 bg-teal-300/4 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1920px] px-2 sm:px-4 lg:px-6 xl:px-8">
 
         {/* Section Header */}
         <motion.div
@@ -96,7 +96,7 @@ export default function Facilities() {
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full mb-20">
           {ITEMS.map((item, idx) => (
             <motion.div
               key={idx}

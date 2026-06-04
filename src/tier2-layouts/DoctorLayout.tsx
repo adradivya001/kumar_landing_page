@@ -201,7 +201,7 @@ export default function Doctor({ onOpenBooking }: DoctorProps) {
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-400/5 blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] rounded-full bg-teal-400/5 blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="mx-auto w-full max-w-[1920px] px-2 sm:px-4 lg:px-6 xl:px-8 relative z-10">
 
         {/* Section Header */}
         <motion.div

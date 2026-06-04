@@ -7,45 +7,47 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0b1626] text-slate-300 font-sans border-t border-slate-800/80 relative overflow-hidden py-3 sm:py-4">
+    <footer className="bg-[#0b1626] text-slate-300 font-sans border-t border-slate-800/80 relative overflow-hidden py-2 sm:py-3">
       {/* Subtle background glow effect */}
       <div className="absolute top-0 left-1/4 w-[250px] h-[250px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
-      
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-3">
-        
-        {/* Main Content Row */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 lg:gap-4">
-          
-          {/* Hospital Logo & Title */}
-          <div className="flex items-center gap-3">
-            <img
-              src="/kumar-hospitals.png"
-              alt="Kumar Hospital Logo"
-              className="h-12 w-auto object-contain"
-            />
-            <div className="h-5 w-[1px] bg-slate-700/50 hidden sm:block" />
-            <span className="text-xs sm:text-sm font-bold text-white tracking-wide whitespace-nowrap">
-              Kumar Ortho & Multispeciality Hospital
-            </span>
-          </div>
 
-          {/* Contact & Location Details */}
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-slate-400 font-medium">
-            <span className="flex items-center gap-1">
-              <span>📍</span> Vidyuth Nagar, Anantapur
-            </span>
-            
-            <span className="text-slate-700 hidden md:inline">|</span>
-            
-            <a href="tel:08554245678" className="flex items-center gap-1 hover:text-white transition-colors">
-              <span>📞</span> 08554-245678
+      <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-2">
+
+        {/* Main Content Row */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 lg:gap-3">
+
+          <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8 flex-grow">
+            {/* Hospital Logo & Title */}
+            <a href="#home" className="flex items-center gap-0 flex-shrink-0">
+              <img
+                src="/logo.png"
+                alt="Kumar Hospital Logo"
+                className="h-[60px] w-auto object-contain flex-shrink-0"
+              />
+              <img
+                src="/logo-text.png"
+                alt="Kumar Hospital"
+                className="h-[70px] w-auto object-contain -ml-3"
+              />
             </a>
-            
-            <span className="text-slate-700 hidden md:inline">|</span>
-            
-            <a href="tel:+919440275556" className="flex items-center gap-1 hover:text-white transition-colors">
-              <span>📱</span> +91 94402 75556
-            </a>
+
+            <div className="flex flex-wrap items-center gap-x-16 gap-y-3 text-sm sm:text-base text-white font-semibold lg:ml-16">
+              <span className="flex items-center gap-1.5">
+                <span>📍</span> Vidyuth Nagar, Anantapur
+              </span>
+
+              <span className="text-slate-600 hidden md:inline px-3">|</span>
+
+              <a href="tel:08554245678" className="flex items-center gap-1.5 hover:text-cyan-300 transition-colors">
+                <span>📞</span> 08554-245678
+              </a>
+
+              <span className="text-slate-600 hidden md:inline px-3">|</span>
+
+              <a href="tel:+919440275556" className="flex items-center gap-1.5 hover:text-cyan-300 transition-colors">
+                <span>📱</span> +91 94402 75556
+              </a>
+            </div>
           </div>
 
           {/* Compact Action Buttons */}
