@@ -219,11 +219,13 @@ export default function Doctor({ onOpenBooking }: DoctorProps) {
         </div>
       </div>
 
-      {/* Responsive Doctor Grid (No duplication) */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+      {/* Horizontal scrolling row */}
+      <div className="w-full overflow-x-auto pb-8 relative z-10 scroll-smooth snap-x snap-mandatory scrollbar-thin scrollbar-thumb-blue-600/20 scrollbar-track-transparent">
+        <div className="flex gap-6 md:gap-8 px-4 sm:px-8 lg:px-12 w-max">
           {DOCTORS.map((doc, idx) => (
-            <DoctorCard key={`doc-${idx}`} doc={doc} onOpenBooking={onOpenBooking} />
+            <div key={`doc-${idx}`} className="shrink-0 snap-start">
+              <DoctorCard doc={doc} onOpenBooking={onOpenBooking} />
+            </div>
           ))}
         </div>
       </div>
