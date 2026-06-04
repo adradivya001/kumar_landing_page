@@ -10,7 +10,6 @@ import Preloader from "@/tier1-components/Preloader";
 // Selected Sections
 import Hero from "@/tier2-layouts/HeroLayout";
 import Services from "@/tier2-layouts/ServicesLayout";
-import InsurancePartners from "@/tier2-layouts/InsurancePartnersLayout";
 import Doctor from "@/tier2-layouts/DoctorLayout";
 import WhyChooseUs from "@/tier2-layouts/WhyChooseUsLayout";
 import Facilities from "@/tier2-layouts/FacilitiesLayout";
@@ -43,9 +42,6 @@ export default function Home() {
 
         {/* 2. Specialties & Departments */}
         <Services onOpenBooking={openBooking} />
-
-        {/* 2.5. Cashless TPA Insurance Partners (Trust builder) */}
-        <InsurancePartners />
 
         {/* 3. Specialists Showcase */}
         <Doctor onOpenBooking={openBooking} />
