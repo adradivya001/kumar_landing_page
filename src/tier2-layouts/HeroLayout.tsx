@@ -229,37 +229,6 @@ export default function Hero({ onOpenBooking }: HeroProps) {
                 alt="Kumar Hospital Facilities"
                 className="w-full h-auto object-contain rounded-[32px] border border-white/80 shadow-[0_20px_60px_rgba(37,99,235,0.12)] transition-shadow duration-500 hover:shadow-[0_24px_70px_rgba(37,99,235,0.2)]"
               />
-
-              {/* Floating badge overlays on image */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.9, duration: 0.5 }}
-                className="absolute -left-6 bottom-16 bg-white rounded-2xl shadow-xl px-4 py-2.5 border border-gray-100 flex items-center gap-2"
-              >
-                <div className="h-8 w-8 rounded-full bg-blue-600 flex items-center justify-center">
-                  <Activity className="h-4 w-4 text-white" />
-                </div>
-                <div>
-                  <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Orthopedic Surgeries</div>
-                  <div className="text-sm font-black text-[#0B1F3A]">400+ / Year</div>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.1, duration: 0.5 }}
-                className="absolute -right-6 top-12 bg-white rounded-2xl shadow-xl px-4 py-2.5 border border-gray-100 flex items-center gap-2"
-              >
-                <div className="h-8 w-8 rounded-full bg-emerald-500 flex items-center justify-center">
-                  <Heart className="h-4 w-4 text-white" />
-                </div>
-                <div>
-                  <div className="text-[10px] font-bold text-gray-500 uppercase tracking-wide">Patient Satisfaction</div>
-                  <div className="text-sm font-black text-[#0B1F3A]">98.4%</div>
-                </div>
-              </motion.div>
             </motion.div>
           </div>
 
