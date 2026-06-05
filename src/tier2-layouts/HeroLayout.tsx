@@ -185,29 +185,6 @@ export default function Hero({ onOpenBooking }: HeroProps) {
             />
           </div>
 
-          {/* Birds Flock Animation */}
-          <div className="bird-flock absolute inset-0 z-15">
-            <div className="bird-holder bird-holder-1">
-              <svg className="bird-svg" viewBox="0 0 24 24">
-                <path d="M2 10s4-6 10 0c6-6 10 0 10 0s-4 4-10 1c-6 3-10-1-10-1z" />
-              </svg>
-            </div>
-            <div className="bird-holder bird-holder-2">
-              <svg className="bird-svg bird-svg-2" viewBox="0 0 24 24">
-                <path d="M2 10s4-6 10 0c6-6 10 0 10 0s-4 4-10 1c-6 3-10-1-10-1z" />
-              </svg>
-            </div>
-            <div className="bird-holder bird-holder-3">
-              <svg className="bird-svg bird-svg-3" viewBox="0 0 24 24">
-                <path d="M2 10s4-6 10 0c6-6 10 0 10 0s-4 4-10 1c-6 3-10-1-10-1z" />
-              </svg>
-            </div>
-            <div className="bird-holder bird-holder-4">
-              <svg className="bird-svg bird-svg-4" viewBox="0 0 24 24">
-                <path d="M2 10s4-6 10 0c6-6 10 0 10 0s-4 4-10 1c-6 3-10-1-10-1z" />
-              </svg>
-            </div>
-          </div>
 
           {/* Soft Medical Radial Blue Glow Overlay */}
           <div className="absolute bottom-1/3 right-1/4 w-[350px] h-[350px] bg-sky-400/20 rounded-full blur-3xl pointer-events-none z-10" />
