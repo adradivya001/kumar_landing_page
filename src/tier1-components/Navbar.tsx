@@ -57,8 +57,8 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
               src="/logo.png"
               alt="Kumar Hospital Logo"
               className={cn(
-                "w-auto object-contain flex-shrink-0 transition-all duration-300",
-                isScrolled ? "h-12" : "h-14"
+                "object-contain flex-shrink-0 transition-all duration-300",
+                isScrolled ? "h-10 w-10" : "h-12 w-12"
               )}
             />
             <img
@@ -66,7 +66,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
               alt="Kumar Hospital"
               className={cn(
                 "w-auto object-contain flex-shrink-0 transition-all duration-300",
-                isScrolled ? "h-9" : "h-11"
+                isScrolled ? "h-8" : "h-10"
               )}
             />
           </a>
