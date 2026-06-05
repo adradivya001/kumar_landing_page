@@ -7,9 +7,9 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0b1626] text-slate-300 font-sans border-t border-slate-800/80 relative overflow-hidden py-1">
+    <footer className="bg-[#F5FBFC] dark:bg-[#090d16] text-slate-600 dark:text-zinc-400 font-sans border-t border-slate-200/80 dark:border-zinc-800/80 relative overflow-hidden py-1">
       {/* Subtle background glow effect */}
-      <div className="absolute top-0 left-1/4 w-[250px] h-[250px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-[250px] h-[250px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-1">
 
@@ -31,20 +31,20 @@ export default function Footer() {
               />
             </a>
 
-            <div className="flex flex-wrap items-center gap-x-16 gap-y-3 text-sm sm:text-base text-white font-semibold lg:ml-16">
+            <div className="flex flex-wrap items-center gap-x-16 gap-y-3 text-sm sm:text-base text-slate-800 dark:text-white font-semibold lg:ml-16">
               <span className="flex items-center gap-1.5">
                 <span>📍</span> Vidyuth Nagar, Anantapur
               </span>
 
-              <span className="text-slate-600 hidden md:inline px-3">|</span>
+              <span className="text-slate-300 dark:text-zinc-700 hidden md:inline px-3">|</span>
 
-              <a href="tel:08554245678" className="flex items-center gap-1.5 hover:text-cyan-300 transition-colors">
+              <a href="tel:08554245678" className="flex items-center gap-1.5 hover:text-[#0097A7] dark:hover:text-cyan-400 transition-colors">
                 <span>📞</span> 08554-245678
               </a>
 
-              <span className="text-slate-600 hidden md:inline px-3">|</span>
+              <span className="text-slate-300 dark:text-zinc-700 hidden md:inline px-3">|</span>
 
-              <a href="tel:+919440275556" className="flex items-center gap-1.5 hover:text-cyan-300 transition-colors">
+              <a href="tel:+919440275556" className="flex items-center gap-1.5 hover:text-[#0097A7] dark:hover:text-cyan-400 transition-colors">
                 <span>📱</span> +91 94402 75556
               </a>
             </div>
@@ -80,7 +80,7 @@ export default function Footer() {
         </div>
 
         {/* Minimal Bottom Bar */}
-        <div className="border-t border-slate-800/40 pt-1 flex items-center justify-between text-[10px] text-slate-500 font-medium">
+        <div className="border-t border-slate-200/80 dark:border-zinc-800/40 pt-1 flex items-center justify-between text-[10px] text-slate-400 dark:text-zinc-500 font-medium">
           <p>© Kumar Hospital, Anantapur. All Rights Reserved.</p>
         </div>
 
