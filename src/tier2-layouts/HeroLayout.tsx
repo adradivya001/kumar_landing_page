@@ -1,270 +1,228 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
-import { motion, useSpring, useTransform } from "framer-motion";
-import { Phone, Calendar, ArrowRight, Activity, Heart, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Calendar, Phone, ArrowRight, Star } from "lucide-react";
 
 interface HeroProps {
   onOpenBooking: () => void;
 }
 
+// 60FPS Count-up Counter Component
+function Counter({ value, duration = 2000 }: { value: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const num = parseInt(value.replace(/\D/g, ""), 10);
+  const suffix = value.replace(/\d/g, "");
 
-const PARTICLES = [
-  { icon: <Plus className="h-3 w-3" />, x: "12%", y: "18%", delay: 0, color: "text-blue-400" },
-  { icon: <Heart className="h-3 w-3" />, x: "85%", y: "14%", delay: 0.8, color: "text-red-400" },
-  { icon: <Activity className="h-3 w-3" />, x: "7%", y: "70%", delay: 1.5, color: "text-teal-400" },
-  { icon: <Plus className="h-4 w-4" />, x: "90%", y: "60%", delay: 0.4, color: "text-indigo-400" },
-  { icon: <Heart className="h-2.5 w-2.5" />, x: "75%", y: "80%", delay: 2, color: "text-pink-400" },
-  { icon: <Plus className="h-2.5 w-2.5" />, x: "30%", y: "88%", delay: 1.2, color: "text-blue-300" },
-  { icon: <Activity className="h-3 w-3" />, x: "60%", y: "8%", delay: 1.8, color: "text-teal-300" },
-  { icon: <Heart className="h-3 w-3" />, x: "50%", y: "92%", delay: 0.6, color: "text-red-300" },
-];
+  useEffect(() => {
+    if (isNaN(num) || value.includes("/")) return;
+    let startTimestamp: number | null = null;
+    let animFrame: number;
 
-const STATS = [
-  { label: "Patients Served", value: "50,000+" },
-  { label: "Expert Specialists", value: "20+" },
-  { label: "Years of Excellence", value: "5+" },
-  { label: "Emergency Support", value: "24/7" },
-];
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      // easeOutQuad curve for smooth decelerating animation
+      const easedProgress = progress * (2 - progress);
+      setCount(Math.floor(easedProgress * num));
+      if (progress < 1) {
+        animFrame = window.requestAnimationFrame(step);
+      }
+    };
+    animFrame = window.requestAnimationFrame(step);
+    return () => window.cancelAnimationFrame(animFrame);
+  }, [num, duration, value]);
+
+  if (isNaN(num) || value.includes("/")) {
+    return <span>{value}</span>;
+  }
+  return <span>{count.toLocaleString()}{suffix}</span>;
+}
 
 export default function Hero({ onOpenBooking }: HeroProps) {
-  const [statIdx, setStatIdx] = useState(0);
-  const imgRef = useRef<HTMLDivElement>(null);
-
-  // Mouse parallax
-  const mouseX = useSpring(0, { stiffness: 50, damping: 20 });
-  const mouseY = useSpring(0, { stiffness: 50, damping: 20 });
-  const imgX = useTransform(mouseX, [-1, 1], [-8, 8]);
-  const imgY = useTransform(mouseY, [-1, 1], [-5, 5]);
-
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    const x = (e.clientX / window.innerWidth) * 2 - 1;
-    const y = (e.clientY / window.innerHeight) * 2 - 1;
-    mouseX.set(x);
-    mouseY.set(y);
-  }, [mouseX, mouseY]);
-
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [handleMouseMove]);
-
-  // Stats ticker
-  useEffect(() => {
-    const t = setInterval(() => setStatIdx((prev) => (prev + 1) % STATS.length), 2200);
-    return () => clearInterval(t);
-  }, []);
-
-  // Ripple effect
-  const handleRipple = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const btn = e.currentTarget;
-    const circle = document.createElement("span");
-    const diameter = Math.max(btn.clientWidth, btn.clientHeight);
-    const radius = diameter / 2;
-    const rect = btn.getBoundingClientRect();
-    circle.style.cssText = `width:${diameter}px;height:${diameter}px;left:${e.clientX - rect.left - radius}px;top:${e.clientY - rect.top - radius}px`;
-    circle.className = "ripple-effect";
-    btn.querySelector(".ripple-effect")?.remove();
-    btn.appendChild(circle);
-    circle.addEventListener("animationend", () => circle.remove());
-  };
-
   return (
     <section
       id="home"
-      className="relative min-h-[96vh] flex items-center pt-36 pb-16 overflow-hidden font-sans animate-gradient-shift"
+      className="relative min-h-[85vh] lg:h-screen lg:max-h-[700px] xl:max-h-[760px] flex items-stretch overflow-hidden pt-24 lg:pt-[96px]"
       style={{
-        background: "linear-gradient(135deg, #EAF3FF 0%, #f0f8ff 25%, #ffffff 50%, #f0fdfa 75%, #EAF3FF 100%)",
-        backgroundSize: "300% 300%",
+        background: "linear-gradient(135deg, #F5FBFC 0%, #EAF7FA 40%, #FFFFFF 100%)",
       }}
     >
-      {/* Floating Interactive Wave Lines (SVG Animation) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-85">
-        <svg
-          className="absolute w-full h-[320px] -top-12 left-0 text-blue-300/40 dark:text-blue-900/40 fill-current animate-float"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-          style={{ animationDuration: '8s' }}
-        >
-          <path d="M0,192C240,245.3,480,245.3,720,213.3C960,181.3,1200,117.3,1440,128L1440,0L1200,0L960,0L720,0L480,0L240,0L0,0Z" />
-        </svg>
-        <svg
-          className="absolute w-full h-[360px] -top-8 left-0 text-teal-200/35 dark:text-teal-950/30 fill-current"
-          viewBox="0 0 1440 360"
-          preserveAspectRatio="none"
-          style={{
-            animation: 'float 12s ease-in-out infinite',
-            animationDelay: '1.5s',
-          }}
-        >
-          <path d="M0,160C280,240,560,200,840,180C1120,160,1400,220,1440,240L1440,0L1120,0L840,0L560,0L280,0L0,0Z" />
-        </svg>
-        <svg
-          className="absolute w-full h-[480px] -bottom-24 left-0 text-blue-200/50 dark:text-blue-900/40 fill-current"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-          style={{
-            animation: 'float-x 16s ease-in-out infinite',
-            transformOrigin: 'bottom center',
-          }}
-        >
-          <path d="M0,224L48,213.3C96,203,192,181,288,186.7C384,192,480,224,576,213.3C672,203,768,149,864,138.7C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" />
-        </svg>
-      </div>
+      {/* Background medical glows */}
+      <div className="absolute top-1/4 left-1/3 w-[600px] h-[600px] rounded-full bg-cyan-300/10 dark:bg-cyan-900/5 blur-3xl pointer-events-none z-0" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] rounded-full bg-blue-300/10 dark:bg-blue-900/5 blur-3xl pointer-events-none z-0" />
 
-      {/* Medical Grid */}
-      <div className="absolute inset-0 medical-grid opacity-60 pointer-events-none z-0" />
-
-      {/* Animated backdrop glows */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-blue-300/20 to-indigo-300/10 blur-3xl pointer-events-none animate-float" />
-      <div className="absolute -right-20 top-1/4 w-[550px] h-[550px] rounded-full bg-gradient-to-br from-teal-300/15 to-blue-200/5 blur-3xl pointer-events-none" style={{ animationDelay: "1s" }} />
-
-      {/* Floating Particles */}
-      {PARTICLES.map((p, i) => (
-        <div
-          key={i}
-          className={`absolute pointer-events-none z-0 ${p.color} opacity-50`}
-          style={{
-            left: p.x,
-            top: p.y,
-            animation: `float-x ${5 + i * 0.7}s ease-in-out ${p.delay}s infinite`,
-          }}
-        >
-          {p.icon}
-        </div>
-      ))}
-
-      <div className="mx-auto max-w-[1920px] px-2 sm:px-4 lg:px-6 xl:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-          {/* ── Text Content ── */}
-          <div className="lg:col-span-7 flex flex-col gap-6 text-left items-start justify-center max-w-3xl">
-
-            {/* Tag pill with live dot */}
+      {/* Split-Screen Grid */}
+      <div className="w-full h-full lg:h-full grid grid-cols-1 lg:grid-cols-12 items-stretch relative z-10">
+        
+        {/* ── LEFT SIDE (45%) ── */}
+        <div className="lg:col-span-5 flex flex-col justify-center px-6 sm:px-12 lg:pl-16 xl:pl-24 lg:pr-8 pt-6 lg:pt-8 pb-6 lg:pb-8 z-20">
+          
+          <div className="flex flex-col gap-3 lg:gap-4 items-start max-w-[650px] w-full">
+            
+            {/* Trust Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF3FF]/90 border border-blue-200 text-xs font-bold text-blue-700 uppercase tracking-widest shadow-[0_0_15px_rgba(29,78,216,0.2)] hover:shadow-[0_0_20px_rgba(29,78,216,0.35)] transition-shadow duration-300"
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/60 dark:bg-zinc-900/60 backdrop-blur-md border border-slate-200/50 dark:border-zinc-800/50 text-[10px] sm:text-[11px] font-bold text-[#0097A7] dark:text-cyan-400 uppercase tracking-widest shadow-sm"
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_#10b981]" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.7)]" />
               <span>Leading Multispeciality Healthcare in Anantapur</span>
             </motion.div>
 
-            {/* Headline */}
+            {/* Main Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-[54px] font-black tracking-tight text-[#0B1F3A] leading-[1.1] font-sans"
+              className="text-2xl sm:text-3xl lg:text-[36px] xl:text-[42px] font-bold tracking-tight text-[#0F172A] dark:text-white leading-[1.1] font-poppins"
             >
-              Trusted Healthcare
+              Best Bone, Joint &
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-teal-500">
-                for Every Family
-              </span>
+              <span className="text-[#0097A7] dark:text-cyan-400">Family Hospital</span>
+              <br />
+              in Anantapur
             </motion.h1>
 
-            {/* Subtext */}
+            {/* Supporting Description */}
             <motion.p
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl font-medium"
+              className="text-sm sm:text-base text-slate-500 dark:text-zinc-400 leading-relaxed font-sans"
             >
-              Kumar Hospital offers expert Orthopedic and Multispeciality care with experienced doctors, modern facilities, and 24/7 patient support in Anantapur.
+              Kumar Hospital helps you recover quickly from bone fractures, joint pains, and general health problems. We have friendly doctors, clean rooms, and 24/7 emergency care always ready for you.
             </motion.p>
 
-            {/* CTAs */}
+            {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-center mt-2"
+              className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto items-stretch sm:items-center mt-1"
             >
-              {/* Primary CTA with ripple */}
+              {/* Primary CTA */}
               <button
-                onClick={(e) => { handleRipple(e); onOpenBooking(); }}
-                className="btn-ripple w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-8 py-4 text-base font-bold text-white shadow-lg shadow-blue-600/25 hover:bg-blue-700 hover:scale-[1.02] transition-all active:scale-[0.98] animate-bounce-soft"
+                onClick={onOpenBooking}
+                className="flex items-center justify-center gap-2 rounded-full bg-[#0097A7] hover:bg-[#00BCD4] text-white text-sm font-bold px-6 py-3 shadow-lg shadow-[#0097A7]/20 hover:shadow-[#00BCD4]/30 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer border border-[#0097A7]/10"
               >
-                <Calendar className="h-5 w-5" />
+                <Calendar className="h-4.5 w-4.5 stroke-[2]" />
                 <span>Book Appointment</span>
+                <ArrowRight className="h-4.5 w-4.5 ml-0.5" />
               </button>
 
               {/* Secondary CTA */}
               <a
                 href="tel:+919440275556"
-                className="group w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl bg-white border border-gray-200 px-8 py-4 text-base font-bold text-[#0B1F3A] shadow-sm hover:bg-red-50/60 hover:border-red-200 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                className="flex items-center justify-center gap-2 rounded-full bg-white/40 dark:bg-zinc-850/40 backdrop-blur-sm border border-slate-200/80 dark:border-zinc-800 px-6 py-3 text-sm font-bold text-[#0F172A] dark:text-white shadow-sm hover:bg-red-50/50 dark:hover:bg-red-950/20 hover:border-red-200 transition-all hover:scale-[1.02] active:scale-95"
               >
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.7)]" />
                 <Phone className="h-4 w-4" />
-                <span>Emergency Helpline</span>
-                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <span>Emergency Care</span>
               </a>
             </motion.div>
 
-            {/* Live "Available Now" badge */}
+            {/* Patient Trust Section */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
-              className="flex items-center gap-3"
+              transition={{ delay: 0.6, duration: 0.5 }}
+              className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 border-t border-slate-200/50 dark:border-zinc-800/50 pt-4 w-full"
             >
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-700 uppercase tracking-wider">
-                <span className="live-dot" />
-                <span>Doctors Available Now</span>
+              <div className="flex items-center gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-4.5 w-4.5 fill-amber-400 text-amber-400" />
+                ))}
+                <span className="text-sm font-black text-[#0F172A] dark:text-white ml-1">4.9 Rating</span>
               </div>
-              <span className="text-[11px] text-gray-400 font-medium">OPD: 9 AM – 8 PM · Emergency: 24/7</span>
+              <span className="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 font-medium">
+                Trusted by thousands of families across Anantapur.
+              </span>
             </motion.div>
 
-            {/* Stats Ticker */}
+            {/* Statistics Section */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
-              className="flex items-center gap-5 mt-1 flex-wrap"
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full mt-2"
             >
-              {STATS.map((stat, i) => (
+              {[
+                { label: "Patients Served", value: "50,000+" },
+                { label: "Specialists", value: "6+" },
+                { label: "Departments", value: "15+" },
+                { label: "Emergency Care", value: "24/7" },
+              ].map((stat, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-2 opacity-100"
+                  className="bg-white/45 dark:bg-zinc-900/40 backdrop-blur-md rounded-2xl p-2.5 border border-white/50 dark:border-zinc-800 shadow-sm hover:shadow-md hover:border-[#0097A7]/20 transition-all duration-300 flex flex-col items-center text-center justify-center group cursor-pointer"
                 >
-                  <span className="text-lg font-black text-blue-600">{stat.value}</span>
-                  <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider">{stat.label}</span>
+                  <span className="text-lg sm:text-xl font-black text-[#0097A7] dark:text-cyan-400 group-hover:scale-105 transition-transform duration-300">
+                    <Counter value={stat.value} />
+                  </span>
+                  <span className="text-[9px] font-bold text-slate-500 dark:text-zinc-400 uppercase tracking-wider mt-1 leading-tight">
+                    {stat.label}
+                  </span>
                 </div>
               ))}
             </motion.div>
+
+          </div>
+        </div>
+
+        {/* ── RIGHT SIDE (55%) ── */}
+        <div className="lg:col-span-7 relative min-h-[400px] lg:min-h-full overflow-hidden flex items-end justify-center p-6 sm:p-10 lg:p-12 pb-0 sm:pb-0 lg:pb-0 z-10">
+          
+          {/* Main Building Image as a floating premium card */}
+          <div className="relative w-full h-full max-h-[500px] xl:max-h-[560px] flex items-end justify-center z-12">
+            <motion.img
+              src="/building.png"
+              alt="Kumar Hospital Building"
+              className="w-auto h-full max-h-full object-contain rounded-[24px] lg:rounded-[32px] shadow-2xl border border-slate-200/50 dark:border-zinc-800/50 select-none pointer-events-none"
+              animate={{ scale: [1, 1.03, 1] }}
+              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+            />
           </div>
 
-          {/* ── Image Column ── */}
-          <div className="lg:col-span-5 relative flex justify-center items-center w-full">
-            {/* Glowing backplates */}
-            <div className="absolute -inset-6 bg-gradient-to-tr from-blue-500/12 to-teal-400/12 rounded-[48px] blur-2xl opacity-80 pointer-events-none z-0" />
-            <div className="absolute -top-10 -left-10 w-52 h-52 bg-teal-300/15 rounded-full blur-3xl pointer-events-none z-0" />
-            <div className="absolute -bottom-10 -right-10 w-52 h-52 bg-blue-300/15 rounded-full blur-3xl pointer-events-none z-0" />
-
-            {/* Breathing ring */}
-            <div className="absolute inset-4 rounded-[40px] border-2 border-blue-300/20 animate-pulse pointer-events-none z-0" />
-
-            {/* Parallax image */}
-            <motion.div
-              ref={imgRef}
-              style={{ x: imgX, y: imgY }}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="w-full max-w-[540px] relative z-10"
-            >
-              <img
-                src="/images/hero_bg.png"
-                alt="Kumar Hospital Facilities"
-                className="w-full h-auto object-contain rounded-[32px] border border-white/80 shadow-[0_20px_60px_rgba(37,99,235,0.12)] transition-shadow duration-500 hover:shadow-[0_24px_70px_rgba(37,99,235,0.2)]"
-              />
-            </motion.div>
+          {/* Birds Flock Animation */}
+          <div className="bird-flock absolute inset-0 z-15">
+            <div className="bird-holder bird-holder-1">
+              <svg className="bird-svg" viewBox="0 0 24 24">
+                <path d="M2 10s4-6 10 0c6-6 10 0 10 0s-4 4-10 1c-6 3-10-1-10-1z" />
+              </svg>
+            </div>
+            <div className="bird-holder bird-holder-2">
+              <svg className="bird-svg bird-svg-2" viewBox="0 0 24 24">
+                <path d="M2 10s4-6 10 0c6-6 10 0 10 0s-4 4-10 1c-6 3-10-1-10-1z" />
+              </svg>
+            </div>
+            <div className="bird-holder bird-holder-3">
+              <svg className="bird-svg bird-svg-3" viewBox="0 0 24 24">
+                <path d="M2 10s4-6 10 0c6-6 10 0 10 0s-4 4-10 1c-6 3-10-1-10-1z" />
+              </svg>
+            </div>
+            <div className="bird-holder bird-holder-4">
+              <svg className="bird-svg bird-svg-4" viewBox="0 0 24 24">
+                <path d="M2 10s4-6 10 0c6-6 10 0 10 0s-4 4-10 1c-6 3-10-1-10-1z" />
+              </svg>
+            </div>
           </div>
+
+          {/* Soft Medical Radial Blue Glow Overlay */}
+          <div className="absolute bottom-1/3 right-1/4 w-[350px] h-[350px] bg-sky-400/20 rounded-full blur-3xl pointer-events-none z-10" />
+
 
         </div>
       </div>
+
+      {/* Bottom curved wave transition divider */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none">
+        <svg viewBox="0 0 1440 120" fill="none" preserveAspectRatio="none" className="w-full h-[40px] sm:h-[60px] translate-y-[2px]">
+          <path d="M0,64 C240,112 480,112 720,80 C960,48 1200,48 1440,80 L1440,120 L0,120 Z" className="fill-[#F5FBFC] dark:fill-[#090d16]" />
+        </svg>
+      </div>
+
     </section>
   );
 }

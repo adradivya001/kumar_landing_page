@@ -7,14 +7,14 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0b1626] text-slate-300 font-sans border-t border-slate-800/80 relative overflow-hidden py-2 sm:py-3">
+    <footer className="bg-[#0b1626] text-slate-300 font-sans border-t border-slate-800/80 relative overflow-hidden py-1">
       {/* Subtle background glow effect */}
       <div className="absolute top-0 left-1/4 w-[250px] h-[250px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-2">
+      <div className="mx-auto max-w-full px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col gap-1">
 
         {/* Main Content Row */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2 lg:gap-3">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-1 lg:gap-2">
 
           <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8 flex-grow">
             {/* Hospital Logo & Title */}
@@ -22,7 +22,7 @@ export default function Footer() {
               <img
                 src="/logo.png"
                 alt="Kumar Hospital Logo"
-                className="h-[60px] w-auto object-contain flex-shrink-0"
+                className="h-[70px] w-auto object-contain flex-shrink-0"
               />
               <img
                 src="/logo-text.png"
@@ -80,7 +80,7 @@ export default function Footer() {
         </div>
 
         {/* Minimal Bottom Bar */}
-        <div className="border-t border-slate-800/40 pt-2 flex items-center justify-between text-[10px] text-slate-500 font-medium">
+        <div className="border-t border-slate-800/40 pt-1 flex items-center justify-between text-[10px] text-slate-500 font-medium">
           <p>© Kumar Hospital, Anantapur. All Rights Reserved.</p>
         </div>
 

@@ -8,6 +8,10 @@
 }
 
 @theme inline {
+  --font-sans: var(--font-inter), var(--font-geist-sans), ui-sans-serif, system-ui;
+  --font-poppins: var(--font-poppins), sans-serif;
+  --font-inter: var(--font-inter), sans-serif;
+  
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
@@ -57,12 +61,21 @@ html {
 }
 
 body {
-  background-color: var(--background);
+  background: linear-gradient(
+    135deg,
+    #F5FBFC 0%,
+    #EAF7FA 40%,
+    #FFFFFF 100%
+  );
   color: var(--foreground);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+}
+
+.dark body {
+  background: #090d16;
 }
 
 /* Custom Scrollbar */
@@ -426,4 +439,93 @@ body {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(160px, -110px) scale(1.3); }
 }
+
+/* Redesigned Premium Glass Header */
+.glass-header {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 151, 167, 0.08);
+  box-shadow: 0 4px 30px rgba(15, 43, 92, 0.02);
+}
+.dark .glass-header {
+  background: rgba(9, 13, 22, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Flying Birds Animation */
+.bird-flock {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+  overflow: hidden;
+}
+
+.bird-holder {
+  position: absolute;
+  will-change: transform;
+}
+
+.bird-holder-1 {
+  animation: fly-path-1 26s linear infinite;
+  animation-delay: 0s;
+  top: 15%;
+}
+.bird-holder-2 {
+  animation: fly-path-2 30s linear infinite;
+  animation-delay: 4s;
+  top: 25%;
+}
+.bird-holder-3 {
+  animation: fly-path-3 34s linear infinite;
+  animation-delay: 8s;
+  top: 35%;
+}
+.bird-holder-4 {
+  animation: fly-path-4 28s linear infinite;
+  animation-delay: 12s;
+  top: 18%;
+}
+
+.bird-svg {
+  width: 40px;
+  height: 40px;
+  fill: #0097A7;
+  opacity: 0.55;
+  filter: blur(0.3px); /* Soft motion blur */
+  transform-origin: center;
+  animation: bird-wing-flap 0.7s ease-in-out infinite;
+}
+
+.bird-svg-2 { animation-duration: 0.8s; fill: #00BCD4; }
+.bird-svg-3 { animation-duration: 0.9s; fill: #4FC3F7; }
+.bird-svg-4 { animation-duration: 0.75s; fill: #0097A7; }
+
+@keyframes bird-wing-flap {
+  0%, 100% {
+    transform: scaleY(1) translateY(0);
+  }
+  50% {
+    transform: scaleY(-0.3) translateY(3px) rotate(-6deg);
+  }
+}
+
+@keyframes fly-path-1 {
+  0% { transform: translate(-10%, 0) scale(0.3) rotate(4deg); }
+  100% { transform: translate(115vw, -120px) scale(0.35) rotate(4deg); }
+}
+@keyframes fly-path-2 {
+  0% { transform: translate(-10%, 30px) scale(0.25) rotate(2deg); }
+  100% { transform: translate(115vw, -80px) scale(0.3) rotate(2deg); }
+}
+@keyframes fly-path-3 {
+  0% { transform: translate(-10%, 60px) scale(0.2) rotate(3deg); }
+  100% { transform: translate(115vw, -60px) scale(0.25) rotate(3deg); }
+}
+@keyframes fly-path-4 {
+  0% { transform: translate(-10%, 15px) scale(0.28) rotate(5deg); }
+  100% { transform: translate(115vw, -100px) scale(0.32) rotate(5deg); }
+}
+
 

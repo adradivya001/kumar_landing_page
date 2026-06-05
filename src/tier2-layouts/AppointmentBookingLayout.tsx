@@ -11,10 +11,9 @@ interface ValidationErrors {
   date?: string;
 }
 
-const STEPS = ["Patient Info", "Department", "Confirm"];
+
 
 export default function AppointmentBooking() {
-  const [step, setStep] = useState(0); // 0, 1, 2
 
   const [formData, setFormData] = useState({
     name: "",
@@ -57,14 +56,7 @@ export default function AppointmentBooking() {
     setTouched((prev) => ({ ...prev, [field]: true }));
   };
 
-  const handleNext = () => {
-    if (step === 0) {
-      setTouched({ name: true, phone: true });
-      if (!formData.name || formData.name.trim().length < 2 || !/^[A-Za-z\s.]+$/.test(formData.name)) return;
-      if (!formData.phone || !/^\d{10}$/.test(formData.phone)) return;
-    }
-    setStep((prev) => Math.min(prev + 1, 2));
-  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,7 +108,6 @@ export default function AppointmentBooking() {
     setTouched({});
     setIsSuccess(false);
     setDbError("");
-    setStep(0);
   };
 
   return (
@@ -151,259 +142,160 @@ export default function AppointmentBooking() {
           {/* ── Form Column ── */}
           <div className="lg:col-span-7 bg-[#F8FAFC] dark:bg-zinc-850 p-6 sm:p-8 rounded-[32px] border border-gray-150 dark:border-zinc-800 shadow-lg relative min-h-[500px] flex flex-col">
 
-            {/* Step Progress Bar */}
-            {!isSuccess && (
-              <div className="flex items-center mb-8">
-                {STEPS.map((label, i) => (
-                  <div key={i} className="flex items-center flex-1">
-                    <div className="flex flex-col items-center">
-                      <div
-                        className={`h-8 w-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-400 ${
-                          i < step
-                            ? "bg-blue-600 text-white shadow-md shadow-blue-600/25"
-                            : i === step
-                            ? "bg-blue-600 text-white ring-4 ring-blue-200 dark:ring-blue-800 shadow-md shadow-blue-600/25 scale-110"
-                            : "bg-gray-200 dark:bg-zinc-700 text-gray-500 dark:text-zinc-400"
-                        }`}
-                      >
-                        {i < step ? <CheckCircle className="h-4 w-4" /> : i + 1}
-                      </div>
-                      <span className={`text-[10px] mt-1 font-bold uppercase tracking-wider transition-colors ${i === step ? "text-blue-600 dark:text-blue-400" : "text-gray-400"}`}>
-                        {label}
-                      </span>
-                    </div>
-                    {i < STEPS.length - 1 && (
-                      <div className={`step-connector ${i < step ? "active" : ""} mx-1 mb-5`} />
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-
             <AnimatePresence mode="wait">
               {!isSuccess ? (
                 <motion.form
                   key="booking-form"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
                   transition={{ duration: 0.3 }}
                   onSubmit={handleSubmit}
-                  className="space-y-4 flex-1 flex flex-col"
+                  className="space-y-4 flex-1 flex flex-col justify-between"
                   noValidate
                 >
-                  {/* Step 0: Patient Info */}
-                  <AnimatePresence mode="wait">
-                    {step === 0 && (
-                      <motion.div
-                        key="step0"
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -15 }}
-                        className="space-y-4 flex-1"
-                      >
-                        {/* Name */}
+                  <div className="space-y-4 flex-grow">
+                    {/* Name */}
+                    <div className="relative">
+                      <label className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">
+                        <span>Patient Name <span className="text-red-500">*</span></span>
+                        {errors.name && <span className="text-[10px] text-red-500 font-semibold lowercase tracking-normal flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.name}</span>}
+                      </label>
+                      <div className="relative group/input">
+                        <User className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-blue-600 transition-transform group-focus-within/input:scale-110" />
+                        <input
+                          type="text"
+                          required
+                          placeholder="Enter patient full name"
+                          value={formData.name}
+                          onBlur={() => handleBlur("name")}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className={`w-full rounded-xl border bg-white text-gray-900 dark:bg-zinc-800 dark:text-white py-3 pl-10 pr-4 text-sm outline-none transition-all placeholder:text-gray-400 ${
+                            errors.name
+                              ? "border-red-400 ring-2 ring-red-100 dark:ring-red-950/20"
+                              : "border-gray-200 dark:border-zinc-700 focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20"
+                          }`}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Phone */}
+                    <div className="relative">
+                      <label className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">
+                        <span>Phone Number <span className="text-red-500">*</span></span>
+                        {errors.phone && <span className="text-[10px] text-red-500 font-semibold lowercase tracking-normal flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.phone}</span>}
+                      </label>
+                      <div className="relative group/input">
+                        <Phone className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-blue-600" />
+                        <input
+                          type="tel"
+                          required
+                          placeholder="10-digit mobile number"
+                          value={formData.phone}
+                          onBlur={() => handleBlur("phone")}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })}
+                          className={`w-full rounded-xl border bg-white text-gray-900 dark:bg-zinc-800 dark:text-white py-3 pl-10 pr-4 text-sm outline-none transition-all placeholder:text-gray-400 ${
+                            errors.phone
+                              ? "border-red-400 ring-2 ring-red-100 dark:ring-red-950/20"
+                              : "border-gray-200 dark:border-zinc-700 focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20"
+                          }`}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Grid for Dropdowns */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Specialty Department */}
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">Specialty Department</label>
                         <div className="relative">
-                          <label className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">
-                            <span>Patient Name <span className="text-red-500">*</span></span>
-                            {errors.name && <span className="text-[10px] text-red-500 font-semibold lowercase tracking-normal flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.name}</span>}
-                          </label>
-                          <div className="relative group/input">
-                            <User className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-blue-600 transition-transform group-focus-within/input:scale-110" />
-                            <input
-                              type="text"
-                              required
-                              placeholder="Enter patient full name"
-                              value={formData.name}
-                              onBlur={() => handleBlur("name")}
-                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                              className={`w-full rounded-xl border bg-white text-gray-900 dark:bg-zinc-800 dark:text-white py-3 pl-10 pr-4 text-sm outline-none transition-all placeholder:text-gray-400 ${
-                                errors.name
-                                  ? "border-red-400 ring-2 ring-red-100 dark:ring-red-950/20"
-                                  : "border-gray-200 dark:border-zinc-700 focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20"
-                              }`}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Phone */}
-                        <div className="relative">
-                          <label className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">
-                            <span>Phone Number <span className="text-red-500">*</span></span>
-                            {errors.phone && <span className="text-[10px] text-red-500 font-semibold lowercase tracking-normal flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.phone}</span>}
-                          </label>
-                          <div className="relative group/input">
-                            <Phone className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-blue-600" />
-                            <input
-                              type="tel"
-                              required
-                              placeholder="10-digit mobile number"
-                              value={formData.phone}
-                              onBlur={() => handleBlur("phone")}
-                              onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, "").slice(0, 10) })}
-                              className={`w-full rounded-xl border bg-white text-gray-900 dark:bg-zinc-800 dark:text-white py-3 pl-10 pr-4 text-sm outline-none transition-all placeholder:text-gray-400 ${
-                                errors.phone
-                                  ? "border-red-400 ring-2 ring-red-100 dark:ring-red-950/20"
-                                  : "border-gray-200 dark:border-zinc-700 focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20"
-                              }`}
-                            />
-                          </div>
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={handleNext}
-                          className="w-full mt-4 flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700 hover:scale-[1.01] active:scale-[0.99] transition-all"
-                        >
-                          <span>Next: Select Department</span>
-                          <ArrowRight className="h-4 w-4" />
-                        </button>
-                      </motion.div>
-                    )}
-
-                    {/* Step 1: Department + Doctor */}
-                    {step === 1 && (
-                      <motion.div
-                        key="step1"
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -15 }}
-                        className="space-y-4 flex-1"
-                      >
-                        <div>
-                          <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">Specialty Department</label>
-                          <div className="relative">
-                            <Stethoscope className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-blue-600" />
-                            <select
-                              value={formData.department}
-                              onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                              className="w-full rounded-xl border border-gray-200 bg-white text-gray-900 dark:bg-zinc-800 dark:text-white dark:border-zinc-700 py-3 pl-10 pr-4 text-sm outline-none transition-all focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20 appearance-none cursor-pointer"
-                            >
-                              <option>Orthopedics & Spine</option>
-                              <option>Cardiology</option>
-                              <option>Neurology</option>
-                              <option>General Medicine</option>
-                              <option>General Surgery</option>
-                              <option>Pediatrics</option>
-                              <option>Women&apos;s Health</option>
-                              <option>Diagnostics & Lab</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">Select Specialist</label>
-                          <div className="relative">
-                            <User className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-blue-600" />
-                            <select
-                              value={formData.doctor}
-                              onChange={(e) => setFormData({ ...formData, doctor: e.target.value })}
-                              className="w-full rounded-xl border border-gray-200 bg-white text-gray-900 dark:bg-zinc-800 dark:text-white dark:border-zinc-700 py-3 pl-10 pr-4 text-sm outline-none transition-all focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20 appearance-none cursor-pointer"
-                            >
-                              <option>Dr. Y. M. V. Kumar (Orthopedics)</option>
-                              <option>Dr. V. Karthik Reddy (General Medicine)</option>
-                              <option>Dr. A. Mithun Rakesh (General Medicine)</option>
-                              <option>Dr. K. Karun Kumar Reddy (General Surgery)</option>
-                              <option>Dr. Rajashekar Battula (Urology)</option>
-                              <option>Dr. C. Aruna Jyothi (Gynecology)</option>
-                            </select>
-                          </div>
-                        </div>
-
-                        <div>
-                          <label className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">
-                            <span>Preferred Date <span className="text-red-500">*</span></span>
-                            {errors.date && <span className="text-[10px] text-red-500 font-semibold lowercase tracking-normal flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.date}</span>}
-                          </label>
-                          <input
-                            type="date"
-                            required
-                            min={new Date().toISOString().split("T")[0]}
-                            value={formData.date}
-                            onBlur={() => handleBlur("date")}
-                            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                            className={`w-full rounded-xl border bg-white text-gray-900 dark:bg-zinc-800 dark:text-white py-3 px-4 text-sm outline-none transition-all ${
-                              errors.date
-                                ? "border-red-400 ring-2 ring-red-100 dark:ring-red-950/20"
-                                : "border-gray-200 dark:border-zinc-700 focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20"
-                            }`}
-                          />
-                        </div>
-
-                        <div className="flex gap-3 mt-2">
-                          <button type="button" onClick={() => setStep(0)}
-                            className="flex-1 rounded-xl border border-gray-200 py-3 text-sm font-bold text-gray-600 hover:bg-gray-50 transition-all">
-                            Back
-                          </button>
-                          <button type="button" onClick={handleNext}
-                            className="flex-1 flex items-center justify-center gap-2 rounded-xl bg-blue-600 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all">
-                            Review & Confirm
-                            <ArrowRight className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </motion.div>
-                    )}
-
-                    {/* Step 2: Confirm */}
-                    {step === 2 && (
-                      <motion.div
-                        key="step2"
-                        initial={{ opacity: 0, y: 15 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -15 }}
-                        className="space-y-4 flex-1"
-                      >
-                        <div className="bg-blue-50 dark:bg-blue-950/20 rounded-2xl p-5 border border-blue-100 dark:border-blue-900 space-y-3">
-                          <h4 className="text-sm font-extrabold text-[#0B1F3A] dark:text-white mb-2">Appointment Summary</h4>
-                          {[
-                            { label: "Patient", value: formData.name },
-                            { label: "Phone", value: formData.phone },
-                            { label: "Department", value: formData.department },
-                            { label: "Doctor", value: formData.doctor },
-                            { label: "Date", value: formData.date },
-                          ].map(({ label, value }) => (
-                            <div key={label} className="flex justify-between text-sm">
-                              <span className="text-gray-500 font-medium">{label}</span>
-                              <span className="font-bold text-[#0B1F3A] dark:text-white text-right max-w-[55%]">{value || "—"}</span>
-                            </div>
-                          ))}
-                        </div>
-
-                        {dbError && (
-                          <div className="rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 p-3 flex gap-2 items-center">
-                            <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
-                            <p className="text-xs text-red-600 dark:text-red-400 font-semibold">{dbError}</p>
-                          </div>
-                        )}
-
-                        {/* Trust badge */}
-                        <div className="flex items-center gap-2 text-[11px] text-gray-400">
-                          <Lock className="h-3.5 w-3.5" />
-                          <span>256-bit encrypted · HIPAA compliant · Your data is safe</span>
-                        </div>
-
-                        <div className="flex gap-3">
-                          <button type="button" onClick={() => setStep(1)}
-                            className="flex-1 rounded-xl border border-gray-200 py-3 text-sm font-bold text-gray-600 hover:bg-gray-50 transition-all">
-                            Edit
-                          </button>
-                          <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="flex-1 relative overflow-hidden rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/25 hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-60"
+                          <Stethoscope className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-blue-600" />
+                          <select
+                            value={formData.department}
+                            onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                            className="w-full rounded-xl border border-gray-200 bg-white text-gray-900 dark:bg-zinc-800 dark:text-white dark:border-zinc-700 py-3 pl-10 pr-4 text-sm outline-none transition-all focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20 appearance-none cursor-pointer"
                           >
-                            {isSubmitting ? (
-                              <span className="flex items-center justify-center gap-2">
-                                <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: "0ms" }} />
-                                <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: "150ms" }} />
-                                <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: "300ms" }} />
-                              </span>
-                            ) : "Confirm Booking Request"}
-                          </button>
+                            <option>Orthopedics & Spine</option>
+                            <option>Cardiology</option>
+                            <option>Neurology</option>
+                            <option>General Medicine</option>
+                            <option>General Surgery</option>
+                            <option>Pediatrics</option>
+                            <option>Women&apos;s Health</option>
+                            <option>Diagnostics & Lab</option>
+                          </select>
                         </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                      </div>
+
+                      {/* Select Specialist */}
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">Select Specialist</label>
+                        <div className="relative">
+                          <User className="absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-blue-600" />
+                          <select
+                            value={formData.doctor}
+                            onChange={(e) => setFormData({ ...formData, doctor: e.target.value })}
+                            className="w-full rounded-xl border border-gray-200 bg-white text-gray-900 dark:bg-zinc-800 dark:text-white dark:border-zinc-700 py-3 pl-10 pr-4 text-sm outline-none transition-all focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20 appearance-none cursor-pointer"
+                          >
+                            <option>Dr. Y. M. V. Kumar (Orthopedics)</option>
+                            <option>Dr. V. Karthik Reddy (General Medicine)</option>
+                            <option>Dr. A. Mithun Rakesh (General Medicine)</option>
+                            <option>Dr. K. Karun Kumar Reddy (General Surgery)</option>
+                            <option>Dr. Rajashekar Battula (Urology)</option>
+                            <option>Dr. C. Aruna Jyothi (Gynecology)</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Preferred Date */}
+                    <div>
+                      <label className="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-zinc-400 mb-1.5">
+                        <span>Preferred Date <span className="text-red-500">*</span></span>
+                        {errors.date && <span className="text-[10px] text-red-500 font-semibold lowercase tracking-normal flex items-center gap-1"><AlertCircle className="h-3 w-3" /> {errors.date}</span>}
+                      </label>
+                      <input
+                        type="date"
+                        required
+                        min={new Date().toISOString().split("T")[0]}
+                        value={formData.date}
+                        onBlur={() => handleBlur("date")}
+                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                        className={`w-full rounded-xl border bg-white text-gray-900 dark:bg-zinc-800 dark:text-white py-3 px-4 text-sm outline-none transition-all ${
+                          errors.date
+                            ? "border-red-400 ring-2 ring-red-100 dark:ring-red-950/20"
+                            : "border-gray-200 dark:border-zinc-700 focus:border-teal-500 focus:ring-2 focus:ring-teal-400/20"
+                        }`}
+                      />
+                    </div>
+                  </div>
+
+                  {dbError && (
+                    <div className="rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 p-3 flex gap-2 items-center">
+                      <AlertCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
+                      <p className="text-xs text-red-600 dark:text-red-400 font-semibold">{dbError}</p>
+                    </div>
+                  )}
+
+                  {/* Trust badge */}
+                  <div className="flex items-center gap-2 text-[11px] text-gray-400 pt-2">
+                    <Lock className="h-3.5 w-3.5" />
+                    <span>256-bit encrypted · HIPAA compliant · Your data is safe</span>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full relative overflow-hidden rounded-xl bg-gradient-to-r from-blue-600 to-blue-700 py-3.5 text-sm font-bold text-white shadow-lg shadow-blue-600/25 hover:from-blue-700 hover:to-blue-800 transition-all disabled:opacity-60"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: "0ms" }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: "150ms" }} />
+                        <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: "300ms" }} />
+                      </span>
+                    ) : "Confirm Booking Request"}
+                  </button>
                 </motion.form>
               ) : (
                 /* Success */

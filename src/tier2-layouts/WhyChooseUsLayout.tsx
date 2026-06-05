@@ -44,22 +44,13 @@ const STARS = Array.from({ length: 30 }, (_, i) => ({
   duration: 3 + (i % 3),
 }));
 
-const TIMELINE = [
-  { year: "2011", label: "Founded" },
-  { year: "2014", label: "Ortho Wing" },
-  { year: "2018", label: "Multispeciality" },
-  { year: "2022", label: "ICU & Trauma" },
-  { year: "2024", label: "Digital Health" },
-];
 
 export default function WhyChooseUs() {
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const timelineInView = useInView(timelineRef, { once: true });
 
   const stats = [
     { target: 50000, suffix: "+", label: "Patients Served", desc: "Across Anantapur & Rayalaseema", icon: "👥" },
-    { target: 20, suffix: "+", label: "Specialists", desc: "Dedicated clinical practitioners", icon: "🩺" },
-    { target: 15, suffix: "+", label: "Years of Care", desc: "Upholding medical standards since 2011", icon: "🏆" },
+    { target: 6, suffix: "+", label: "Specialists", desc: "Dedicated clinical practitioners", icon: "🩺" },
+    { target: 5, suffix: "+", label: "Years of Care", desc: "Upholding medical standards since 2021", icon: "🏆" },
     { target: 24, suffix: "/7", label: "Emergency Support", desc: "Rapid trauma surgical crew", icon: "🚨" },
   ];
 
@@ -195,38 +186,7 @@ export default function WhyChooseUs() {
           ))}
         </div>
 
-        {/* Timeline Strip */}
-        <div ref={timelineRef} className="w-full lg:px-20 mx-auto">
-          <p className="text-center text-xs font-bold uppercase tracking-widest text-blue-600 mb-8">
-            Our Journey Since 2011
-          </p>
-          <div className="relative flex items-center justify-between gap-2">
-            {/* Line */}
-            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-slate-200" />
-            {timelineInView && (
-              <motion.div
-                className="absolute left-0 top-1/2 -translate-y-1/2 h-[2px] bg-gradient-to-r from-blue-500 to-teal-400"
-                initial={{ width: "0%" }}
-                animate={{ width: "100%" }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-              />
-            )}
 
-            {TIMELINE.map((item, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 15 }}
-                animate={timelineInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.4, delay: idx * 0.2 + 0.5 }}
-                className="relative flex flex-col items-center z-10"
-              >
-                <div className="w-4 h-4 rounded-full bg-blue-500 border-2 border-white shadow-lg shadow-blue-500/30 mb-3" />
-                <span className="text-xs font-black text-blue-600">{item.year}</span>
-                <span className="text-[10px] font-medium text-slate-600 mt-0.5 text-center max-w-[70px]">{item.label}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
 
       </div>
     </section>

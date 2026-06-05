@@ -179,7 +179,7 @@ export default function Contact() {
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 mb-5">
                 <MapPin className="h-5 w-5" />
               </div>
-              <h3 className="text-xl font-extrabold text-[#0B1F3A] dark:text-white mb-2">Hospital Campus</h3>
+              <h3 className="text-xl font-extrabold text-[#0B1F3A] dark:text-white mb-2">Hospital Address</h3>
               <p className="text-xs sm:text-sm text-gray-500 dark:text-zinc-400 leading-relaxed mb-4">
                 Kumar Hospital is easily accessible for patients from all corners of Anantapur District.
               </p>
