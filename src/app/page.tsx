@@ -96,7 +96,7 @@ export default function Home() {
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 220 }}
-            className="fixed inset-0 z-[120] bg-[#F5FBFC] dark:bg-[#090d16] overflow-y-auto pt-24 pb-0"
+            className="fixed inset-0 z-[120] bg-[#F5FBFC] dark:bg-[#090d16] overflow-y-auto pt-12 pb-0"
           >
             {/* Background Mesh Overlay & Flowing Blobs inside modal */}
             <div className="absolute inset-0 bg-[#f8fafc]/40 dark:bg-zinc-950/20 medical-grid pointer-events-none z-0 overflow-hidden">
@@ -114,7 +114,7 @@ export default function Home() {
             </button>
 
             {/* Modal Content */}
-            <div className="relative z-10 w-full flex flex-col justify-between min-h-[85vh]">
+            <div className="relative z-10 w-full flex flex-col justify-between">
               <div>
                 {activeModal === "services" && (
                   <Services onOpenBooking={openBooking} />
