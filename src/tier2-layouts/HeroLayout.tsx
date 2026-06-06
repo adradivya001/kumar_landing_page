@@ -78,11 +78,11 @@ export default function Hero({ onOpenBooking }: HeroProps) {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-2xl sm:text-3xl lg:text-[36px] xl:text-[42px] font-bold tracking-tight text-[#0F172A] dark:text-white leading-[1.1] font-poppins"
             >
-              Best Bone, Joint &
+              Expert Orthopedic &
               <br />
-              <span className="text-[#0097A7] dark:text-cyan-400">Family Hospital</span>
+              <span className="text-[#0097A7] dark:text-cyan-400">Multispeciality Care</span>
               <br />
-              in Anantapur
+              You Can Trust.
             </motion.h1>
 
             {/* Supporting Description */}
