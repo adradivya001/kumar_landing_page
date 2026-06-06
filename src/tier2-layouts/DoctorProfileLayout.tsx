@@ -51,7 +51,7 @@ export default function DoctorProfile({ onOpenBooking }: DoctorProfileProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="lg:col-span-5 relative flex justify-center"
+            className="lg:col-span-5 relative flex lg:justify-start justify-center lg:-translate-x-6"
           >
             {/* Background design accents */}
             <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/10 to-blue-500/10 rounded-[32px] blur-xl opacity-75 pointer-events-none" />
