@@ -114,25 +114,32 @@ export default function Home() {
             </button>
 
             {/* Modal Content */}
-            <div className="relative z-10 w-full">
-              {activeModal === "services" && (
-                <Services onOpenBooking={openBooking} />
-              )}
-              {activeModal === "doctor" && (
-                <div className="flex flex-col gap-0">
-                  <DoctorProfile onOpenBooking={openBooking} />
-                  <Doctor onOpenBooking={openBooking} />
-                </div>
-              )}
-              {activeModal === "why-choose-us" && (
-                <WhyChooseUs />
-              )}
-              {activeModal === "facilities" && (
-                <Facilities />
-              )}
-              {activeModal === "contact" && (
-                <Contact />
-              )}
+            <div className="relative z-10 w-full flex flex-col justify-between min-h-[85vh]">
+              <div>
+                {activeModal === "services" && (
+                  <Services onOpenBooking={openBooking} />
+                )}
+                {activeModal === "doctor" && (
+                  <div className="flex flex-col gap-0">
+                    <DoctorProfile onOpenBooking={openBooking} />
+                    <Doctor onOpenBooking={openBooking} />
+                  </div>
+                )}
+                {activeModal === "why-choose-us" && (
+                  <WhyChooseUs />
+                )}
+                {activeModal === "facilities" && (
+                  <Facilities />
+                )}
+                {activeModal === "contact" && (
+                  <Contact />
+                )}
+              </div>
+
+              {/* Modal Wards Footer */}
+              <div className="mt-8">
+                <Footer />
+              </div>
             </div>
           </motion.div>
         )}
