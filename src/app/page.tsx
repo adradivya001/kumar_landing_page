@@ -9,6 +9,7 @@ import Preloader from "@/tier1-components/Preloader";
 
 // Selected Sections
 import Hero from "@/tier2-layouts/HeroLayout";
+import DoctorProfile from "@/tier2-layouts/DoctorProfileLayout";
 import Services from "@/tier2-layouts/ServicesLayout";
 import Doctor from "@/tier2-layouts/DoctorLayout";
 import WhyChooseUs from "@/tier2-layouts/WhyChooseUsLayout";
@@ -43,6 +44,9 @@ export default function Home() {
       <main className="flex-1">
         {/* 1. Hero Section */}
         <Hero onOpenBooking={openBooking} />
+
+        {/* Doctor Profile Section */}
+        <DoctorProfile onOpenBooking={openBooking} />
 
         {/* 2. Specialties & Departments */}
         <Services onOpenBooking={openBooking} />
