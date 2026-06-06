@@ -8,14 +8,18 @@ import content from "@/tier3-content/content.json";
 
 interface NavbarProps {
   onOpenBooking: () => void;
+  onNavClick?: (id: string) => void;
+  activeSection?: string;
 }
 
 const SECTION_IDS = ["home", "services", "doctor", "why-choose-us", "facilities", "booking-section", "faq", "contact"];
 
-export default function Navbar({ onOpenBooking }: NavbarProps) {
+export default function Navbar({ onOpenBooking, onNavClick, activeSection: propActiveSection }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [localActiveSection, setLocalActiveSection] = useState("home");
+  
+  const activeSection = propActiveSection || localActiveSection;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -29,7 +33,7 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
       const el = document.getElementById(id);
       if (!el) return;
       const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        ([entry]) => { if (entry.isIntersecting) setLocalActiveSection(id); },
         { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
       );
       observer.observe(el);
@@ -82,6 +86,12 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                 <a
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => {
+                    if (onNavClick) {
+                      e.preventDefault();
+                      onNavClick(link.href.replace("#", ""));
+                    }
+                  }}
                   className={cn(
                     "relative py-1.5 text-[15px] font-semibold tracking-wide transition-all duration-200 font-sans",
                     active
@@ -144,7 +154,13 @@ export default function Navbar({ onOpenBooking }: NavbarProps) {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsOpen(false)}
+                  onClick={(e) => {
+                    setIsOpen(false);
+                    if (onNavClick) {
+                      e.preventDefault();
+                      onNavClick(link.href.replace("#", ""));
+                    }
+                  }}
                   className={cn(
                     "px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors border",
                     active
