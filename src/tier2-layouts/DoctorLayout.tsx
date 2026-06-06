@@ -9,8 +9,8 @@ interface DoctorProps {
 
 const DOCTORS = [
   {
-    initials: "YK",
-    name: "Dr. Y. M. V. Kumar",
+    initials: "AK",
+    name: "Dr. A.L.M.V. KUMAR",
     designation: "Orthopedic & Spine Surgeon",
     qualifications: "MBBS, MS (Ortho) · Fellow in Spine Surgery",
     icon: <Bone className="h-5 w-5 text-[#0ABAB5]" />,
@@ -21,8 +21,8 @@ const DOCTORS = [
     gradient: "from-[#2347D8] to-[#0ABAB5]",
   },
   {
-    initials: "VK",
-    name: "Dr. V. Karthik Reddy",
+    initials: "YK",
+    name: "Dr. Y. KARTHIK REDDY",
     designation: "Consultant Physician",
     qualifications: "MBBS, DNB General Medicine",
     icon: <Stethoscope className="h-5 w-5 text-[#2347D8]" />,
@@ -34,7 +34,7 @@ const DOCTORS = [
   },
   {
     initials: "MR",
-    name: "Dr. A. Mithun Rakesh",
+    name: "Dr. A. MIDHUN RAKESH",
     designation: "Consultant Physician",
     qualifications: "MBBS, DNB General Medicine",
     icon: <Stethoscope className="h-5 w-5 text-[#0ABAB5]" />,
@@ -46,7 +46,7 @@ const DOCTORS = [
   },
   {
     initials: "KK",
-    name: "Dr. K. Karun Kumar Reddy",
+    name: "Dr. K. KARUN KUMAR REDDY",
     designation: "General Surgeon",
     qualifications: "MS General Surgery, FIAGES",
     icon: <Scissors className="h-5 w-5 text-[#2347D8]" />,
@@ -58,7 +58,7 @@ const DOCTORS = [
   },
   {
     initials: "RB",
-    name: "Dr. Rajashekar Battula",
+    name: "Dr. RAJASHEKHAR BATTALA",
     designation: "Consultant Urologist",
     qualifications: "MS, MCh (Urology), FMAS",
     icon: <Activity className="h-5 w-5 text-[#0ABAB5]" />,
@@ -70,7 +70,7 @@ const DOCTORS = [
   },
   {
     initials: "AJ",
-    name: "Dr. C. Aruna Jyothi",
+    name: "Dr. C. ARUNA JYOTHI",
     designation: "Obstetrics & Gynecology Specialist",
     qualifications: "MBBS, MS (OBG)",
     icon: <Heart className="h-5 w-5 text-[#e879f9]" />,
