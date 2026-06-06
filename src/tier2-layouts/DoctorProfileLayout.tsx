@@ -11,7 +11,7 @@ interface DoctorProfileProps {
 export default function DoctorProfile({ onOpenBooking }: DoctorProfileProps) {
   const achievements = [
     {
-      value: "15+",
+      value: "5+",
       label: "Years of Experience",
       desc: "Clinical & Surgical Tenure"
     },
@@ -37,7 +37,7 @@ export default function DoctorProfile({ onOpenBooking }: DoctorProfileProps) {
   ];
 
   return (
-    <section id="doctor-profile" className="py-20 bg-white dark:bg-zinc-900 font-sans relative overflow-hidden">
+    <section id="doctor-profile" className="py-20 bg-transparent font-sans relative overflow-hidden">
       {/* Background medical glows */}
       <div className="absolute top-1/3 left-0 w-[400px] h-[400px] rounded-full bg-cyan-400/5 dark:bg-cyan-950/5 blur-3xl pointer-events-none z-0" />
       <div className="absolute bottom-1/4 right-0 w-[400px] h-[400px] rounded-full bg-blue-400/5 dark:bg-blue-950/5 blur-3xl pointer-events-none z-0" />
@@ -90,7 +90,7 @@ export default function DoctorProfile({ onOpenBooking }: DoctorProfileProps) {
             
             {/* Experience circular badge top-right */}
             <div className="absolute -top-3 -right-3 h-20 w-20 rounded-full bg-[#0097A7] text-white flex flex-col items-center justify-center shadow-lg border border-white/20 select-none z-10">
-              <span className="text-lg font-black leading-none">15+</span>
+              <span className="text-lg font-black leading-none">5+</span>
               <span className="text-[8px] font-bold uppercase tracking-wider text-cyan-100">Years Exp</span>
             </div>
           </motion.div>
@@ -125,7 +125,7 @@ export default function DoctorProfile({ onOpenBooking }: DoctorProfileProps) {
             {/* Narrative Bio */}
             <div className="text-slate-600 dark:text-zinc-350 flex flex-col gap-4 text-sm sm:text-base leading-relaxed">
               <p>
-                Dr. A.L.M.V. Kumar is a highly skilled, fellowship-trained Orthopedic & Spine Surgeon committed to delivering world-class bone and joint healthcare in Anantapur. With over 15 years of dedicated surgical experience, he has pioneered modern trauma care and spine reconstruction techniques in the region.
+                Dr. A.L.M.V. Kumar is a highly skilled, fellowship-trained Orthopedic & Spine Surgeon committed to delivering world-class bone and joint healthcare in Anantapur. With over 5 years of dedicated surgical experience, he has pioneered modern trauma care and spine reconstruction techniques in the region.
               </p>
               <p>
                 He established Kumar Hospital with the singular mission of providing accessible, sterile, and high-precision specialty treatments. Under his clinical leadership, the hospital is equipped with state-of-the-art laminar airflow operation suites to achieve zero-infection surgical environments.
