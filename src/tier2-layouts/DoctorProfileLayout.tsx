@@ -51,47 +51,52 @@ export default function DoctorProfile({ onOpenBooking }: DoctorProfileProps) {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="lg:col-span-5 relative flex lg:justify-start justify-center lg:-translate-x-6"
+            className="lg:col-span-5 relative flex lg:justify-start justify-center"
           >
-            {/* Background design accents */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/10 to-blue-500/10 rounded-[32px] blur-xl opacity-75 pointer-events-none" />
-            
-            {/* Image Frame Container */}
-            <div className="relative w-full max-w-[380px] aspect-[4/5] rounded-[32px] overflow-hidden border border-slate-200/60 dark:border-zinc-800/60 shadow-2xl bg-slate-50 dark:bg-zinc-800">
-              <Image
-                src="/dr_kumar.png"
-                alt="Dr. A.L.M.V. KUMAR - Chief Orthopedic & Spine Surgeon"
-                fill
-                className="object-cover object-top select-none pointer-events-none"
-                sizes="(max-width: 1024px) 100vw, 380px"
-                priority
-              />
+            {/* Sizing wrapper to anchor absolute elements correctly relative to the image frame */}
+            <div className="relative w-full max-w-[380px] aspect-[4/5]">
               
-              {/* Overlay shadow gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent pointer-events-none" />
+              {/* Background design accents */}
+              <div className="absolute -inset-4 bg-gradient-to-tr from-cyan-500/10 to-blue-500/10 rounded-[32px] blur-xl opacity-75 pointer-events-none" />
               
-              {/* Floating Badge (Years Experience) */}
-              <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="absolute bottom-6 left-6 right-6 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/50 dark:border-zinc-700/50 p-4 rounded-2xl flex items-center gap-3 shadow-lg z-10"
-              >
-                <div className="h-10 w-10 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center flex-shrink-0">
-                  <Award className="h-5 w-5" />
-                </div>
-                <div>
-                  <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">Chief Surgeon</span>
-                  <span className="block text-sm font-black text-slate-800 dark:text-white leading-tight">Dr. A.L.M.V. KUMAR</span>
-                </div>
-              </motion.div>
-            </div>
-            
-            {/* Experience circular badge top-right */}
-            <div className="absolute -top-3 -right-3 h-20 w-20 rounded-full bg-[#0097A7] text-white flex flex-col items-center justify-center shadow-lg border border-white/20 select-none z-10">
-              <span className="text-lg font-black leading-none">5+</span>
-              <span className="text-[8px] font-bold uppercase tracking-wider text-cyan-100">Years Exp</span>
+              {/* Image Frame Container */}
+              <div className="relative w-full h-full rounded-[32px] overflow-hidden border border-slate-200/60 dark:border-zinc-800/60 shadow-2xl bg-slate-50 dark:bg-zinc-800">
+                <Image
+                  src="/dr_kumar.png"
+                  alt="Dr. A.L.M.V. KUMAR - Chief Orthopedic & Spine Surgeon"
+                  fill
+                  className="object-cover object-top select-none pointer-events-none"
+                  sizes="(max-width: 1024px) 100vw, 380px"
+                  priority
+                />
+                
+                {/* Overlay shadow gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent pointer-events-none" />
+                
+                {/* Floating Badge (Dr Info) */}
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  whileInView={{ scale: 1, opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                  className="absolute bottom-6 left-6 right-6 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-slate-200/50 dark:border-zinc-700/50 p-4 rounded-2xl flex items-center gap-3 shadow-lg z-10"
+                >
+                  <div className="h-10 w-10 rounded-xl bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 flex items-center justify-center flex-shrink-0">
+                    <Award className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider">Chief Surgeon</span>
+                    <span className="block text-sm font-black text-slate-800 dark:text-white leading-tight">Dr. A.L.M.V. KUMAR</span>
+                  </div>
+                </motion.div>
+              </div>
+              
+              {/* Experience circular badge top-right */}
+              <div className="absolute -top-3 -right-3 h-20 w-20 rounded-full bg-[#0097A7] text-white flex flex-col items-center justify-center shadow-lg border border-white/20 select-none z-20">
+                <span className="text-lg font-black leading-none">5+</span>
+                <span className="text-[8px] font-bold uppercase tracking-wider text-cyan-100">Years Exp</span>
+              </div>
+
             </div>
           </motion.div>
 
