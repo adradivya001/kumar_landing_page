@@ -151,7 +151,7 @@ export default function Hero({ onOpenBooking }: HeroProps) {
               {[
                 { label: "Patients Served", value: "50,000+" },
                 { label: "Specialists", value: "6+" },
-                { label: "Departments", value: "15+" },
+                { label: "Departments", value: "8+" },
                 { label: "Emergency Care", value: "24/7" },
               ].map((stat, i) => (
                 <div

@@ -84,14 +84,14 @@ const DOCTORS = [
 
 function DoctorCard({ doc, onOpenBooking }: { doc: typeof DOCTORS[0]; onOpenBooking: () => void }) {
   return (
-    <div className="w-[290px] sm:w-[320px] bg-white/50 dark:bg-zinc-900/60 backdrop-blur-md border border-white/30 dark:border-zinc-800/30 rounded-[24px] p-5 shadow-lg shadow-blue-900/5 hover:shadow-2xl hover:shadow-blue-900/10 hover:border-blue-400/30 transition-all duration-400 flex flex-col justify-between h-[430px] group relative overflow-hidden cursor-pointer">
+    <div className="w-[290px] sm:w-[320px] bg-white/50 dark:bg-zinc-900/60 backdrop-blur-md border border-white/30 dark:border-zinc-800/30 rounded-[20px] p-4 shadow-lg shadow-blue-900/5 hover:shadow-2xl hover:shadow-blue-900/10 hover:border-blue-400/30 transition-all duration-400 flex flex-col justify-between h-[310px] group relative overflow-hidden cursor-pointer">
 
       {/* Soft glow on hover */}
       <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-[#2347D8]/6 to-[#0ABAB5]/6 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-700 pointer-events-none" />
 
       {/* Available badge */}
       {doc.available && (
-        <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[9px] font-extrabold text-emerald-700 uppercase tracking-wider z-10">
+        <div className="absolute top-3.5 right-3.5 flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-[8px] font-extrabold text-emerald-700 uppercase tracking-wider z-10">
           <span className="w-1 h-1 rounded-full bg-emerald-500 animate-pulse" />
           <span>Today</span>
         </div>
@@ -99,38 +99,38 @@ function DoctorCard({ doc, onOpenBooking }: { doc: typeof DOCTORS[0]; onOpenBook
 
       <div>
         {/* Avatar Row */}
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex items-start justify-between mb-2">
           <div className="relative">
             {/* Gradient ring */}
             <div
-              className={`absolute -inset-[2px] rounded-full bg-gradient-to-br ${doc.gradient} opacity-70`}
-              style={{ padding: "2px" }}
+              className={`absolute -inset-[1.5px] rounded-full bg-gradient-to-br ${doc.gradient} opacity-70`}
+              style={{ padding: "1.5px" }}
             />
             <div
-              className={`absolute -inset-[4px] rounded-full bg-gradient-to-br ${doc.gradient} opacity-30 blur-[2px]`}
+              className={`absolute -inset-[3px] rounded-full bg-gradient-to-br ${doc.gradient} opacity-30 blur-[1.5px]`}
             />
 
             {/* Avatar */}
-            <div className={`relative z-10 h-16 w-16 rounded-full bg-gradient-to-br ${doc.gradient} text-white flex items-center justify-center text-lg font-extrabold shadow-lg select-none`}>
+            <div className={`relative z-10 h-12 w-12 rounded-full bg-gradient-to-br ${doc.gradient} text-white flex items-center justify-center text-base font-extrabold shadow-lg select-none`}>
               {doc.initials}
             </div>
           </div>
 
           {/* Specialty Icon */}
-          <div className="h-9 w-9 rounded-lg bg-blue-50/70 dark:bg-zinc-800/70 border border-blue-100/30 dark:border-zinc-700/30 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300">
+          <div className="h-8 w-8 rounded-lg bg-blue-50/70 dark:bg-zinc-800/70 border border-blue-100/30 dark:border-zinc-700/30 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300">
             {doc.icon}
           </div>
         </div>
 
         {/* Info */}
-        <div className="space-y-1">
-          <h3 className="text-lg font-bold text-[#0B1F3A] dark:text-white group-hover:text-blue-600 transition-colors leading-snug">
+        <div className="space-y-0.5">
+          <h3 className="text-base font-bold text-[#0B1F3A] dark:text-white group-hover:text-blue-600 transition-colors leading-snug">
             {doc.name}
           </h3>
-          <span className={`block text-[11px] font-bold uppercase tracking-wider bg-gradient-to-r ${doc.gradient} bg-clip-text text-transparent`}>
+          <span className={`block text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r ${doc.gradient} bg-clip-text text-transparent`}>
             {doc.designation}
           </span>
-          <p className="text-[10px] text-gray-400 dark:text-zinc-500 font-medium leading-relaxed">
+          <p className="text-[9px] text-gray-400 dark:text-zinc-500 font-medium leading-relaxed">
             {doc.qualifications}
           </p>
 
@@ -140,25 +140,25 @@ function DoctorCard({ doc, onOpenBooking }: { doc: typeof DOCTORS[0]; onOpenBook
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
-                  className={`h-2.5 w-2.5 ${i < Math.floor(doc.rating) ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`}
+                  className={`h-2 w-2 ${i < Math.floor(doc.rating) ? "text-amber-400 fill-amber-400" : "text-gray-200 fill-gray-200"}`}
                 />
               ))}
             </div>
-            <span className="text-[10px] font-bold text-gray-600 dark:text-zinc-300">
+            <span className="text-[9px] font-bold text-gray-600 dark:text-zinc-300">
               {doc.rating}
             </span>
-            <span className="text-[9px] text-gray-400">
+            <span className="text-[8px] text-gray-400">
               · {doc.reviews} reviews
             </span>
           </div>
         </div>
 
         {/* Expertise Tags */}
-        <div className="mt-4 flex flex-wrap gap-1">
+        <div className="mt-2 flex flex-wrap gap-1">
           {doc.expertise.map((exp, i) => (
             <span
               key={i}
-              className="px-2 py-0.5 text-[8px] font-extrabold uppercase tracking-wide rounded-full bg-blue-50/60 dark:bg-zinc-800/60 text-[#0B1F3A] dark:text-zinc-300 border border-blue-100/30 dark:border-zinc-700/30 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-600"
+              className="px-1.5 py-0.5 text-[7px] font-extrabold uppercase tracking-wide rounded-full bg-blue-50/60 dark:bg-zinc-800/60 text-[#0B1F3A] dark:text-zinc-300 border border-blue-100/30 dark:border-zinc-700/30 transition-all duration-300 hover:bg-blue-600 hover:text-white hover:border-blue-600"
             >
               {exp}
             </span>
@@ -167,26 +167,26 @@ function DoctorCard({ doc, onOpenBooking }: { doc: typeof DOCTORS[0]; onOpenBook
       </div>
 
       {/* Bottom action bar */}
-      <div className="pt-3 border-t border-gray-100/50 dark:border-zinc-800/50 flex items-center justify-between">
+      <div className="pt-2 border-t border-gray-100/50 dark:border-zinc-800/50 flex items-center justify-between">
         <button
           onClick={onOpenBooking}
-          className="flex items-center gap-1 text-[11px] font-extrabold text-blue-600 hover:text-blue-700 dark:text-blue-400 transition-colors uppercase tracking-wider group/btn"
+          className="flex items-center gap-1 text-[10px] font-extrabold text-blue-600 hover:text-blue-700 dark:text-blue-400 transition-colors uppercase tracking-wider group/btn"
         >
-          <Calendar className="h-3 w-3" />
+          <Calendar className="h-2.5 w-2.5" />
           <span>Book Consult</span>
-          <ArrowRight className="h-3 w-3 stroke-[2.5] group-hover/btn:translate-x-1 transition-transform" />
+          <ArrowRight className="h-2.5 w-2.5 stroke-[2.5] group-hover/btn:translate-x-1 transition-transform" />
         </button>
 
         <button
           onClick={onOpenBooking}
-          className="text-[9px] font-bold text-gray-400 hover:text-[#0B1F3A] dark:hover:text-white transition-colors uppercase tracking-widest"
+          className="text-[8px] font-bold text-gray-400 hover:text-[#0B1F3A] dark:hover:text-white transition-colors uppercase tracking-widest"
         >
           View Profile
         </button>
       </div>
 
       {/* Teal accent bar on hover */}
-      <div className="absolute bottom-0 left-0 h-[3px] w-0 group-hover:w-full bg-gradient-to-r from-blue-600 to-teal-500 transition-all duration-500 rounded-b-[24px]" />
+      <div className="absolute bottom-0 left-0 h-[3px] w-0 group-hover:w-full bg-gradient-to-r from-blue-600 to-teal-500 transition-all duration-500 rounded-b-[20px]" />
     </div>
   );
 }
